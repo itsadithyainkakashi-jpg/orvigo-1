@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 5%;
+    --foreground: 210 40% 95%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 95%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 95%;
+
+    --primary: 210 100% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 100% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 30% 15%;
+    --muted-foreground: 215 20% 60%;
+
+    --accent: 210 80% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 217 30% 18%;
+    --input: 217 30% 18%;
+    --ring: 210 100% 55%;
+
+    --radius: 1.25rem;
+
+    --gradient-bg: linear-gradient(170deg, hsl(222, 47%, 11%) 0%, hsl(222, 60%, 5%) 100%);
+    --glass-bg: hsla(210, 40%, 95%, 0.06);
+    --glass-border: hsla(210, 40%, 95%, 0.1);
+    --glass-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.3);
+    --logo-glow: 0 0 60px hsla(210, 100%, 55%, 0.4), 0 0 120px hsla(210, 100%, 55%, 0.15);
+
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 210 40% 90%;
+    --sidebar-primary: 210 100% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 30% 15%;
+    --sidebar-accent-foreground: 210 40% 90%;
+    --sidebar-border: 217 30% 18%;
+    --sidebar-ring: 210 100% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background: var(--gradient-bg);
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .glass-card-strong {
+    background: hsla(210, 40%, 95%, 0.1);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid hsla(210, 40%, 95%, 0.15);
+    box-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.4);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px hsla(210, 100%, 55%, 0.3), 0 0 60px hsla(210, 100%, 55%, 0.1);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px hsla(210, 100%, 70%, 0.4);
+  }
+}

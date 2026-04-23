@@ -1,0 +1,157 @@
+import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ShoppingCart, Search, Star, Shield, Upload } from "lucide-react";
+import { allProducts } from "@/data/products";
+import { useCart } from "@/contexts/CartContext";
+import BottomNav from "@/components/BottomNav";
+import { toast } from "sonner";
+
+const medCategories = [
+  { label: "All", icon: "💊" },
+  { label: "Tablets", icon: "💉", filter: "tablet|capsule|paracetamol|cetirizine|ibuprofen|vitamin" },
+  { label: "Syrups", icon: "🧴", filter: "syrup|liquid|cough|cold|digestive|throat" },
+  { label: "Health Care", icon: "💪", filter: "protein|omega|multivitamin|calcium|health|supplement" },
+];
+
+const MedicinePage = () => {
+  const navigate = useNavigate();
+  const { totalItems, addToCart } = useCart();
+  const [activeCat, setActiveCat] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const products = useMemo(() => {
+    let items = allProducts.filter((p) => p.category === "Medicine");
+    if (activeCat !== "All") {
+      const cat = medCategories.find((c) => c.label === activeCat);
+      if (cat?.filter) {
+        const regex = new RegExp(cat.filter, "i");
+        items = items.filter((p) => regex.test(p.name + " " + p.description));
+      }
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      items = items.filter((p) => p.name.toLowerCase().includes(q));
+    }
+    return items;
+  }, [activeCat, searchQuery]);
+
+  const handleAdd = (product: typeof allProducts[0], e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product, 1);
+    toast.success(`${product.name} added to cart`, { duration: 1500 });
+  };
+
+  return (
+    <div className="min-h-screen pb-20">
+      {/* Header */}
+      <div className="sticky top-0 z-50 px-4 pt-3 pb-3" style={{ background: "linear-gradient(135deg, hsl(200, 75%, 40%) 0%, hsl(210, 65%, 50%) 100%)" }}>
+        <div className="flex items-center gap-3 mb-2">
+          <div className="flex-1">
+            <h1 className="text-white font-bold text-base">Pharmacy</h1>
+            <p className="text-white/70 text-[10px] flex items-center gap-1"><Shield size={10} /> 100% Genuine Medicines</p>
+          </div>
+          <button onClick={() => navigate("/cart")} className="text-white relative">
+            <ShoppingCart size={20} />
+            {totalItems > 0 && (
+              <motion.span key={totalItems} initial={{ scale: 0.5 }} animate={{ scale: 1 }} className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center text-white" style={{ background: "hsl(0, 75%, 50%)" }}>{totalItems}</motion.span>
+            )}
+          </button>
+        </div>
+        <div className="flex items-center gap-2 rounded-xl px-3 py-2.5" style={{ background: "hsla(0, 0%, 100%, 0.2)", backdropFilter: "blur(10px)" }}>
+          <Search size={14} color="hsla(0, 0%, 100%, 0.7)" />
+          <input type="text" placeholder="Search medicines..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-xs outline-none placeholder:text-white/50 text-white" />
+        </div>
+      </div>
+
+      {/* Upload prescription */}
+      <div className="mx-4 mt-3 rounded-2xl p-3 flex items-center gap-3 glass-card">
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(200, 75%, 40%)" }}>
+          <Upload size={18} color="white" />
+        </div>
+        <div className="flex-1">
+          <p className="text-xs font-bold text-foreground">Upload Prescription</p>
+          <p className="text-[10px] text-muted-foreground">Get medicines delivered to your door</p>
+        </div>
+        <motion.button whileTap={{ scale: 0.95 }} className="px-3 py-1.5 rounded-lg text-[10px] font-bold text-white" style={{ background: "hsl(200, 75%, 40%)" }} onClick={() => toast.info("Prescription upload coming soon!")}>
+          Upload
+        </motion.button>
+      </div>
+
+      {/* Category tabs */}
+      <div className="flex gap-2 px-4 py-3 overflow-x-auto scrollbar-hide">
+        {medCategories.map((cat) => (
+          <button
+            key={cat.label}
+            onClick={() => setActiveCat(cat.label)}
+            className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all"
+            style={{
+              background: activeCat === cat.label ? "hsl(200, 75%, 40%)" : undefined,
+              color: activeCat === cat.label ? "white" : undefined,
+            }}
+          >
+            <span>{cat.icon}</span>
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Products */}
+      <div className="px-4">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-bold text-foreground">{activeCat === "All" ? "All Medicines" : activeCat}</h2>
+          <span className="text-[11px] text-muted-foreground">{products.length} items</span>
+        </div>
+
+        <div className="space-y-2.5">
+          {products.map((product, i) => (
+            <motion.div
+              key={product.id}
+              className="flex gap-3 rounded-2xl overflow-hidden cursor-pointer glass-card"
+              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: (i % 8) * 0.04 }}
+              onClick={() => navigate(`/product/${product.id}`)}
+            >
+              <div className="w-24 h-24 flex-shrink-0 p-2">
+                <img src={product.image} alt={product.name} className="w-full h-full object-cover rounded-xl" loading="lazy" />
+              </div>
+              <div className="flex-1 py-2.5 pr-3 flex flex-col justify-between">
+                <div>
+                  <p className="text-xs font-semibold text-foreground">{product.name}</p>
+                  <p className="text-[10px] line-clamp-1 mt-0.5 text-muted-foreground">{product.description}</p>
+                  {product.badge && (
+                    <span className="inline-block mt-1 text-[9px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "hsl(200, 75%, 40%)" }}>{product.badge}</span>
+                  )}
+                </div>
+                <div className="flex items-center justify-between mt-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-foreground">₹{product.price}</span>
+                    {product.originalPrice && (
+                      <span className="text-[10px] line-through text-muted-foreground">₹{product.originalPrice}</span>
+                    )}
+                  </div>
+                  <motion.button whileTap={{ scale: 0.9 }} onClick={(e) => handleAdd(product, e)} className="px-3 py-1 rounded-lg text-[10px] font-bold text-white" style={{ background: "hsl(200, 75%, 40%)" }}>
+                    ADD
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {products.length === 0 && (
+          <div className="text-center py-16">
+            <p className="text-3xl mb-2">💊</p>
+            <p className="text-sm text-muted-foreground">No medicines found</p>
+          </div>
+        )}
+      </div>
+
+      <BottomNav />
+    </div>
+  );
+};
+
+export default MedicinePage;
