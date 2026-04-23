@@ -165,9 +165,10 @@ const OtpLoginPage = () => {
     setLoading(true);
     try {
       const verifier = await ensureRecaptcha();
+      const phoneE164 = toE164(mobile);
       const confirmation = await signInWithPhoneNumber(
         firebaseAuth,
-        `+91${mobile}`,
+        phoneE164,
         verifier,
       );
       confirmationRef.current = confirmation;
