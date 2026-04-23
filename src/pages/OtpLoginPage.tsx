@@ -290,13 +290,21 @@ const OtpLoginPage = () => {
                 {loading ? "Verifying..." : "Verify OTP"}
               </button>
 
-              <button
-                onClick={() => setStep("phone")}
-                className="w-full text-center text-xs mt-4 underline"
-                style={{ color: "hsla(0,0%,100%,0.85)" }}
-              >
-                Change mobile number
-              </button>
+              <div className="flex items-center justify-between mt-4 text-xs" style={{ color: "hsla(0,0%,100%,0.85)" }}>
+                <button
+                  onClick={() => setStep("phone")}
+                  className="underline"
+                >
+                  Change mobile number
+                </button>
+                <button
+                  onClick={handleSendOtp}
+                  disabled={resendIn > 0 || loading}
+                  className="underline disabled:opacity-60 disabled:no-underline"
+                >
+                  {resendIn > 0 ? `Resend in ${resendIn}s` : "Resend OTP"}
+                </button>
+              </div>
             </motion.div>
           )}
 
