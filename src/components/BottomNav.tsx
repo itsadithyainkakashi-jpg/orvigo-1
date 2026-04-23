@@ -1,11 +1,11 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { UtensilsCrossed, ShoppingBasket, Shirt, Pill } from "lucide-react";
+import { UtensilsCrossed, ShoppingBasket, LayoutGrid, Pill } from "lucide-react";
 
 const tabs = [
   { icon: UtensilsCrossed, label: "Food", path: "/food" },
   { icon: ShoppingBasket, label: "Grocery", path: "/grocery" },
-  { icon: Shirt, label: "Dress", path: "/fashion" },
+  { icon: LayoutGrid, label: "Collection", path: "/store/mens" },
   { icon: Pill, label: "Medicine", path: "/medicine" },
 ];
 

@@ -7,6 +7,10 @@ import BottomNav from "@/components/BottomNav";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { allProducts } from "@/data/products";
+import { supabase } from "@/integrations/supabase/client";
+import { COLLECTIONS } from "@/lib/storeMeta";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import heroMega from "@/assets/hero-megasale.jpg";
 import heroFood from "@/assets/hero-food.jpg";
 import heroFashion from "@/assets/hero-fashion.jpg";
@@ -201,6 +205,102 @@ const IconBtn = ({ icon: Icon, onClick, badge }: { icon: React.ElementType; onCl
   </motion.button>
 );
 
+const MensCollectionGrid = ({ navigate }: { navigate: (p: string) => void }) => {
+  const [tiles, setTiles] = useState<Record<string, { count: number; image: string | null }>>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    const load = async () => {
+      const { data } = await supabase
+        .from("products")
+        .select("collection, image_url")
+        .eq("category", "mens");
+      if (!active) return;
+      const grouped: Record<string, { count: number; image: string | null }> = {};
+      for (const row of data ?? []) {
+        const key = row.collection ?? "uncategorized";
+        if (!grouped[key]) grouped[key] = { count: 0, image: row.image_url };
+        grouped[key].count += 1;
+      }
+      setTiles(grouped);
+      setLoading(false);
+    };
+    load();
+    const channel = supabase
+      .channel("home-mens-collections")
+      .on("postgres_changes", { event: "*", schema: "public", table: "products" }, () => load())
+      .subscribe();
+    return () => {
+      active = false;
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="grid grid-cols-2 gap-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i}>
+            <Skeleton className="aspect-square w-full rounded-xl" />
+            <Skeleton className="h-4 w-3/4 mx-auto mt-3" />
+            <Skeleton className="h-3 w-1/3 mx-auto mt-2" />
+            <Skeleton className="h-10 w-full mt-3" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      {COLLECTIONS.map((col, i) => {
+        const tile = tiles[col.id];
+        const count = tile?.count ?? 0;
+        const go = () => navigate(`/store/mens/${col.id}`);
+        return (
+          <motion.div
+            key={col.id}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.05 }}
+            className="flex flex-col"
+          >
+            <button
+              onClick={go}
+              className="block aspect-square w-full bg-muted rounded-xl overflow-hidden glass-card"
+              style={{ boxShadow: "0 8px 24px hsla(220, 50%, 4%, 0.4)" }}
+              aria-label={`Open ${col.title}`}
+            >
+              {tile?.image ? (
+                <img src={tile.image} alt={col.title} className="w-full h-full object-cover" loading="lazy" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground">
+                  No image
+                </div>
+              )}
+            </button>
+            <div className="text-center mt-3">
+              <div className="text-sm font-extrabold tracking-wide text-foreground uppercase line-clamp-1">
+                {col.title}
+              </div>
+              <div className="text-[11px] mt-1 uppercase tracking-wider text-muted-foreground">
+                {count} Products
+              </div>
+            </div>
+            <Button
+              onClick={go}
+              className="mt-3 w-full rounded-none h-11 text-xs font-bold tracking-widest uppercase bg-foreground text-background hover:bg-foreground/90"
+            >
+              Shop Now
+            </Button>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};
+
 const Home = () => {
   const navigate = useNavigate();
   const { totalItems } = useCart();
@@ -255,24 +355,19 @@ const Home = () => {
         <BannerCarousel navigate={navigate} />
       </div>
 
-      {/* Mens / Womens quick entry */}
-      <div className="px-4 mt-5">
-        <div className="grid grid-cols-2 gap-3">
-          <motion.button
+      {/* Shop Men's Collection */}
+      <div className="px-4 mt-6">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-base font-bold text-foreground">Shop Men's Collection</h3>
+          <button
             onClick={() => navigate("/store/mens")}
-            whileTap={{ scale: 0.97 }}
-            className="h-24 rounded-2xl glass-card flex items-center justify-center bg-gradient-to-br from-blue-500/30 to-indigo-700/30"
+            className="text-xs font-semibold"
+            style={{ color: "hsl(210 100% 65%)" }}
           >
-            <span className="text-lg font-bold text-foreground">Shop Mens</span>
-          </motion.button>
-          <motion.button
-            onClick={() => navigate("/store/womens")}
-            whileTap={{ scale: 0.97 }}
-            className="h-24 rounded-2xl glass-card flex items-center justify-center bg-gradient-to-br from-pink-500/30 to-fuchsia-700/30"
-          >
-            <span className="text-lg font-bold text-foreground">Shop Womens</span>
-          </motion.button>
+            View All →
+          </button>
         </div>
+        <MensCollectionGrid navigate={navigate} />
       </div>
 
       {/* Category Cards */}
