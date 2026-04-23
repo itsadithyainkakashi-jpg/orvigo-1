@@ -79,6 +79,10 @@ const App = () => (
             <Route path="/order-tracking/:orderId" element={<Protected><OrderTrackingPage /></Protected>} />
             <Route path="/order-tracking" element={<Protected><OrderTrackingPage /></Protected>} />
             <Route path="/search" element={<Protected><SearchResultsPage /></Protected>} />
+            <Route path="/store" element={<Protected><StoreCategoriesPage /></Protected>} />
+            <Route path="/store/:category" element={<Protected><StoreCollectionsPage /></Protected>} />
+            <Route path="/store/:category/:collection" element={<Protected><StoreProductsPage /></Protected>} />
+            <Route path="/admin/upload" element={<Protected><AdminUploadPage /></Protected>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
       </UserProvider>
