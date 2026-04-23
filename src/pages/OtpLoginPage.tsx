@@ -28,6 +28,14 @@ const OtpLoginPage = () => {
   const validMobile = /^\d{10}$/.test(mobile);
   const validOtp = otp.every((d) => /^\d$/.test(d));
 
+  // Mask all but the last 4 digits → "+91 ••••••1234"
+  const maskPhone = (num: string) => {
+    if (!num) return "";
+    const last4 = num.slice(-4);
+    const masked = "•".repeat(Math.max(0, num.length - 4));
+    return `+91 ${masked}${last4}`;
+  };
+
   // Auto-login: if already signed in (Firebase or Supabase), skip the screen
   useEffect(() => {
     if (authLoading) return;
@@ -155,7 +163,7 @@ const OtpLoginPage = () => {
       setOtp(["", "", "", "", "", ""]);
       setStep("otp");
       setResendIn(RESEND_SECONDS);
-      toast.success(isResend ? "OTP sent again" : `OTP sent to +91 ${mobile}`);
+      toast.success(isResend ? `OTP sent again to ${maskPhone(mobile)}` : `OTP sent to ${maskPhone(mobile)}`);
     } catch (err: unknown) {
       toast.error(friendlySendError(err));
       try {
@@ -457,8 +465,18 @@ const OtpLoginPage = () => {
               exit={{ opacity: 0, x: -20 }}
             >
               <h1 className="text-2xl font-bold text-white">Verify OTP</h1>
-              <p className="text-sm mt-1" style={{ color: "hsla(0,0%,100%,0.75)" }}>
-                Sent to +91 {mobile}
+              <div
+                className="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-[11px] font-semibold"
+                style={{
+                  background: "hsla(140, 70%, 55%, 0.18)",
+                  color: "hsl(140, 80%, 88%)",
+                  border: "1px solid hsla(140, 70%, 55%, 0.35)",
+                }}
+              >
+                <span style={{ fontSize: 10 }}>✓</span> OTP sent
+              </div>
+              <p className="text-sm mt-2" style={{ color: "hsla(0,0%,100%,0.85)" }}>
+                Sent to <span className="font-semibold text-white">{maskPhone(mobile)}</span>
               </p>
 
               <div className="flex justify-between gap-2 mt-6">
