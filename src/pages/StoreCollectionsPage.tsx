@@ -72,32 +72,41 @@ const StoreCollectionsPage = () => {
         <h1 className="text-lg font-semibold text-foreground">{CATEGORY_LABEL[category]}</h1>
       </header>
 
-      <div className="grid grid-cols-2 gap-3 p-4">
+      <div className="px-4 pt-5 pb-2 text-center">
+        <h2 className="text-2xl font-extrabold tracking-wide text-foreground uppercase">
+          Collections
+        </h2>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 p-4">
         {loading
           ? Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="rounded-2xl overflow-hidden glass-card">
-                <Skeleton className="aspect-square w-full" />
-                <div className="p-3 space-y-2">
-                  <Skeleton className="h-4 w-3/4" />
-                  <Skeleton className="h-3 w-1/3" />
-                  <Skeleton className="h-9 w-full" />
+              <div key={i} className="rounded-2xl overflow-hidden">
+                <Skeleton className="aspect-square w-full rounded-xl" />
+                <div className="pt-3 space-y-2">
+                  <Skeleton className="h-4 w-3/4 mx-auto" />
+                  <Skeleton className="h-3 w-1/3 mx-auto" />
+                  <Skeleton className="h-10 w-full mt-2" />
                 </div>
               </div>
             ))
           : COLLECTIONS.map((col, i) => {
               const tile = tiles[col.id];
               const count = tile?.count ?? 0;
+              const go = () => navigate(`/store/${category}/${col.id}`);
               return (
                 <motion.div
                   key={col.id}
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04 }}
-                  className="rounded-2xl overflow-hidden glass-card flex flex-col"
+                  transition={{ delay: i * 0.05 }}
+                  className="flex flex-col"
                 >
                   <button
-                    onClick={() => navigate(`/store/${category}/${col.id}`)}
-                    className="block aspect-square w-full bg-muted relative"
+                    onClick={go}
+                    className="block aspect-square w-full bg-muted rounded-xl overflow-hidden glass-card"
+                    style={{ boxShadow: "0 8px 24px hsla(220, 50%, 4%, 0.4)" }}
+                    aria-label={`Open ${col.title}`}
                   >
                     {tile?.image ? (
                       <img
@@ -112,19 +121,22 @@ const StoreCollectionsPage = () => {
                       </div>
                     )}
                   </button>
-                  <div className="p-3 flex-1 flex flex-col gap-2">
-                    <div>
-                      <div className="font-semibold text-sm text-foreground line-clamp-1">{col.title}</div>
-                      <div className="text-[11px] text-muted-foreground">{count} products</div>
+
+                  <div className="text-center mt-3">
+                    <div className="text-sm font-extrabold tracking-wide text-foreground uppercase line-clamp-1">
+                      {col.title}
                     </div>
-                    <Button
-                      size="sm"
-                      className="w-full mt-auto"
-                      onClick={() => navigate(`/store/${category}/${col.id}`)}
-                    >
-                      Shop Now
-                    </Button>
+                    <div className="text-[11px] mt-1 uppercase tracking-wider text-muted-foreground">
+                      {count} Products
+                    </div>
                   </div>
+
+                  <Button
+                    onClick={go}
+                    className="mt-3 w-full rounded-none h-11 text-xs font-bold tracking-widest uppercase bg-foreground text-background hover:bg-foreground/90"
+                  >
+                    Shop Now
+                  </Button>
                 </motion.div>
               );
             })}
