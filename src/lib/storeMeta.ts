@@ -10,7 +10,7 @@ export const CATEGORY_LABEL: Record<StoreCategory, string> = {
   womens: "Women",
 };
 
-// Men's collections
+// Men's collections (DB-backed)
 export const COLLECTIONS: { id: StoreCollection; title: string }[] = [
   { id: "new_arrivals", title: "New Arrivals" },
   { id: "classic", title: "Classic Shirts" },
@@ -18,22 +18,30 @@ export const COLLECTIONS: { id: StoreCollection; title: string }[] = [
   { id: "socks", title: "Socks" },
 ];
 
-// Per-category collection list (display only — DB enum stays the same).
-export const COLLECTIONS_BY_CATEGORY: Record<
-  StoreCategory,
-  { id: StoreCollection; title: string }[]
-> = {
+// Display tiles per category. `id` is the real DB enum value (or null for
+// "Coming Soon" placeholder tiles that have no backing collection yet).
+export type DisplayTile = {
+  id: StoreCollection | null;
+  title: string;
+  comingSoon?: boolean;
+};
+
+export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
   mens: [
     { id: "new_arrivals", title: "New Arrivals" },
     { id: "classic", title: "Classic Shirts" },
     { id: "striped", title: "Striped Shirts" },
+    { id: null, title: "T-Shirts", comingSoon: true },
+    { id: null, title: "Sweatshirts", comingSoon: true },
     { id: "socks", title: "Socks" },
   ],
   womens: [
     { id: "new_arrivals", title: "New Arrivals" },
-    { id: "classic", title: "Dresses" },
-    { id: "striped", title: "Tops" },
-    { id: "socks", title: "Ethnic Wear" },
+    { id: "classic", title: "Modern Wear" },
+    { id: "striped", title: "Formal / Cocktail" },
+    { id: "socks", title: "Footwear" },
+    { id: null, title: "Makeup & Beauty", comingSoon: true },
+    { id: null, title: "Accessories", comingSoon: true },
   ],
 };
 
