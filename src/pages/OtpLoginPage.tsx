@@ -15,6 +15,9 @@ const OtpLoginPage = () => {
   const [mobile, setMobile] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [loading, setLoading] = useState(false);
+  const [resendIn, setResendIn] = useState(0);
+
+  const RESEND_SECONDS = 30;
 
   const validMobile = /^\d{10}$/.test(mobile);
   const validOtp = otp.every((d) => /^\d$/.test(d));
@@ -24,15 +27,24 @@ const OtpLoginPage = () => {
     if (user) navigate("/home", { replace: true });
   }, [user, navigate]);
 
+  // Countdown tick
+  useEffect(() => {
+    if (resendIn <= 0) return;
+    const t = setInterval(() => setResendIn((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(t);
+  }, [resendIn]);
+
   const handleSendOtp = () => {
     if (!validMobile) {
       toast.error("Please enter a valid 10-digit mobile number");
       return;
     }
+    if (resendIn > 0) return;
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setStep("otp");
+      setResendIn(RESEND_SECONDS);
       toast.success(`OTP sent to +91 ${mobile}`);
     }, 900);
   };
