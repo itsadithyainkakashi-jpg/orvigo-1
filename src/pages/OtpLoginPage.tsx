@@ -31,6 +31,14 @@ const OtpLoginPage = () => {
   // Always produce a single, canonical E.164 number: +91XXXXXXXXXX
   const toE164 = (raw: string): string => toE164India(raw) ?? `+91${normalizeMobile(raw)}`;
 
+  // ── TEST MODE ──────────────────────────────────────────────────────────────
+  // Predefined test numbers that bypass Firebase / real SMS entirely.
+  // Pair: phone (10-digit local) → fixed OTP.
+  const TEST_NUMBERS: Record<string, string> = {
+    "8888888888": "123456",
+  };
+  const isTestNumber = (raw: string) => raw in TEST_NUMBERS;
+
   // Mask all but the last 4 digits → "+91 ••••••1234"
   const maskPhone = (num: string) => {
     if (!num) return "";
