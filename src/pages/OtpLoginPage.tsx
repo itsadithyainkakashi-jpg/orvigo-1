@@ -216,7 +216,7 @@ const OtpLoginPage = () => {
 
               <button
                 onClick={handleSendOtp}
-                disabled={loading}
+                disabled={loading || resendIn > 0 || !validMobile}
                 className="w-full rounded-2xl py-3 mt-4 text-base font-semibold transition-all disabled:opacity-60"
                 style={{
                   background: "linear-gradient(135deg, hsl(210, 90%, 75%), hsl(200, 95%, 80%))",
@@ -224,7 +224,11 @@ const OtpLoginPage = () => {
                   boxShadow: "0 8px 24px hsla(210,90%,50%,0.3)",
                 }}
               >
-                {loading ? "Sending..." : "Send OTP"}
+                {loading
+                  ? "Sending..."
+                  : resendIn > 0
+                  ? `Resend in ${resendIn}s`
+                  : "Send OTP"}
               </button>
 
               <p className="text-center text-xs mt-3" style={{ color: "hsla(0,0%,100%,0.85)" }}>
