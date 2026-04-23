@@ -15,6 +15,9 @@ const OtpLoginPage = () => {
   const [mobile, setMobile] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [loading, setLoading] = useState(false);
+  const [resendIn, setResendIn] = useState(0);
+
+  const RESEND_SECONDS = 30;
 
   const validMobile = /^\d{10}$/.test(mobile);
   const validOtp = otp.every((d) => /^\d$/.test(d));
@@ -24,15 +27,24 @@ const OtpLoginPage = () => {
     if (user) navigate("/home", { replace: true });
   }, [user, navigate]);
 
+  // Countdown tick
+  useEffect(() => {
+    if (resendIn <= 0) return;
+    const t = setInterval(() => setResendIn((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(t);
+  }, [resendIn]);
+
   const handleSendOtp = () => {
     if (!validMobile) {
       toast.error("Please enter a valid 10-digit mobile number");
       return;
     }
+    if (resendIn > 0) return;
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setStep("otp");
+      setResendIn(RESEND_SECONDS);
       toast.success(`OTP sent to +91 ${mobile}`);
     }, 900);
   };
@@ -204,7 +216,7 @@ const OtpLoginPage = () => {
 
               <button
                 onClick={handleSendOtp}
-                disabled={loading}
+                disabled={loading || resendIn > 0 || !validMobile}
                 className="w-full rounded-2xl py-3 mt-4 text-base font-semibold transition-all disabled:opacity-60"
                 style={{
                   background: "linear-gradient(135deg, hsl(210, 90%, 75%), hsl(200, 95%, 80%))",
@@ -212,7 +224,11 @@ const OtpLoginPage = () => {
                   boxShadow: "0 8px 24px hsla(210,90%,50%,0.3)",
                 }}
               >
-                {loading ? "Sending..." : "Send OTP"}
+                {loading
+                  ? "Sending..."
+                  : resendIn > 0
+                  ? `Resend in ${resendIn}s`
+                  : "Send OTP"}
               </button>
 
               <p className="text-center text-xs mt-3" style={{ color: "hsla(0,0%,100%,0.85)" }}>
@@ -274,13 +290,21 @@ const OtpLoginPage = () => {
                 {loading ? "Verifying..." : "Verify OTP"}
               </button>
 
-              <button
-                onClick={() => setStep("phone")}
-                className="w-full text-center text-xs mt-4 underline"
-                style={{ color: "hsla(0,0%,100%,0.85)" }}
-              >
-                Change mobile number
-              </button>
+              <div className="flex items-center justify-between mt-4 text-xs" style={{ color: "hsla(0,0%,100%,0.85)" }}>
+                <button
+                  onClick={() => setStep("phone")}
+                  className="underline"
+                >
+                  Change mobile number
+                </button>
+                <button
+                  onClick={handleSendOtp}
+                  disabled={resendIn > 0 || loading}
+                  className="underline disabled:opacity-60 disabled:no-underline"
+                >
+                  {resendIn > 0 ? `Resend in ${resendIn}s` : "Resend OTP"}
+                </button>
+              </div>
             </motion.div>
           )}
 
