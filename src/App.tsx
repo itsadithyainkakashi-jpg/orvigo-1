@@ -35,6 +35,13 @@ import NotFound from "./pages/NotFound.tsx";
 import StoreCategoriesPage from "./pages/StoreCategoriesPage.tsx";
 import StoreCollectionsPage from "./pages/StoreCollectionsPage.tsx";
 import StoreProductsPage from "./pages/StoreProductsPage.tsx";
+import {
+  MensCollections,
+  WomensCollections,
+  MensCollectionProducts,
+  WomensCollectionProducts,
+  LegacyCollection,
+} from "./pages/ShopRoutes.tsx";
 import AdminUploadPage from "./pages/AdminUploadPage.tsx";
 
 const queryClient = new QueryClient();
@@ -82,6 +89,11 @@ const App = () => (
             <Route path="/store" element={<Protected><StoreCategoriesPage /></Protected>} />
             <Route path="/store/:category" element={<Protected><StoreCollectionsPage /></Protected>} />
             <Route path="/store/:category/:collection" element={<Protected><StoreProductsPage /></Protected>} />
+            <Route path="/men" element={<Protected><MensCollections /></Protected>} />
+            <Route path="/women" element={<Protected><WomensCollections /></Protected>} />
+            <Route path="/men/collection/:collection" element={<Protected><MensCollectionProducts /></Protected>} />
+            <Route path="/women/collection/:collection" element={<Protected><WomensCollectionProducts /></Protected>} />
+            <Route path="/collection/:collection" element={<Protected><LegacyCollection /></Protected>} />
             <Route path="/admin/upload" element={<Protected><AdminUploadPage /></Protected>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
