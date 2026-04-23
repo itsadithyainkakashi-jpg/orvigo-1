@@ -60,6 +60,63 @@ const OtpLoginPage = () => {
     return recaptchaRef.current;
   };
 
+  const friendlySendError = (err: unknown): string => {
+    const code = (err as { code?: string })?.code ?? "";
+    const raw = err instanceof Error ? err.message : "";
+    switch (code) {
+      case "auth/billing-not-enabled":
+        return "Phone Auth isn't enabled on the Firebase project (billing required).";
+      case "auth/invalid-phone-number":
+        return "That phone number isn't valid. Check the digits and try again.";
+      case "auth/too-many-requests":
+        return "Too many attempts. Please wait a few minutes before trying again.";
+      case "auth/quota-exceeded":
+        return "Daily SMS quota exceeded. Please try again later.";
+      case "auth/captcha-check-failed":
+        return "reCAPTCHA check failed. Reload the page and try again.";
+      case "auth/network-request-failed":
+        return "Network error. Check your connection and retry.";
+      default:
+        return raw.includes("BILLING_NOT_ENABLED")
+          ? "Phone Auth isn't enabled on the Firebase project (billing required)."
+          : raw || "Failed to send OTP. Please try again.";
+    }
+  };
+
+  const friendlyVerifyError = (err: unknown): { message: string; reset: boolean } => {
+    const code = (err as { code?: string })?.code ?? "";
+    switch (code) {
+      case "auth/invalid-verification-code":
+        return { message: "Invalid OTP. Please check and try again.", reset: false };
+      case "auth/code-expired":
+        return { message: "OTP expired. Please request a new code.", reset: true };
+      case "auth/missing-verification-code":
+        return { message: "Please enter the 6-digit OTP.", reset: false };
+      case "auth/session-expired":
+        return { message: "Session expired. Please request a new OTP.", reset: true };
+      case "auth/too-many-requests":
+        return { message: "Too many attempts. Try again in a few minutes.", reset: true };
+      default:
+        return {
+          message: err instanceof Error ? err.message : "Verification failed",
+          reset: false,
+        };
+    }
+  };
+
+  const resetToPhoneStep = () => {
+    confirmationRef.current = null;
+    setOtp(["", "", "", "", "", ""]);
+    setResendIn(0);
+    try {
+      recaptchaRef.current?.clear();
+    } catch {
+      /* noop */
+    }
+    recaptchaRef.current = null;
+    setStep("phone");
+  };
+
   const sendOtp = async (isResend = false) => {
     if (!validMobile) {
       toast.error("Please enter a valid 10-digit mobile number");
@@ -75,13 +132,12 @@ const OtpLoginPage = () => {
         verifier,
       );
       confirmationRef.current = confirmation;
+      setOtp(["", "", "", "", "", ""]);
       setStep("otp");
       setResendIn(RESEND_SECONDS);
       toast.success(isResend ? "OTP sent again" : `OTP sent to +91 ${mobile}`);
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Failed to send OTP";
-      toast.error(msg);
-      // reset recaptcha on failure so the next attempt works
+      toast.error(friendlySendError(err));
       try {
         recaptchaRef.current?.clear();
       } catch {
@@ -103,22 +159,20 @@ const OtpLoginPage = () => {
 
   const handleVerify = async () => {
     if (!validOtp) {
-      toast.error("Enter the 6-digit OTP");
+      toast.error("Please enter the 6-digit OTP");
       return;
     }
     if (!confirmationRef.current) {
-      toast.error("Please request OTP again");
-      setStep("phone");
+      toast.error("Session expired. Please request a new OTP.");
+      resetToPhoneStep();
       return;
     }
     setLoading(true);
     try {
-      // 1. Verify OTP with Firebase
       await confirmationRef.current.confirm(otp.join(""));
 
-      // 2. Mirror into Lovable Cloud session so existing protected routes & data work
       const { email, password } = phoneToCreds(mobile);
-      let { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
         const { error: signUpError } = await supabase.auth.signUp({
           email,
@@ -136,8 +190,14 @@ const OtpLoginPage = () => {
       setStep("done");
       toast.success("Verified successfully!");
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Invalid OTP";
-      toast.error(msg);
+      const { message, reset } = friendlyVerifyError(err);
+      toast.error(message);
+      if (reset) {
+        resetToPhoneStep();
+      } else {
+        setOtp(["", "", "", "", "", ""]);
+        document.getElementById("otp-0")?.focus();
+      }
     } finally {
       setLoading(false);
     }
