@@ -90,7 +90,7 @@ const StoreCollectionsPage = () => {
                 </div>
               </div>
             ))
-          : COLLECTIONS.map((col, i) => {
+          : (COLLECTIONS_BY_CATEGORY[category] ?? []).map((col, i) => {
               const tile = tiles[col.id];
               const count = tile?.count ?? 0;
               const go = () => navigate(`/store/${category}/${col.id}`);
