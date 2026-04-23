@@ -221,7 +221,7 @@ const OtpLoginPage = () => {
           email,
           password,
           options: {
-            data: { phone: `+91${mobile}`, name: `User ${mobile.slice(-4)}` },
+            data: { phone: toE164(mobile), name: `User ${mobile.slice(-4)}` },
             emailRedirectTo: `${window.location.origin}/home`,
           },
         });
