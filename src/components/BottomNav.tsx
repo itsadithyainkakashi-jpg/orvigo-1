@@ -1,13 +1,12 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Home, Search, LayoutGrid, User, ShoppingCart } from "lucide-react";
+import { UtensilsCrossed, ShoppingBasket, LayoutGrid, Pill } from "lucide-react";
 
 const tabs = [
-  { icon: Home, label: "Home", path: "/home" },
-  { icon: Search, label: "Search", path: "/search" },
+  { icon: UtensilsCrossed, label: "Food", path: "/food" },
+  { icon: ShoppingBasket, label: "Grocery", path: "/grocery" },
   { icon: LayoutGrid, label: "Collection", path: "/collection" },
-  { icon: User, label: "Account", path: "/profile" },
-  { icon: ShoppingCart, label: "Cart", path: "/cart" },
+  { icon: Pill, label: "Medicine", path: "/medicine" },
 ];
 
 const BottomNav = () => {
@@ -32,7 +31,7 @@ const BottomNav = () => {
           <motion.button
             key={tab.label}
             onClick={() => navigate(tab.path)}
-            className="flex flex-col items-center gap-0.5 py-1.5 px-3 rounded-2xl relative"
+            className="flex flex-col items-center gap-0.5 py-1.5 px-4 rounded-2xl relative"
             whileTap={{ scale: 0.85 }}
           >
             {isActive && (
@@ -43,18 +42,13 @@ const BottomNav = () => {
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
-            <motion.div
-              animate={isActive ? { scale: 1.1, y: -1 } : { scale: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 500, damping: 25 }}
-            >
-              <Icon
-                size={22}
-                strokeWidth={isActive ? 2.5 : 1.8}
-                style={{
-                  color: isActive ? "hsl(210, 100%, 60%)" : "hsla(210, 20%, 80%, 0.5)",
-                }}
-              />
-            </motion.div>
+            <Icon
+              size={22}
+              strokeWidth={isActive ? 2.5 : 1.8}
+              style={{
+                color: isActive ? "hsl(210, 100%, 60%)" : "hsla(210, 20%, 80%, 0.5)",
+              }}
+            />
             <span
               className="text-[10px] font-medium"
               style={{
