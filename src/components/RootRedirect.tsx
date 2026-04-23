@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
 const RootRedirect = () => {
-  const { user, loading } = useAuth();
+  const { user, firebaseUser, loading } = useAuth();
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -10,7 +10,7 @@ const RootRedirect = () => {
       </div>
     );
   }
-  return <Navigate to={user ? "/home" : "/login"} replace />;
+  return <Navigate to={user || firebaseUser ? "/home" : "/login"} replace />;
 };
 
 export default RootRedirect;
