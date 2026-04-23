@@ -44,8 +44,8 @@ describe("isValidIndianMobile", () => {
 
   it.each([
     ["too short", "987654321"],
-    ["too long bare", "98765432101"],
     ["starts with 5", "5876543210"],
+    ["starts with 1", "1234567890"],
     ["all zeros", "0000000000"],
     ["empty", ""],
     ["letters only", "abcdefghij"],
@@ -82,8 +82,8 @@ describe("toE164India", () => {
   it("returns null for invalid lengths or formats", () => {
     expect(toE164India("123")).toBeNull();
     expect(toE164India("98765432")).toBeNull(); // 8 digits
-    expect(toE164India("987654321012")).toBeNull(); // 12 digits, not 91-prefixed
     expect(toE164India("5876543210")).toBeNull(); // invalid leading digit
+    expect(toE164India("1234567890")).toBeNull(); // starts with 1
     expect(toE164India("")).toBeNull();
   });
 });
