@@ -32,6 +32,10 @@ import WishlistPage from "./pages/WishlistPage.tsx";
 import OrderTrackingPage from "./pages/OrderTrackingPage.tsx";
 import SearchResultsPage from "./pages/SearchResultsPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import StoreCategoriesPage from "./pages/StoreCategoriesPage.tsx";
+import StoreCollectionsPage from "./pages/StoreCollectionsPage.tsx";
+import StoreProductsPage from "./pages/StoreProductsPage.tsx";
+import AdminUploadPage from "./pages/AdminUploadPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -75,6 +79,10 @@ const App = () => (
             <Route path="/order-tracking/:orderId" element={<Protected><OrderTrackingPage /></Protected>} />
             <Route path="/order-tracking" element={<Protected><OrderTrackingPage /></Protected>} />
             <Route path="/search" element={<Protected><SearchResultsPage /></Protected>} />
+            <Route path="/store" element={<Protected><StoreCategoriesPage /></Protected>} />
+            <Route path="/store/:category" element={<Protected><StoreCollectionsPage /></Protected>} />
+            <Route path="/store/:category/:collection" element={<Protected><StoreProductsPage /></Protected>} />
+            <Route path="/admin/upload" element={<Protected><AdminUploadPage /></Protected>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
       </UserProvider>

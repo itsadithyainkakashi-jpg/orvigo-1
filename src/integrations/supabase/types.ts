@@ -99,6 +99,7 @@ export type Database = {
         Row: {
           badge: string | null
           category: Database["public"]["Enums"]["product_category"]
+          collection: Database["public"]["Enums"]["collection_type"] | null
           created_at: string
           description: string | null
           id: string
@@ -108,12 +109,14 @@ export type Database = {
           original_price: number | null
           price: number
           rating: number | null
+          sizes: string[]
           subcategory: string | null
           updated_at: string
         }
         Insert: {
           badge?: string | null
           category: Database["public"]["Enums"]["product_category"]
+          collection?: Database["public"]["Enums"]["collection_type"] | null
           created_at?: string
           description?: string | null
           id?: string
@@ -123,12 +126,14 @@ export type Database = {
           original_price?: number | null
           price: number
           rating?: number | null
+          sizes?: string[]
           subcategory?: string | null
           updated_at?: string
         }
         Update: {
           badge?: string | null
           category?: Database["public"]["Enums"]["product_category"]
+          collection?: Database["public"]["Enums"]["collection_type"] | null
           created_at?: string
           description?: string | null
           id?: string
@@ -138,6 +143,7 @@ export type Database = {
           original_price?: number | null
           price?: number
           rating?: number | null
+          sizes?: string[]
           subcategory?: string | null
           updated_at?: string
         }
@@ -212,13 +218,20 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      collection_type: "new_arrivals" | "classic" | "striped" | "socks"
       order_status:
         | "pending"
         | "processing"
         | "shipped"
         | "delivered"
         | "cancelled"
-      product_category: "food" | "grocery" | "fashion" | "medicine"
+      product_category:
+        | "food"
+        | "grocery"
+        | "fashion"
+        | "medicine"
+        | "mens"
+        | "womens"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -347,6 +360,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      collection_type: ["new_arrivals", "classic", "striped", "socks"],
       order_status: [
         "pending",
         "processing",
@@ -354,7 +368,14 @@ export const Constants = {
         "delivered",
         "cancelled",
       ],
-      product_category: ["food", "grocery", "fashion", "medicine"],
+      product_category: [
+        "food",
+        "grocery",
+        "fashion",
+        "medicine",
+        "mens",
+        "womens",
+      ],
     },
   },
 } as const

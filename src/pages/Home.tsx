@@ -255,6 +255,26 @@ const Home = () => {
         <BannerCarousel navigate={navigate} />
       </div>
 
+      {/* Mens / Womens quick entry */}
+      <div className="px-4 mt-5">
+        <div className="grid grid-cols-2 gap-3">
+          <motion.button
+            onClick={() => navigate("/store/mens")}
+            whileTap={{ scale: 0.97 }}
+            className="h-24 rounded-2xl glass-card flex items-center justify-center bg-gradient-to-br from-blue-500/30 to-indigo-700/30"
+          >
+            <span className="text-lg font-bold text-foreground">Shop Mens</span>
+          </motion.button>
+          <motion.button
+            onClick={() => navigate("/store/womens")}
+            whileTap={{ scale: 0.97 }}
+            className="h-24 rounded-2xl glass-card flex items-center justify-center bg-gradient-to-br from-pink-500/30 to-fuchsia-700/30"
+          >
+            <span className="text-lg font-bold text-foreground">Shop Womens</span>
+          </motion.button>
+        </div>
+      </div>
+
       {/* Category Cards */}
       <div className="px-4 mt-5">
         <h3 className="text-base font-bold text-foreground mb-3">Shop by Category</h3>
