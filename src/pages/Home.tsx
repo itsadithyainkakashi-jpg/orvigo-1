@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingCart, Package, User, Search, Mic, MapPin, ArrowRight } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
+import HomeExtras from "@/components/HomeExtras";
 import { useCart } from "@/contexts/CartContext";
 import heroMens from "@/assets/hero-mens.jpg";
 import heroWomens from "@/assets/hero-womens.jpg";
@@ -169,6 +170,8 @@ const Home = () => {
           delay={0.08}
         />
       </div>
+
+      <HomeExtras />
 
       <div className="h-6" />
       <BottomNav />
