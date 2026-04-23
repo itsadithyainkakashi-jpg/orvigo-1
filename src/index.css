@@ -88,3 +88,8 @@
     text-shadow: 0 0 20px hsla(210, 100%, 70%, 0.4);
   }
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
