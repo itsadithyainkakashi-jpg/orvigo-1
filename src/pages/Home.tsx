@@ -78,8 +78,8 @@ const ShopCard = ({
       >
         Shop {title}
       </h2>
-      <div className="mt-4 inline-flex items-center gap-2 self-start px-4 py-2 rounded-full text-xs font-bold text-foreground bg-white">
-        Explore Collection <ArrowRight size={14} />
+      <div className="mt-4 inline-flex items-center gap-2 self-start px-4 py-2 rounded-full text-xs font-bold bg-white tracking-wide transition-colors duration-200 hover:bg-neutral-200" style={{ color: "#000", fontWeight: 700, letterSpacing: "0.05em", textShadow: "0 1px 0 hsla(0,0%,100%,0.4)" }}>
+        Explore Collection <ArrowRight size={14} strokeWidth={2.75} />
       </div>
     </div>
   </motion.button>
