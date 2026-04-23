@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { CATEGORY_LABEL, COLLECTIONS, type StoreCategory } from "@/lib/storeMeta";
+import { CATEGORY_LABEL, COLLECTIONS_BY_CATEGORY, type StoreCategory } from "@/lib/storeMeta";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
