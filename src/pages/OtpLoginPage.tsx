@@ -22,6 +22,7 @@ const OtpLoginPage = () => {
 
   const confirmationRef = useRef<ConfirmationResult | null>(null);
   const recaptchaRef = useRef<RecaptchaVerifier | null>(null);
+  const sendingRef = useRef(false); // hard mutex against double-clicks / re-entry
 
   const RESEND_SECONDS = 30;
   const validMobile = /^\d{10}$/.test(mobile);
@@ -52,12 +53,27 @@ const OtpLoginPage = () => {
     };
   }, []);
 
-  const ensureRecaptcha = () => {
-    if (recaptchaRef.current) return recaptchaRef.current;
-    recaptchaRef.current = new RecaptchaVerifier(firebaseAuth, "recaptcha-container", {
+  // Always destroy any existing verifier before creating a new one.
+  // Returns a fully-rendered, single, invisible RecaptchaVerifier instance.
+  const ensureRecaptcha = async () => {
+    if (recaptchaRef.current) {
+      try {
+        recaptchaRef.current.clear();
+      } catch {
+        /* noop */
+      }
+      recaptchaRef.current = null;
+    }
+    // Make sure the container is empty (Firebase injects a child iframe into it)
+    const container = document.getElementById("recaptcha-container");
+    if (container) container.innerHTML = "";
+
+    const verifier = new RecaptchaVerifier(firebaseAuth, "recaptcha-container", {
       size: "invisible",
     });
-    return recaptchaRef.current;
+    await verifier.render(); // render exactly once before use
+    recaptchaRef.current = verifier;
+    return verifier;
   };
 
   const friendlySendError = (err: unknown): string => {
@@ -118,14 +134,18 @@ const OtpLoginPage = () => {
   };
 
   const sendOtp = async (isResend = false) => {
+    // Hard mutex: ignore re-entry even if React hasn't repainted yet
+    if (sendingRef.current) return;
     if (!validMobile) {
       toast.error("Please enter a valid 10-digit mobile number");
       return;
     }
     if (resendIn > 0) return;
+
+    sendingRef.current = true;
     setLoading(true);
     try {
-      const verifier = ensureRecaptcha();
+      const verifier = await ensureRecaptcha();
       const confirmation = await signInWithPhoneNumber(
         firebaseAuth,
         `+91${mobile}`,
@@ -144,8 +164,11 @@ const OtpLoginPage = () => {
         /* noop */
       }
       recaptchaRef.current = null;
+      const container = document.getElementById("recaptcha-container");
+      if (container) container.innerHTML = "";
     } finally {
       setLoading(false);
+      sendingRef.current = false;
     }
   };
 
