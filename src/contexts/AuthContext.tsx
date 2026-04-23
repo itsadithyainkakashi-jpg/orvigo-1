@@ -1,10 +1,13 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Session, User } from "@supabase/supabase-js";
+import { onAuthStateChanged, signOut as fbSignOut, type User as FbUser } from "firebase/auth";
 import { supabase } from "@/integrations/supabase/client";
+import { firebaseAuth } from "@/lib/firebase";
 
 interface AuthContextType {
   user: User | null;
   session: Session | null;
+  firebaseUser: FbUser | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signUp: (email: string, password: string, name: string) => Promise<{ error: Error | null }>;
@@ -16,23 +19,35 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [firebaseUser, setFirebaseUser] = useState<FbUser | null>(null);
+  const [sbReady, setSbReady] = useState(false);
+  const [fbReady, setFbReady] = useState(false);
 
   useEffect(() => {
-    // CRITICAL: set listener BEFORE getSession
+    // Supabase: listener BEFORE getSession
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession);
       setUser(newSession?.user ?? null);
     });
-
     supabase.auth.getSession().then(({ data: { session: existing } }) => {
       setSession(existing);
       setUser(existing?.user ?? null);
-      setLoading(false);
+      setSbReady(true);
     });
 
-    return () => subscription.unsubscribe();
+    // Firebase: keeps phone-auth session for auto-login
+    const unsub = onAuthStateChanged(firebaseAuth, (fbUser) => {
+      setFirebaseUser(fbUser);
+      setFbReady(true);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+      unsub();
+    };
   }, []);
+
+  const loading = !sbReady || !fbReady;
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -52,11 +67,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    await Promise.allSettled([supabase.auth.signOut(), fbSignOut(firebaseAuth)]);
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, session, firebaseUser, loading, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

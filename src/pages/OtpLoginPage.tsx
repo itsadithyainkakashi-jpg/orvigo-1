@@ -1,31 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import {
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  type ConfirmationResult,
+} from "firebase/auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { firebaseAuth } from "@/lib/firebase";
 
-// Mock OTP gateway: any 6-digit code is accepted. On verify we create/sign-in
-// a Supabase session derived from the phone number so the session persists
-// and ProtectedRoute works without changes.
 const OtpLoginPage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, firebaseUser, loading: authLoading } = useAuth();
   const [step, setStep] = useState<"phone" | "otp" | "done">("phone");
   const [mobile, setMobile] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [loading, setLoading] = useState(false);
   const [resendIn, setResendIn] = useState(0);
 
-  const RESEND_SECONDS = 30;
+  const confirmationRef = useRef<ConfirmationResult | null>(null);
+  const recaptchaRef = useRef<RecaptchaVerifier | null>(null);
 
+  const RESEND_SECONDS = 30;
   const validMobile = /^\d{10}$/.test(mobile);
   const validOtp = otp.every((d) => /^\d$/.test(d));
 
-  // If already signed in, skip the screen
+  // Auto-login: if already signed in (Firebase or Supabase), skip the screen
   useEffect(() => {
-    if (user) navigate("/home", { replace: true });
-  }, [user, navigate]);
+    if (authLoading) return;
+    if (user || firebaseUser) navigate("/home", { replace: true });
+  }, [user, firebaseUser, authLoading, navigate]);
 
   // Countdown tick
   useEffect(() => {
@@ -34,20 +40,61 @@ const OtpLoginPage = () => {
     return () => clearInterval(t);
   }, [resendIn]);
 
-  const handleSendOtp = () => {
+  // Cleanup recaptcha on unmount
+  useEffect(() => {
+    return () => {
+      try {
+        recaptchaRef.current?.clear();
+      } catch {
+        /* noop */
+      }
+      recaptchaRef.current = null;
+    };
+  }, []);
+
+  const ensureRecaptcha = () => {
+    if (recaptchaRef.current) return recaptchaRef.current;
+    recaptchaRef.current = new RecaptchaVerifier(firebaseAuth, "recaptcha-container", {
+      size: "invisible",
+    });
+    return recaptchaRef.current;
+  };
+
+  const sendOtp = async (isResend = false) => {
     if (!validMobile) {
       toast.error("Please enter a valid 10-digit mobile number");
       return;
     }
     if (resendIn > 0) return;
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const verifier = ensureRecaptcha();
+      const confirmation = await signInWithPhoneNumber(
+        firebaseAuth,
+        `+91${mobile}`,
+        verifier,
+      );
+      confirmationRef.current = confirmation;
       setStep("otp");
       setResendIn(RESEND_SECONDS);
-      toast.success(`OTP sent to +91 ${mobile}`);
-    }, 900);
+      toast.success(isResend ? "OTP sent again" : `OTP sent to +91 ${mobile}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to send OTP";
+      toast.error(msg);
+      // reset recaptcha on failure so the next attempt works
+      try {
+        recaptchaRef.current?.clear();
+      } catch {
+        /* noop */
+      }
+      recaptchaRef.current = null;
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const handleSendOtp = () => sendOtp(false);
+  const handleResend = () => sendOtp(true);
 
   const phoneToCreds = (phone: string) => ({
     email: `user_91${phone}@orvigo.app`,
@@ -59,10 +106,18 @@ const OtpLoginPage = () => {
       toast.error("Enter the 6-digit OTP");
       return;
     }
+    if (!confirmationRef.current) {
+      toast.error("Please request OTP again");
+      setStep("phone");
+      return;
+    }
     setLoading(true);
     try {
+      // 1. Verify OTP with Firebase
+      await confirmationRef.current.confirm(otp.join(""));
+
+      // 2. Mirror into Lovable Cloud session so existing protected routes & data work
       const { email, password } = phoneToCreds(mobile);
-      // Try sign-in; if user doesn't exist, create then sign-in.
       let { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
         const { error: signUpError } = await supabase.auth.signUp({
@@ -77,10 +132,11 @@ const OtpLoginPage = () => {
         const retry = await supabase.auth.signInWithPassword({ email, password });
         if (retry.error) throw retry.error;
       }
+
       setStep("done");
       toast.success("Verified successfully!");
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Verification failed";
+      const msg = err instanceof Error ? err.message : "Invalid OTP";
       toast.error(msg);
     } finally {
       setLoading(false);
@@ -298,7 +354,7 @@ const OtpLoginPage = () => {
                   Change mobile number
                 </button>
                 <button
-                  onClick={handleSendOtp}
+                  onClick={handleResend}
                   disabled={resendIn > 0 || loading}
                   className="underline disabled:opacity-60 disabled:no-underline"
                 >
@@ -340,6 +396,9 @@ const OtpLoginPage = () => {
           )}
         </AnimatePresence>
       </motion.div>
+
+      {/* Invisible reCAPTCHA container required by Firebase phone auth */}
+      <div id="recaptcha-container" />
     </div>
   );
 };
