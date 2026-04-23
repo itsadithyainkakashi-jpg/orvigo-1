@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import type { Product } from "@/contexts/CartContext";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
@@ -39,16 +41,65 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { addToCart, totalItems } = useCart();
   const { wishlist, toggleWishlist } = useWishlist();
-  const product = allProducts.find((p) => p.id === id);
+  const localProduct = allProducts.find((p) => p.id === id);
+  const [dbProduct, setDbProduct] = useState<Product | null>(null);
+  const [dbLoading, setDbLoading] = useState(!localProduct);
+
+  useEffect(() => {
+    if (localProduct || !id) return;
+    let active = true;
+    (async () => {
+      const { data } = await supabase
+        .from("products")
+        .select("id, name, price, original_price, image_url, rating, category, description, badge, sizes")
+        .eq("id", id)
+        .maybeSingle();
+      if (!active) return;
+      if (data) {
+        setDbProduct({
+          id: data.id,
+          name: data.name,
+          price: Number(data.price),
+          originalPrice: data.original_price ? Number(data.original_price) : undefined,
+          image: data.image_url,
+          rating: Number(data.rating ?? 4),
+          category: data.category,
+          description: data.description ?? "",
+          badge: data.badge ?? undefined,
+          sizes: (data.sizes ?? ["S", "M", "L", "XL"]) as string[],
+        });
+      }
+      setDbLoading(false);
+    })();
+    return () => {
+      active = false;
+    };
+  }, [id, localProduct]);
+
+  const product = localProduct ?? dbProduct;
 
   const [selectedSize, setSelectedSize] = useState<string | undefined>(
-    product?.sizes?.[0]
+    localProduct?.sizes?.[0]
   );
   const [selectedColor, setSelectedColor] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
   const [descExpanded, setDescExpanded] = useState(false);
   const [pincode, setPincode] = useState("");
   const [pinChecked, setPinChecked] = useState(false);
+
+  useEffect(() => {
+    if (product?.sizes?.length && !selectedSize) {
+      setSelectedSize(product.sizes[0]);
+    }
+  }, [product, selectedSize]);
+
+  if (dbLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ background: BG }}>
+        <p style={{ color: MUTED }}>Loading...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
