@@ -112,7 +112,7 @@ const OtpLoginPage = () => {
       </div>
 
       {/* Animated Logo - large prominent splash-style */}
-      <div className="relative mt-0 mb-0 animate-logo-float flex-shrink-0">
+      <div className="relative mt-10 sm:mt-14 mb-0 animate-logo-float flex-shrink-0">
         {/* Soft dual-color glow halo */}
         <div
           className="absolute inset-0 rounded-full pointer-events-none animate-logo-glow"
@@ -149,7 +149,7 @@ const OtpLoginPage = () => {
       </div>
 
       <p
-        className="tracking-[0.35em] text-[10px] font-medium -mt-2 mb-3 z-10"
+        className="tracking-[0.35em] text-[10px] font-medium mt-4 mb-6 z-10"
         style={{ color: "hsla(0,0%,100%,0.85)" }}
       >
         EVERYTHING IN ONE APP
