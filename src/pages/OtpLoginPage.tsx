@@ -471,11 +471,10 @@ const OtpLoginPage = () => {
                     maxLength={1}
                     value={d}
                     onChange={(e) => handleOtpChange(i, e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Backspace" && !otp[i] && i > 0) {
-                        document.getElementById(`otp-${i - 1}`)?.focus();
-                      }
-                    }}
+                    onKeyDown={(e) => handleOtpKeyDown(i, e)}
+                    onPaste={(e) => handleOtpPaste(i, e)}
+                    onFocus={(e) => e.currentTarget.select()}
+                    autoComplete={i === 0 ? "one-time-code" : "off"}
                     className="w-11 h-12 rounded-xl text-center text-lg font-bold outline-none"
                     style={{
                       background: "hsla(0,0%,100%,0.4)",
