@@ -22,7 +22,6 @@ const OtpLoginPage = () => {
   const [resendIn, setResendIn] = useState(0);
 
   const confirmationRef = useRef<ConfirmationResult | null>(null);
-  const recaptchaRef = useRef<RecaptchaVerifier | null>(null);
   const sendingRef = useRef(false); // hard mutex against double-clicks / re-entry
 
   const RESEND_SECONDS = 30;
@@ -53,39 +52,37 @@ const OtpLoginPage = () => {
     return () => clearInterval(t);
   }, [resendIn]);
 
-  // Cleanup recaptcha on unmount
-  useEffect(() => {
-    return () => {
-      try {
-        recaptchaRef.current?.clear();
-      } catch {
-        /* noop */
-      }
-      recaptchaRef.current = null;
-    };
-  }, []);
-
-  // Always destroy any existing verifier before creating a new one.
-  // Returns a fully-rendered, single, invisible RecaptchaVerifier instance.
-  const ensureRecaptcha = async () => {
-    if (recaptchaRef.current) {
-      try {
-        recaptchaRef.current.clear();
-      } catch {
-        /* noop */
-      }
-      recaptchaRef.current = null;
+  // Initialize the invisible reCAPTCHA verifier exactly once and stash it on
+  // `window.recaptchaVerifier` so it survives re-renders and is reused for
+  // every Send / Resend OTP click. We never recreate it on button clicks.
+  const ensureRecaptcha = async (): Promise<RecaptchaVerifier> => {
+    if (typeof window === "undefined") {
+      throw new Error("reCAPTCHA can only be initialized in the browser");
     }
-    // Make sure the container is empty (Firebase injects a child iframe into it)
+    if (!window.recaptchaVerifier) {
+      const container = document.getElementById("recaptcha-container");
+      if (container) container.innerHTML = ""; // ensure clean mount point
+      const verifier = new RecaptchaVerifier(firebaseAuth, "recaptcha-container", {
+        size: "invisible",
+      });
+      await verifier.render(); // render exactly once
+      window.recaptchaVerifier = verifier;
+    }
+    return window.recaptchaVerifier;
+  };
+
+  // Fully tear down the global verifier — only used on hard recovery (e.g. send
+  // failure or explicit reset back to the phone step).
+  const destroyRecaptcha = () => {
+    if (typeof window === "undefined") return;
+    try {
+      window.recaptchaVerifier?.clear();
+    } catch {
+      /* noop */
+    }
+    window.recaptchaVerifier = undefined;
     const container = document.getElementById("recaptcha-container");
     if (container) container.innerHTML = "";
-
-    const verifier = new RecaptchaVerifier(firebaseAuth, "recaptcha-container", {
-      size: "invisible",
-    });
-    await verifier.render(); // render exactly once before use
-    recaptchaRef.current = verifier;
-    return verifier;
   };
 
   const friendlySendError = (err: unknown): string => {
@@ -136,12 +133,7 @@ const OtpLoginPage = () => {
     confirmationRef.current = null;
     setOtp(["", "", "", "", "", ""]);
     setResendIn(0);
-    try {
-      recaptchaRef.current?.clear();
-    } catch {
-      /* noop */
-    }
-    recaptchaRef.current = null;
+    destroyRecaptcha();
     setStep("phone");
   };
 
@@ -171,14 +163,8 @@ const OtpLoginPage = () => {
       toast.success(isResend ? `OTP sent again to ${maskPhone(mobile)}` : `OTP sent to ${maskPhone(mobile)}`);
     } catch (err: unknown) {
       toast.error(friendlySendError(err));
-      try {
-        recaptchaRef.current?.clear();
-      } catch {
-        /* noop */
-      }
-      recaptchaRef.current = null;
-      const container = document.getElementById("recaptcha-container");
-      if (container) container.innerHTML = "";
+      // On a hard failure, tear down the verifier so the next attempt starts clean.
+      destroyRecaptcha();
     } finally {
       setLoading(false);
       sendingRef.current = false;
