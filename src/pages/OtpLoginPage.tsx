@@ -226,15 +226,85 @@ const OtpLoginPage = () => {
     }
   };
 
+  const focusOtp = (i: number) => {
+    const idx = Math.max(0, Math.min(5, i));
+    const el = document.getElementById(`otp-${idx}`) as HTMLInputElement | null;
+    el?.focus();
+    el?.select();
+  };
+
   const handleOtpChange = (i: number, v: string) => {
-    const digit = v.replace(/\D/g, "").slice(-1);
-    const next = [...otp];
-    next[i] = digit;
-    setOtp(next);
-    if (digit && i < 5) {
-      const el = document.getElementById(`otp-${i + 1}`);
-      el?.focus();
+    const digits = v.replace(/\D/g, "");
+    if (!digits) {
+      // Cleared this box
+      const next = [...otp];
+      next[i] = "";
+      setOtp(next);
+      return;
     }
+
+    // Multi-character input (paste or fast typing) — fill from current index
+    if (digits.length > 1) {
+      const next = [...otp];
+      let cursor = i;
+      for (const ch of digits) {
+        if (cursor > 5) break;
+        next[cursor] = ch;
+        cursor++;
+      }
+      setOtp(next);
+      focusOtp(Math.min(cursor, 5));
+      return;
+    }
+
+    // Single digit — auto-advance
+    const next = [...otp];
+    next[i] = digits;
+    setOtp(next);
+    if (i < 5) focusOtp(i + 1);
+  };
+
+  const handleOtpKeyDown = (i: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace") {
+      if (otp[i]) {
+        // Clear current box; stay focused
+        const next = [...otp];
+        next[i] = "";
+        setOtp(next);
+        e.preventDefault();
+      } else if (i > 0) {
+        // Empty box: move back and clear previous
+        const next = [...otp];
+        next[i - 1] = "";
+        setOtp(next);
+        focusOtp(i - 1);
+        e.preventDefault();
+      }
+    } else if (e.key === "ArrowLeft" && i > 0) {
+      e.preventDefault();
+      focusOtp(i - 1);
+    } else if (e.key === "ArrowRight" && i < 5) {
+      e.preventDefault();
+      focusOtp(i + 1);
+    } else if (e.key === "Enter" && validOtp) {
+      e.preventDefault();
+      void handleVerify();
+    }
+  };
+
+  const handleOtpPaste = (i: number, e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "");
+    if (!pasted) return;
+    e.preventDefault();
+    const next = [...otp];
+    let cursor = i;
+    for (const ch of pasted) {
+      if (cursor > 5) break;
+      next[cursor] = ch;
+      cursor++;
+    }
+    setOtp(next);
+    focusOtp(Math.min(cursor, 5));
   };
 
   return (
@@ -401,11 +471,10 @@ const OtpLoginPage = () => {
                     maxLength={1}
                     value={d}
                     onChange={(e) => handleOtpChange(i, e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Backspace" && !otp[i] && i > 0) {
-                        document.getElementById(`otp-${i - 1}`)?.focus();
-                      }
-                    }}
+                    onKeyDown={(e) => handleOtpKeyDown(i, e)}
+                    onPaste={(e) => handleOtpPaste(i, e)}
+                    onFocus={(e) => e.currentTarget.select()}
+                    autoComplete={i === 0 ? "one-time-code" : "off"}
                     className="w-11 h-12 rounded-xl text-center text-lg font-bold outline-none"
                     style={{
                       background: "hsla(0,0%,100%,0.4)",
