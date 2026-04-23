@@ -89,6 +89,11 @@ const App = () => (
             <Route path="/store" element={<Protected><StoreCategoriesPage /></Protected>} />
             <Route path="/store/:category" element={<Protected><StoreCollectionsPage /></Protected>} />
             <Route path="/store/:category/:collection" element={<Protected><StoreProductsPage /></Protected>} />
+            <Route path="/men" element={<Protected><MensCollections /></Protected>} />
+            <Route path="/women" element={<Protected><WomensCollections /></Protected>} />
+            <Route path="/men/collection/:collection" element={<Protected><MensCollectionProducts /></Protected>} />
+            <Route path="/women/collection/:collection" element={<Protected><WomensCollectionProducts /></Protected>} />
+            <Route path="/collection/:collection" element={<Protected><LegacyCollection /></Protected>} />
             <Route path="/admin/upload" element={<Protected><AdminUploadPage /></Protected>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
