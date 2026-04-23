@@ -157,6 +157,23 @@ const OtpLoginPage = () => {
     sendingRef.current = true;
     setLoading(true);
     try {
+      // ── TEST-MODE SHORTCUT ──
+      // For predefined test numbers, skip Firebase entirely. No reCAPTCHA,
+      // no real SMS — just advance to the OTP step. Verification will accept
+      // the matching fixed OTP from TEST_NUMBERS.
+      if (isTestNumber(mobile)) {
+        confirmationRef.current = null; // signals test-mode in handleVerify
+        setOtp(["", "", "", "", "", ""]);
+        setStep("otp");
+        setResendIn(RESEND_SECONDS);
+        toast.success(
+          isResend
+            ? `Test OTP ready for ${maskPhone(mobile)}`
+            : `Test OTP ready for ${maskPhone(mobile)} — use ${TEST_NUMBERS[mobile]}`,
+        );
+        return;
+      }
+
       const verifier = await ensureRecaptcha();
       const phoneE164 = toE164(mobile);
       const confirmation = await signInWithPhoneNumber(
@@ -192,14 +209,26 @@ const OtpLoginPage = () => {
       toast.error("Please enter the 6-digit OTP");
       return;
     }
-    if (!confirmationRef.current) {
+
+    const enteredOtp = otp.join("");
+    const testMode = isTestNumber(mobile);
+
+    if (!testMode && !confirmationRef.current) {
       toast.error("Session expired. Please request a new OTP.");
       resetToPhoneStep();
       return;
     }
+
     setLoading(true);
     try {
-      await confirmationRef.current.confirm(otp.join(""));
+      if (testMode) {
+        // Validate against the predefined OTP for this test number
+        if (enteredOtp !== TEST_NUMBERS[mobile]) {
+          throw { code: "auth/invalid-verification-code" } as { code: string };
+        }
+      } else {
+        await confirmationRef.current!.confirm(enteredOtp);
+      }
 
       const { email, password } = phoneToCreds(mobile);
       const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -219,6 +248,7 @@ const OtpLoginPage = () => {
 
       setStep("done");
       toast.success("Verified successfully!");
+      navigate("/home", { replace: true });
     } catch (err: unknown) {
       const { message, reset } = friendlyVerifyError(err);
       toast.error(message);
