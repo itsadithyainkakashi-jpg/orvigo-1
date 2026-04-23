@@ -32,6 +32,10 @@ import WishlistPage from "./pages/WishlistPage.tsx";
 import OrderTrackingPage from "./pages/OrderTrackingPage.tsx";
 import SearchResultsPage from "./pages/SearchResultsPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import StoreCategoriesPage from "./pages/StoreCategoriesPage.tsx";
+import StoreCollectionsPage from "./pages/StoreCollectionsPage.tsx";
+import StoreProductsPage from "./pages/StoreProductsPage.tsx";
+import AdminUploadPage from "./pages/AdminUploadPage.tsx";
 
 const queryClient = new QueryClient();
 
