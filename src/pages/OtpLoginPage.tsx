@@ -10,6 +10,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { firebaseAuth } from "@/lib/firebase";
+import { normalizeMobile, toE164India } from "@/lib/phone";
 
 const OtpLoginPage = () => {
   const navigate = useNavigate();
@@ -28,16 +29,8 @@ const OtpLoginPage = () => {
   const validMobile = /^[6-9]\d{9}$/.test(mobile);
   const validOtp = otp.every((d) => /^\d$/.test(d));
 
-  // Normalize any input → bare 10-digit Indian mobile (no country code, no spaces)
-  const normalizeMobile = (raw: string): string => {
-    let digits = raw.replace(/\s+/g, "").replace(/\D/g, "");
-    if (digits.startsWith("91") && digits.length > 10) digits = digits.slice(2);
-    if (digits.startsWith("0")) digits = digits.replace(/^0+/, "");
-    return digits.slice(0, 10);
-  };
-
   // Always produce a single, canonical E.164 number: +91XXXXXXXXXX
-  const toE164 = (raw: string): string => `+91${normalizeMobile(raw)}`;
+  const toE164 = (raw: string): string => toE164India(raw) ?? `+91${normalizeMobile(raw)}`;
 
   // Mask all but the last 4 digits → "+91 ••••••1234"
   const maskPhone = (num: string) => {
