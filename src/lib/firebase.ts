@@ -1,6 +1,14 @@
 // Firebase initialization for Phone OTP auth.
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { getAuth, setPersistence, browserLocalPersistence, type RecaptchaVerifier } from "firebase/auth";
+
+// Global singleton for the invisible reCAPTCHA verifier — initialized once
+// and reused across renders / Send OTP clicks.
+declare global {
+  interface Window {
+    recaptchaVerifier?: RecaptchaVerifier;
+  }
+}
 
 const firebaseConfig = {
   apiKey: "AIzaSyAUNo12UOpPb49HVPPizD4FAQay-g37vfs",
