@@ -437,7 +437,12 @@ const OtpLoginPage = () => {
                   maxLength={10}
                   placeholder="Enter mobile number"
                   value={mobile}
-                  onChange={(e) => setMobile(e.target.value.replace(/\D/g, ""))}
+                  onChange={(e) => setMobile(normalizeMobile(e.target.value))}
+                  onPaste={(e) => {
+                    e.preventDefault();
+                    const pasted = e.clipboardData.getData("text");
+                    setMobile(normalizeMobile(pasted));
+                  }}
                   className="flex-1 bg-transparent outline-none text-sm placeholder:text-white/60"
                   style={{ color: "hsl(220,40%,15%)" }}
                 />
