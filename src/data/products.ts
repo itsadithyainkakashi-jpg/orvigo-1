@@ -24,6 +24,7 @@ import medSyrup from "@/assets/home/med-syrup.jpg";
 import medHealth from "@/assets/home/med-health.jpg";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
+import { MEDICINE_PRODUCTS } from "./medicineProducts";
 
 const baseProducts: Product[] = [
   // ─── Fashion ───
@@ -153,10 +154,11 @@ const baseProducts: Product[] = [
   { id: "m12", name: "Calcium + D3 Tablets", price: 349, image: medHealth, rating: 4.5, category: "Medicine", description: "Calcium and vitamin D3 supplement, 60 tablets." },
 ];
 
-// Replace the legacy hand-written grocery items with the full South-Indian grocery catalog
+// Replace legacy grocery & medicine items with the curated catalogs
 export const allProducts: Product[] = [
-  ...baseProducts.filter((p) => p.category !== "Grocery"),
+  ...baseProducts.filter((p) => p.category !== "Grocery" && p.category !== "Medicine"),
   ...GROCERY_PRODUCTS,
+  ...MEDICINE_PRODUCTS,
 ];
 
 export const categories = ["All", "Fashion", "Items", "Food", "Grocery", "Medicine"];

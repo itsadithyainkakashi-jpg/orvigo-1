@@ -1,17 +1,19 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ShoppingCart, Search, Star, Shield, Upload } from "lucide-react";
-import { allProducts } from "@/data/products";
+import { ShoppingCart, Search, Shield, Upload } from "lucide-react";
+import { MEDICINE_PRODUCTS } from "@/data/medicineProducts";
+import type { Product } from "@/contexts/CartContext";
 import { useCart } from "@/contexts/CartContext";
 import BottomNav from "@/components/BottomNav";
+import MedicineProductImage from "@/components/MedicineProductImage";
 import { toast } from "sonner";
 
 const medCategories = [
   { label: "All", icon: "💊" },
-  { label: "Tablets", icon: "💉", filter: "tablet|capsule|paracetamol|cetirizine|ibuprofen|vitamin" },
-  { label: "Syrups", icon: "🧴", filter: "syrup|liquid|cough|cold|digestive|throat" },
-  { label: "Health Care", icon: "💪", filter: "protein|omega|multivitamin|calcium|health|supplement" },
+  { label: "Tablets", icon: "💉", filter: "tablet|capsule|paracetamol|cetirizine|ibuprofen|vitamin|zinc|calcium" },
+  { label: "Syrups", icon: "🧴", filter: "syrup|liquid|cough|cold|digestive|throat|vaporub|drink" },
+  { label: "Health Care", icon: "💪", filter: "protein|omega|multivitamin|calcium|health|supplement|chyawanprash|nutrition|sanitizer|mask|bandage|band-aid|cotton|thermometer|pad|spray|cream|relief|ors|electral|glucon" },
 ];
 
 const MedicinePage = () => {
@@ -21,12 +23,12 @@ const MedicinePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const products = useMemo(() => {
-    let items = allProducts.filter((p) => p.category === "Medicine");
+    let items: Product[] = MEDICINE_PRODUCTS;
     if (activeCat !== "All") {
       const cat = medCategories.find((c) => c.label === activeCat);
       if (cat?.filter) {
         const regex = new RegExp(cat.filter, "i");
-        items = items.filter((p) => regex.test(p.name + " " + p.description));
+        items = items.filter((p) => regex.test(p.name + " " + (p.description ?? "")));
       }
     }
     if (searchQuery.trim()) {
@@ -36,7 +38,7 @@ const MedicinePage = () => {
     return items;
   }, [activeCat, searchQuery]);
 
-  const handleAdd = (product: typeof allProducts[0], e: React.MouseEvent) => {
+  const handleAdd = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
     addToCart(product, 1);
     toast.success(`${product.name} added to cart`, { duration: 1500 });
@@ -103,36 +105,42 @@ const MedicinePage = () => {
           <span className="text-[11px] text-muted-foreground">{products.length} items</span>
         </div>
 
-        <div className="space-y-2.5">
+        <div className="grid grid-cols-3 gap-2.5">
           {products.map((product, i) => (
             <motion.div
               key={product.id}
-              className="flex gap-3 rounded-2xl overflow-hidden cursor-pointer glass-card"
-              whileTap={{ scale: 0.98 }}
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: (i % 8) * 0.04 }}
+              className="rounded-2xl overflow-hidden cursor-pointer glass-card flex flex-col"
+              whileTap={{ scale: 0.97 }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: (i % 9) * 0.03 }}
               onClick={() => navigate(`/medicine/product/${product.id}`)}
             >
-              <div className="w-24 h-24 flex-shrink-0 p-2">
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover rounded-xl" loading="lazy" />
+              <div className="aspect-square w-full p-1.5">
+                <MedicineProductImage productId={product.id} src={product.image} alt={product.name} />
               </div>
-              <div className="flex-1 py-2.5 pr-3 flex flex-col justify-between">
-                <div>
-                  <p className="text-xs font-semibold text-foreground">{product.name}</p>
-                  <p className="text-[10px] line-clamp-1 mt-0.5 text-muted-foreground">{product.description}</p>
-                  {product.badge && (
-                    <span className="inline-block mt-1 text-[9px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "hsl(200, 75%, 40%)" }}>{product.badge}</span>
-                  )}
-                </div>
-                <div className="flex items-center justify-between mt-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-foreground">₹{product.price}</span>
+              <div className="px-2 pb-2 pt-0.5 flex-1 flex flex-col">
+                <p className="text-[11px] font-semibold text-foreground line-clamp-2 leading-tight min-h-[28px]">
+                  {product.name}
+                </p>
+                {product.badge && (
+                  <span className="inline-block self-start mt-1 text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white" style={{ background: "hsl(200, 75%, 40%)" }}>
+                    {product.badge}
+                  </span>
+                )}
+                <div className="flex items-center justify-between mt-auto pt-1.5">
+                  <div className="flex flex-col leading-none">
+                    <span className="text-xs font-bold text-foreground">₹{product.price}</span>
                     {product.originalPrice && (
-                      <span className="text-[10px] line-through text-muted-foreground">₹{product.originalPrice}</span>
+                      <span className="text-[9px] line-through text-muted-foreground">₹{product.originalPrice}</span>
                     )}
                   </div>
-                  <motion.button whileTap={{ scale: 0.9 }} onClick={(e) => handleAdd(product, e)} className="px-3 py-1 rounded-lg text-[10px] font-bold text-white" style={{ background: "hsl(200, 75%, 40%)" }}>
+                  <motion.button
+                    whileTap={{ scale: 0.9 }}
+                    onClick={(e) => handleAdd(product, e)}
+                    className="px-2 py-1 rounded-lg text-[9px] font-bold text-white"
+                    style={{ background: "hsl(200, 75%, 40%)" }}
+                  >
                     ADD
                   </motion.button>
                 </div>
