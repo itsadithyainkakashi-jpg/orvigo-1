@@ -23,7 +23,9 @@ import medTablets from "@/assets/home/med-tablets.jpg";
 import medSyrup from "@/assets/home/med-syrup.jpg";
 import medHealth from "@/assets/home/med-health.jpg";
 
-export const allProducts: Product[] = [
+import { GROCERY_PRODUCTS } from "./groceryProducts";
+
+const baseProducts: Product[] = [
   // ─── Fashion ───
   { id: "f1", name: "Women Ethnic Dress", price: 899, originalPrice: 1499, image: fashionWomen, rating: 4.3, category: "Fashion", description: "Beautiful ethnic dress with intricate embroidery work, perfect for festive occasions.", badge: "40% OFF", sizes: ["S", "M", "L", "XL"] },
   { id: "f2", name: "Men Casual Shirt", price: 599, originalPrice: 899, image: fashionMen, rating: 4.1, category: "Fashion", description: "Premium cotton casual shirt with a modern slim fit design.", badge: "30% OFF", sizes: ["S", "M", "L", "XL"] },
@@ -149,6 +151,12 @@ export const allProducts: Product[] = [
   { id: "m10", name: "Vitamin C Tablets", price: 199, image: medTablets, rating: 4.3, category: "Medicine", description: "Chewable vitamin C 500mg tablets, 60 count." },
   { id: "m11", name: "Cold & Flu Syrup", price: 135, image: medSyrup, rating: 4.1, category: "Medicine", description: "Multi-symptom cold and flu relief syrup, 100ml." },
   { id: "m12", name: "Calcium + D3 Tablets", price: 349, image: medHealth, rating: 4.5, category: "Medicine", description: "Calcium and vitamin D3 supplement, 60 tablets." },
+];
+
+// Replace the legacy hand-written grocery items with the full South-Indian grocery catalog
+export const allProducts: Product[] = [
+  ...baseProducts.filter((p) => p.category !== "Grocery"),
+  ...GROCERY_PRODUCTS,
 ];
 
 export const categories = ["All", "Fashion", "Items", "Food", "Grocery", "Medicine"];
