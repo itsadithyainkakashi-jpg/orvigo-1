@@ -9,8 +9,6 @@ import {
   GROCERY_PRODUCTS,
   GROCERY_SUBS,
   GROCERY_SUB_BY_ID,
-  GROCERY_FALLBACKS,
-  GROCERY_GENERIC_FALLBACK,
   getGroceryFallback,
   type GrocerySubCategory,
 } from "@/data/groceryProducts";
@@ -70,31 +68,28 @@ const GroceryPage = () => {
         </div>
       </div>
 
-      {/* Category scroll */}
-      <div className="flex gap-3 px-3 py-3 overflow-x-auto scrollbar-hide glass-card-strong" style={{ borderBottom: "1px solid hsla(210, 40%, 95%, 0.08)" }}>
-        {GROCERY_SUBS.map((sub) => (
-          <button key={sub.label} onClick={() => setActiveSub(sub.label)} className="flex-shrink-0 flex flex-col items-center gap-1.5">
-            <div
-              className="w-14 h-14 rounded-full overflow-hidden border-2 flex items-center justify-center"
+      {/* Top tabs: Vegetables / Non-Veg */}
+      <div className="flex gap-2 px-3 py-3 glass-card-strong" style={{ borderBottom: "1px solid hsla(210, 40%, 95%, 0.08)" }}>
+        {GROCERY_SUBS.map((sub) => {
+          const active = activeSub === sub.label;
+          return (
+            <button
+              key={sub.label}
+              onClick={() => setActiveSub(sub.label)}
+              className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all"
               style={{
-                borderColor: activeSub === sub.label ? "hsl(145, 65%, 38%)" : "hsla(210, 40%, 95%, 0.15)",
-                boxShadow: activeSub === sub.label ? "0 2px 8px hsla(145, 65%, 38%, 0.3)" : "none",
+                background: active
+                  ? "linear-gradient(135deg, hsl(145, 65%, 38%) 0%, hsl(160, 55%, 42%) 100%)"
+                  : "hsla(210, 40%, 95%, 0.06)",
+                color: active ? "white" : "hsl(210, 40%, 75%)",
+                boxShadow: active ? "0 2px 10px hsla(145, 65%, 38%, 0.35)" : "none",
+                border: active ? "none" : "1px solid hsla(210, 40%, 95%, 0.1)",
               }}
             >
-              <img
-                src={sub.image || GROCERY_FALLBACKS[sub.label] || GROCERY_GENERIC_FALLBACK}
-                alt={sub.label}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                onError={(e) => {
-                  const fb = GROCERY_FALLBACKS[sub.label] || GROCERY_GENERIC_FALLBACK;
-                  if (e.currentTarget.src !== fb) e.currentTarget.src = fb;
-                }}
-              />
-            </div>
-            <span className="text-[10px] font-medium whitespace-nowrap" style={{ color: activeSub === sub.label ? "hsl(145, 65%, 50%)" : undefined }}>{sub.label}</span>
-          </button>
-        ))}
+              {sub.label}
+            </button>
+          );
+        })}
       </div>
 
       {/* Products grid */}
