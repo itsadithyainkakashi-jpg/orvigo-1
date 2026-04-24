@@ -9,9 +9,9 @@ import {
   GROCERY_PRODUCTS,
   GROCERY_SUBS,
   GROCERY_SUB_BY_ID,
-  getGroceryFallback,
   type GrocerySubCategory,
 } from "@/data/groceryProducts";
+import GroceryProductImage from "@/components/GroceryProductImage";
 
 const GroceryPage = () => {
   const navigate = useNavigate();
