@@ -9,8 +9,6 @@ import {
   GROCERY_PRODUCTS,
   GROCERY_SUBS,
   GROCERY_SUB_BY_ID,
-  GROCERY_FALLBACKS,
-  GROCERY_GENERIC_FALLBACK,
   getGroceryFallback,
   type GrocerySubCategory,
 } from "@/data/groceryProducts";
