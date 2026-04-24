@@ -112,7 +112,7 @@ const MedicinePage = () => {
               initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: (i % 8) * 0.04 }}
-              onClick={() => navigate(`/product/${product.id}`)}
+              onClick={() => navigate(`/medicine/product/${product.id}`)}
             >
               <div className="w-24 h-24 flex-shrink-0 p-2">
                 <img src={product.image} alt={product.name} className="w-full h-full object-cover rounded-xl" loading="lazy" />
