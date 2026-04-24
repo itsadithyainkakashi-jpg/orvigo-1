@@ -16,7 +16,7 @@ import {
 const GroceryPage = () => {
   const navigate = useNavigate();
   const { totalItems, addToCart } = useCart();
-  const [activeSub, setActiveSub] = useState<GrocerySubCategory>("Vegetables");
+  const [activeSub, setActiveSub] = useState<GrocerySubCategory>("Veg");
   const [searchQuery, setSearchQuery] = useState("");
   const [quantities, setQuantities] = useState<Record<string, number>>({});
 
