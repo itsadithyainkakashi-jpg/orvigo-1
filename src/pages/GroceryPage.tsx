@@ -113,15 +113,10 @@ const GroceryPage = () => {
                 onClick={() => navigate(`/product/${product.id}`)}
               >
                 <div className="relative aspect-square p-2">
-                  <img
-                    src={product.image || getGroceryFallback(product.id)}
+                  <GroceryProductImage
+                    productId={product.id}
+                    src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover rounded-xl"
-                    loading="lazy"
-                    onError={(e) => {
-                      const fb = getGroceryFallback(product.id);
-                      if (e.currentTarget.src !== fb) e.currentTarget.src = fb;
-                    }}
                   />
                   {product.badge && (
                     <span className="absolute top-1 left-1 text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white" style={{ background: "hsl(0, 70%, 50%)" }}>{product.badge}</span>
