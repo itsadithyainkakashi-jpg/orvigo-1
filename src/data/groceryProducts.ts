@@ -243,3 +243,85 @@ export const getGroceryFallback = (productId: string): string => {
   return sub ? GROCERY_FALLBACKS[sub] : GROCERY_GENERIC_FALLBACK;
 };
 
+/* -------------------------------------------------------------------------- */
+/* Runtime validation: assert no Unsplash photo ID is reused across products. */
+/* -------------------------------------------------------------------------- */
+
+/** Extract the Unsplash photo ID from an image URL, or null if not Unsplash. */
+const extractUnsplashId = (url: string): string | null => {
+  const m = url.match(/images\.unsplash\.com\/photo-([A-Za-z0-9_-]+)/);
+  return m ? m[1] : null;
+};
+
+export type GroceryDuplicateImage = {
+  id: string;
+  productIds: string[];
+  productNames: string[];
+};
+
+/**
+ * Scans every product (and the Snacks category tile) for repeated Unsplash
+ * photo IDs. Category fallbacks are intentionally excluded — they may
+ * overlap with product images by design.
+ */
+export const findDuplicateGroceryImages = (): GroceryDuplicateImage[] => {
+  const buckets = new Map<string, { ids: string[]; names: string[] }>();
+
+  for (const p of GROCERY_PRODUCTS) {
+    const id = extractUnsplashId(p.image);
+    if (!id) continue;
+    const bucket = buckets.get(id) ?? { ids: [], names: [] };
+    bucket.ids.push(p.id);
+    bucket.names.push(p.name);
+    buckets.set(id, bucket);
+  }
+
+  // Include the Snacks tile (other tiles are local imports, not Unsplash).
+  for (const tile of GROCERY_SUBS) {
+    const id = extractUnsplashId(tile.image);
+    if (!id) continue;
+    const bucket = buckets.get(id) ?? { ids: [], names: [] };
+    bucket.ids.push(`tile:${tile.label}`);
+    bucket.names.push(`Category tile: ${tile.label}`);
+    buckets.set(id, bucket);
+  }
+
+  const dups: GroceryDuplicateImage[] = [];
+  buckets.forEach((bucket, id) => {
+    if (bucket.ids.length > 1) {
+      dups.push({ id, productIds: bucket.ids, productNames: bucket.names });
+    }
+  });
+  return dups;
+};
+
+/**
+ * Asserts no duplicate Unsplash IDs exist in the grocery catalog.
+ * - Logs a clear, formatted error to the console listing each offender.
+ * - In dev (import.meta.env.DEV), throws to fail fast.
+ * - In prod, only logs (so the app keeps working).
+ */
+export const assertNoDuplicateGroceryImages = (): void => {
+  const dups = findDuplicateGroceryImages();
+  if (dups.length === 0) return;
+
+  const lines = dups.map(
+    (d) =>
+      `  • photo-${d.id} reused by ${d.productIds.length} items: ${d.productNames
+        .map((n, i) => `"${n}" (${d.productIds[i]})`)
+        .join(", ")}`
+  );
+  const msg = `[grocery] Duplicate Unsplash photo IDs detected (${dups.length}):\n${lines.join("\n")}`;
+
+  // eslint-disable-next-line no-console
+  console.error(msg);
+
+  if (typeof import.meta !== "undefined" && import.meta.env?.DEV) {
+    throw new Error(msg);
+  }
+};
+
+// Run the check once at module load so duplicates surface immediately.
+assertNoDuplicateGroceryImages();
+
+
