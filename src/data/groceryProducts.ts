@@ -219,3 +219,27 @@ export const GROCERY_SUB_BY_ID: Record<string, GrocerySubCategory> =
     acc[p.id] = map[key];
     return acc;
   }, {} as Record<string, GrocerySubCategory>);
+
+/**
+ * Per-category fallback images. Used when a product image fails to load
+ * (network error, 404, etc.) so the card never shows an empty box.
+ * Each fallback is a real, generic photo of that category.
+ */
+export const GROCERY_FALLBACKS: Record<GrocerySubCategory, string> = {
+  Vegetables: u("1540420773420-3366772f4999"), // mixed vegetable basket
+  "Non-Veg": u("1607623814075-e51df1bdc82f"),  // raw meat platter
+  Oils: u("1474440692490-2e83ae13ba29"),        // oil bottles (fallback differs from olive oil)
+  Powders: u("1532336414038-cf19250c5757"),     // spice powders (matches garam masala bowl)
+  "Rice/Atta": u("1586201375754-8d3f4f3a8b8a"), // rice grains
+  Organic: u("1542838132-92c53300491e"),         // organic produce
+  Snacks: u("1599490659213-e2b9527bd087"),       // mixed snacks
+};
+
+/** Generic last-resort fallback (supermarket shelf) when category is unknown. */
+export const GROCERY_GENERIC_FALLBACK = u("1542838132-92c53300491e");
+
+export const getGroceryFallback = (productId: string): string => {
+  const sub = GROCERY_SUB_BY_ID[productId];
+  return sub ? GROCERY_FALLBACKS[sub] : GROCERY_GENERIC_FALLBACK;
+};
+
