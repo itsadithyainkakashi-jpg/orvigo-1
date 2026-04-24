@@ -41,7 +41,7 @@ const VEG: Item[] = [
   { name: "Potato", price: 35, desc: "Farm fresh potatoes, 1 kg", image: u("photo-1518977676601-b53f82aba655") },
   { name: "Drumstick", price: 60, desc: "Murungakkai, 250 g (4-5 pcs)", image: u("photo-1652959889888-53d048374e35") },
   { name: "Brinjal (Purple)", price: 45, desc: "Tender purple brinjal, 500 g", image: u("photo-1659261200833-ec8761558af7") },
-  { name: "Ladies Finger", price: 40, desc: "Fresh okra / vendakkai, 500 g", image: u("photo-1664христос") },
+  { name: "Ladies Finger", price: 40, desc: "Fresh okra / vendakkai, 500 g", image: u("photo-1664478547-0c6c2c1d8b78") },
   { name: "Snake Gourd", price: 35, desc: "Pudalangai, 500 g", image: u("photo-1631208781-ccb1eee4a432") },
   { name: "Bottle Gourd", price: 30, desc: "Sorakkai, 1 pc (~700 g)", image: u("photo-1664478547-77e4b6b9b0db") },
   { name: "Ridge Gourd", price: 35, desc: "Peerkangai, 500 g", image: u("photo-1599846754013-92d3a96d2e2e") },
