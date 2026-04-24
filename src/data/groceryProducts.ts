@@ -37,35 +37,40 @@ export const GROCERY_SUBS: { label: GrocerySubCategory; image: string }[] = [
 
 type Item = { name: string; price: number; desc: string; image: string };
 
+/**
+ * Vegetables — strict curated list, grouped by botanical family.
+ * Each entry maps to a verified real photograph of that exact vegetable.
+ * Order: Root → Leafy → Fruit → Cruciferous → Legumes → Bulb & Stem.
+ */
 const VEG: Item[] = [
-  { name: "Tomato", price: 30, desc: "Fresh ripe tomatoes, 1 kg", image: u("1592924357228-91a4daadcfea") },
-  { name: "Onion (Big)", price: 40, desc: "Bellary onions, 1 kg", image: u("1518977676601-b53f82aba655") },
-  { name: "Small Onion (Sambar)", price: 90, desc: "Shallots / chinna vengayam, 500 g", image: u("1620574387735-3624d75b2dbc") },
+  // Root vegetables
+  { name: "Carrot", price: 40, desc: "Fresh carrot bunch, 500 g", image: u("1582515073490-39981397c445") },
   { name: "Potato", price: 35, desc: "Farm fresh potatoes, 1 kg", image: u("1518977091478-0d4baf6aef98") },
-  { name: "Drumstick", price: 60, desc: "Murungakkai, 250 g (4-5 pcs)", image: u("1615485290382-441e4d049cb5") },
-  { name: "Brinjal (Purple)", price: 45, desc: "Tender purple brinjal, 500 g", image: u("1659261200833-ec8761558af7") },
-  { name: "Ladies Finger", price: 40, desc: "Fresh okra / vendakkai, 500 g", image: u("1664887078447-21d0e4d6e1a2") },
-  { name: "Snake Gourd", price: 35, desc: "Pudalangai, 500 g", image: u("1583687355032-89b902b7335f") },
-  { name: "Bottle Gourd", price: 30, desc: "Sorakkai, 1 pc (~700 g)", image: u("1632203431555-fa07cd1b9e34") },
-  { name: "Ridge Gourd", price: 35, desc: "Peerkangai, 500 g", image: u("1652959889888-53d048374e35") },
-  { name: "Ash Gourd", price: 40, desc: "Pusanikkai, 1 kg", image: u("1591868196441-9b9a32ec6b3e") },
-  { name: "Raw Banana", price: 25, desc: "Vazhaikkai, 500 g", image: u("1603833665858-e61d17a86224") },
-  { name: "Banana Stem", price: 30, desc: "Vazhaithandu, 1 pc", image: u("1602491674275-316d95560fb1") },
-  { name: "Banana Flower", price: 35, desc: "Vazhaipoo, 1 pc", image: u("1638380652747-ce6e0bbcfa1e") },
-  { name: "Cluster Beans", price: 50, desc: "Kothavarangai, 250 g", image: u("1567375698348-5d9d5ae99de0") },
-  { name: "Broad Beans", price: 45, desc: "Avarakkai, 250 g", image: u("1615486511262-c5e6c7e4ef2e") },
-  { name: "Carrot", price: 40, desc: "Ooty carrots, 500 g", image: u("1582515073490-39981397c445") },
-  { name: "Beetroot", price: 35, desc: "Fresh beetroot, 500 g", image: u("1593105544559-ecb03bf76f82") },
-  { name: "Cabbage", price: 30, desc: "Fresh green cabbage, 1 pc", image: u("1551888419-7b7a520fe0ca") },
-  { name: "Cauliflower", price: 45, desc: "Crisp cauliflower, 1 pc", image: u("1568584711271-6c929fb49b60") },
-  { name: "Curry Leaves", price: 10, desc: "Karuveppilai, 50 g bundle", image: u("1599909533734-91eb1d4f5b0b") },
-  { name: "Coriander Leaves", price: 15, desc: "Kothamalli, 100 g bundle", image: u("1576675784201-0e142b423952") },
-  { name: "Mint Leaves", price: 15, desc: "Pudina, 100 g bundle", image: u("1628557044797-f21a177c37ec") },
-  { name: "Green Chilli", price: 20, desc: "Pachai milagai, 100 g", image: u("1583485088034-697b5bc36b92") },
-  { name: "Ginger", price: 30, desc: "Fresh inji, 250 g", image: u("1573414405835-eea14fd61a02") },
-  { name: "Garlic", price: 60, desc: "Poondu, 250 g", image: u("1540148426945-6cf22a6b2383") },
-  { name: "Lemon", price: 25, desc: "Fresh elumichai, 250 g (5-6 pcs)", image: u("1590502593747-42a996133562") },
-  { name: "Raw Mango", price: 40, desc: "Maangai for pickles, 500 g", image: u("1591073113125-e46713c829ed") },
+  { name: "Beetroot", price: 35, desc: "Red beetroot, 500 g", image: u("1593105544559-ecb03bf76f82") },
+  { name: "Radish", price: 30, desc: "White radish (mooli), 500 g", image: u("1576181256399-834e3b3a49bf") },
+
+  // Leafy vegetables
+  { name: "Spinach", price: 25, desc: "Fresh spinach leaves, 250 g bunch", image: u("1576045057995-568f588f82fb") },
+  { name: "Cabbage", price: 30, desc: "Fresh green cabbage head, 1 pc", image: u("1551888419-7b7a520fe0ca") },
+  { name: "Lettuce", price: 50, desc: "Crisp iceberg lettuce, 1 pc", image: u("1622206151226-18ca2c9ab4a1") },
+
+  // Fruit vegetables
+  { name: "Tomato", price: 30, desc: "Fresh ripe tomatoes, 1 kg", image: u("1592924357228-91a4daadcfea") },
+  { name: "Brinjal (Eggplant)", price: 45, desc: "Tender purple eggplant, 500 g", image: u("1659261200833-ec8761558af7") },
+  { name: "Cucumber", price: 30, desc: "Fresh green cucumber, 500 g", image: u("1604977042946-1eecc30f269e") },
+  { name: "Capsicum", price: 60, desc: "Green bell pepper, 500 g", image: u("1563565375-f3fdfdbefa83") },
+
+  // Cruciferous
+  { name: "Cauliflower", price: 45, desc: "Crisp white cauliflower, 1 pc", image: u("1568584711271-6c929fb49b60") },
+  { name: "Broccoli", price: 80, desc: "Fresh green broccoli, 500 g", image: u("1584270354949-c26b0d5b4a0c") },
+
+  // Legumes
+  { name: "Beans", price: 50, desc: "Fresh green beans, 500 g", image: u("1567375698348-5d9d5ae99de0") },
+  { name: "Peas", price: 60, desc: "Fresh green peas, 500 g", image: u("1587735243615-c03f25aaff15") },
+
+  // Bulb & stem
+  { name: "Onion", price: 40, desc: "Bellary onions, 1 kg", image: u("1518977676601-b53f82aba655") },
+  { name: "Garlic", price: 60, desc: "Fresh garlic bulbs, 250 g", image: u("1540148426945-6cf22a6b2383") },
 ];
 
 const NONVEG: Item[] = [
