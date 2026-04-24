@@ -92,7 +92,7 @@ const GroceryPage = () => {
           <span className="text-[11px] text-muted-foreground">{products.length} items</span>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           {products.map((product, i) => {
             const qty = quantities[product.id] || 0;
             return (
