@@ -2,44 +2,27 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingCart, Search, Plus, Minus, Zap } from "lucide-react";
-import { allProducts } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 import BottomNav from "@/components/BottomNav";
 import { toast } from "sonner";
-
-import gcatVegetables from "@/assets/home/gcat-vegetables.jpg";
-import gcatFruits from "@/assets/home/gcat-fruits.jpg";
-import gcatSnacks from "@/assets/home/gcat-snacks.jpg";
-import gcatOil from "@/assets/home/gcat-oil.jpg";
-import gcatMasala from "@/assets/home/gcat-masala.jpg";
-import gcatAtta from "@/assets/home/gcat-atta.jpg";
-
-const grocerySubs = [
-  { label: "All", image: "", filter: "" },
-  { label: "Vegetables", image: gcatVegetables, filter: "tomato|onion|potato|vegetable|fresh" },
-  { label: "Fruits", image: gcatFruits, filter: "fruit|apple|banana|mango" },
-  { label: "Snacks", image: gcatSnacks, filter: "chips|kurkure|maggi|snack|noodle" },
-  { label: "Oil", image: gcatOil, filter: "oil|saffola|fortune|mustard|coconut" },
-  { label: "Masala", image: gcatMasala, filter: "masala|turmeric|chilli|spice" },
-  { label: "Atta & Rice", image: gcatAtta, filter: "atta|rice|wheat|flour|basmati" },
-];
+import {
+  GROCERY_PRODUCTS,
+  GROCERY_SUBS,
+  GROCERY_SUB_BY_ID,
+  type GrocerySubCategory,
+} from "@/data/groceryProducts";
 
 const GroceryPage = () => {
   const navigate = useNavigate();
   const { totalItems, addToCart } = useCart();
-  const [activeSub, setActiveSub] = useState("All");
+  const [activeSub, setActiveSub] = useState<GrocerySubCategory>("Vegetables");
   const [searchQuery, setSearchQuery] = useState("");
   const [quantities, setQuantities] = useState<Record<string, number>>({});
 
   const products = useMemo(() => {
-    let items = allProducts.filter((p) => p.category === "Grocery");
-    if (activeSub !== "All") {
-      const sub = grocerySubs.find((s) => s.label === activeSub);
-      if (sub?.filter) {
-        const regex = new RegExp(sub.filter, "i");
-        items = items.filter((p) => regex.test(p.name + " " + p.description));
-      }
-    }
+    let items = GROCERY_PRODUCTS.filter(
+      (p) => GROCERY_SUB_BY_ID[p.id] === activeSub
+    );
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       items = items.filter((p) => p.name.toLowerCase().includes(q));
@@ -56,7 +39,7 @@ const GroceryPage = () => {
     });
   };
 
-  const handleAdd = (product: typeof allProducts[0]) => {
+  const handleAdd = (product: typeof GROCERY_PRODUCTS[0]) => {
     setQuantities((prev) => ({ ...prev, [product.id]: (prev[product.id] || 0) + 1 }));
     addToCart(product, 1);
     toast.success(`${product.name} added`, { duration: 1200 });
@@ -86,21 +69,16 @@ const GroceryPage = () => {
 
       {/* Category scroll */}
       <div className="flex gap-3 px-3 py-3 overflow-x-auto scrollbar-hide glass-card-strong" style={{ borderBottom: "1px solid hsla(210, 40%, 95%, 0.08)" }}>
-        {grocerySubs.map((sub) => (
+        {GROCERY_SUBS.map((sub) => (
           <button key={sub.label} onClick={() => setActiveSub(sub.label)} className="flex-shrink-0 flex flex-col items-center gap-1.5">
             <div
               className="w-14 h-14 rounded-full overflow-hidden border-2 flex items-center justify-center"
               style={{
                 borderColor: activeSub === sub.label ? "hsl(145, 65%, 38%)" : "hsla(210, 40%, 95%, 0.15)",
-                background: sub.image ? "transparent" : "hsl(145, 65%, 38%)",
                 boxShadow: activeSub === sub.label ? "0 2px 8px hsla(145, 65%, 38%, 0.3)" : "none",
               }}
             >
-              {sub.image ? (
-                <img src={sub.image} alt={sub.label} className="w-full h-full object-cover" loading="lazy" />
-              ) : (
-                <span className="text-white text-lg font-bold">All</span>
-              )}
+              <img src={sub.image} alt={sub.label} className="w-full h-full object-cover" loading="lazy" />
             </div>
             <span className="text-[10px] font-medium whitespace-nowrap" style={{ color: activeSub === sub.label ? "hsl(145, 65%, 50%)" : undefined }}>{sub.label}</span>
           </button>
@@ -110,11 +88,11 @@ const GroceryPage = () => {
       {/* Products grid */}
       <div className="px-3 py-3">
         <div className="flex items-center justify-between mb-3 px-1">
-          <h2 className="text-sm font-bold text-foreground">{activeSub === "All" ? "All Products" : activeSub}</h2>
+          <h2 className="text-sm font-bold text-foreground">{activeSub}</h2>
           <span className="text-[11px] text-muted-foreground">{products.length} items</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-3">
           {products.map((product, i) => {
             const qty = quantities[product.id] || 0;
             return (
@@ -134,8 +112,8 @@ const GroceryPage = () => {
                   )}
                 </div>
                 <div className="px-2 pb-2">
-                  <p className="text-[10px] font-medium truncate text-foreground">{product.name}</p>
-                  <p className="text-[9px] mt-0.5 text-muted-foreground">{product.description.split(",")[0].slice(0, 25)}</p>
+                  <p className="text-[11px] font-semibold truncate text-foreground">{product.name}</p>
+                  <p className="text-[9px] mt-0.5 text-muted-foreground truncate">{product.description}</p>
                   <div className="flex items-center justify-between mt-1.5">
                     <span className="text-xs font-bold text-foreground">₹{product.price}</span>
                     {qty > 0 ? (
