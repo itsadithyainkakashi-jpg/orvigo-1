@@ -9,6 +9,9 @@ import {
   GROCERY_PRODUCTS,
   GROCERY_SUBS,
   GROCERY_SUB_BY_ID,
+  GROCERY_FALLBACKS,
+  GROCERY_GENERIC_FALLBACK,
+  getGroceryFallback,
   type GrocerySubCategory,
 } from "@/data/groceryProducts";
 
@@ -78,7 +81,16 @@ const GroceryPage = () => {
                 boxShadow: activeSub === sub.label ? "0 2px 8px hsla(145, 65%, 38%, 0.3)" : "none",
               }}
             >
-              <img src={sub.image} alt={sub.label} className="w-full h-full object-cover" loading="lazy" />
+              <img
+                src={sub.image || GROCERY_FALLBACKS[sub.label] || GROCERY_GENERIC_FALLBACK}
+                alt={sub.label}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) => {
+                  const fb = GROCERY_FALLBACKS[sub.label] || GROCERY_GENERIC_FALLBACK;
+                  if (e.currentTarget.src !== fb) e.currentTarget.src = fb;
+                }}
+              />
             </div>
             <span className="text-[10px] font-medium whitespace-nowrap" style={{ color: activeSub === sub.label ? "hsl(145, 65%, 50%)" : undefined }}>{sub.label}</span>
           </button>
@@ -106,7 +118,16 @@ const GroceryPage = () => {
                 onClick={() => navigate(`/product/${product.id}`)}
               >
                 <div className="relative aspect-square p-2">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-cover rounded-xl" loading="lazy" />
+                  <img
+                    src={product.image || getGroceryFallback(product.id)}
+                    alt={product.name}
+                    className="w-full h-full object-cover rounded-xl"
+                    loading="lazy"
+                    onError={(e) => {
+                      const fb = getGroceryFallback(product.id);
+                      if (e.currentTarget.src !== fb) e.currentTarget.src = fb;
+                    }}
+                  />
                   {product.badge && (
                     <span className="absolute top-1 left-1 text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white" style={{ background: "hsl(0, 70%, 50%)" }}>{product.badge}</span>
                   )}
