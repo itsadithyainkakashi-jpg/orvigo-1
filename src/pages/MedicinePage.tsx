@@ -51,42 +51,10 @@ const MedicinePage = () => {
         </div>
       </div>
 
-      {/* Upload prescription */}
-      <div className="mx-4 mt-3 rounded-2xl p-3 flex items-center gap-3 glass-card">
-        <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(200, 75%, 40%)" }}>
-          <Upload size={18} color="white" />
-        </div>
-        <div className="flex-1">
-          <p className="text-xs font-bold text-foreground">Upload Prescription</p>
-          <p className="text-[10px] text-muted-foreground">Get medicines delivered to your door</p>
-        </div>
-        <motion.button whileTap={{ scale: 0.95 }} className="px-3 py-1.5 rounded-lg text-[10px] font-bold text-white" style={{ background: "hsl(200, 75%, 40%)" }} onClick={() => toast.info("Prescription upload coming soon!")}>
-          Upload
-        </motion.button>
-      </div>
-
-      {/* Category tabs */}
-      <div className="flex gap-2 px-4 py-3 overflow-x-auto scrollbar-hide">
-        {medCategories.map((cat) => (
-          <button
-            key={cat.label}
-            onClick={() => setActiveCat(cat.label)}
-            className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all"
-            style={{
-              background: activeCat === cat.label ? "hsl(200, 75%, 40%)" : undefined,
-              color: activeCat === cat.label ? "white" : undefined,
-            }}
-          >
-            <span>{cat.icon}</span>
-            {cat.label}
-          </button>
-        ))}
-      </div>
-
       {/* Products */}
-      <div className="px-4">
+      <div className="px-4 pt-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-bold text-foreground">{activeCat === "All" ? "All Medicines" : activeCat}</h2>
+          <h2 className="text-sm font-bold text-foreground">All Medicines</h2>
           <span className="text-[11px] text-muted-foreground">{products.length} items</span>
         </div>
 
