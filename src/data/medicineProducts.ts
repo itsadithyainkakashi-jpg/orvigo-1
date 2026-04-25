@@ -2,6 +2,16 @@ import type { Product } from "@/contexts/CartContext";
 import whisperUltraGreen from "@/assets/medicine/whisper-ultra-green.jpg";
 import whisperChoiceOrange from "@/assets/medicine/whisper-choice-orange.jpg";
 import rioCottonySoft from "@/assets/medicine/rio-cottony-soft.jpg";
+import pan40 from "@/assets/medicine/pan-40.jpg";
+import digeneOrange from "@/assets/medicine/digene-orange.jpg";
+import voliniGel from "@/assets/medicine/volini-gel.jpg";
+import voliniSpray from "@/assets/medicine/volini-spray.jpg";
+import saridon from "@/assets/medicine/saridon.jpg";
+import cofsilsOrange from "@/assets/medicine/cofsils-orange.jpg";
+import vicksLozenges from "@/assets/medicine/vicks-lozenges.jpg";
+import digitalThermometer from "@/assets/medicine/digital-thermometer.jpg";
+import vicksInhaler from "@/assets/medicine/vicks-inhaler.jpg";
+import kofletH from "@/assets/medicine/koflet-h.jpg";
 
 /**
  * Medicine catalog — manually curated.
@@ -45,6 +55,76 @@ const ITEMS: Item[] = [
     price: 120,
     desc: "XL, 14 Pads + 1 Free",
     image: rioCottonySoft,
+  },
+  {
+    id: "m-pan-40-15",
+    name: "Pantoprazole PAN 40 Tablets",
+    price: 120,
+    desc: "40 mg, Strip of 15 tablets",
+    image: pan40,
+  },
+  {
+    id: "m-digene-orange-15",
+    name: "Digene Orange Tablets",
+    price: 95,
+    desc: "Strip of 15 tablets",
+    image: digeneOrange,
+  },
+  {
+    id: "m-volini-gel-100",
+    name: "Volini Pain Relief Gel",
+    price: 180,
+    desc: "100 g",
+    image: voliniGel,
+  },
+  {
+    id: "m-volini-spray-100",
+    name: "Volini Pain Relief Spray",
+    price: 220,
+    desc: "100 g",
+    image: voliniSpray,
+  },
+  {
+    id: "m-saridon-10",
+    name: "Saridon Tablets",
+    price: 50,
+    desc: "Strip of 10 tablets",
+    image: saridon,
+  },
+  {
+    id: "m-cofsils-orange-10",
+    name: "Cofsils Orange Lozenges",
+    price: 30,
+    desc: "Strip of 10 lozenges",
+    image: cofsilsOrange,
+  },
+  {
+    id: "m-vicks-lozenges-16",
+    name: "Vicks Medicated Lozenges",
+    price: 60,
+    desc: "16 lozenges",
+    image: vicksLozenges,
+  },
+  {
+    id: "m-digital-thermometer",
+    name: "Digital Thermometer",
+    price: 150,
+    desc: "1 unit",
+    image: digitalThermometer,
+  },
+  {
+    id: "m-vicks-inhaler-2",
+    name: "Vicks Inhaler Pack",
+    price: 122,
+    desc: "Pack of 2",
+    image: vicksInhaler,
+  },
+  {
+    id: "m-koflet-h-6",
+    name: "Himalaya Koflet-H Lozenges",
+    price: 70,
+    desc: "Pack of 6",
+    image: kofletH,
   },
 ];
 
