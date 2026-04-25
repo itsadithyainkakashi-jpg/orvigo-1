@@ -72,7 +72,7 @@ const MedicineProductImage = ({ productId, src, alt, className }: Props) => {
         loading="lazy"
         onLoad={() => setLoaded(true)}
         onError={handleError}
-        className="relative w-full h-full object-cover rounded-xl transition-opacity duration-200"
+        className="relative w-full h-full object-contain rounded-xl transition-opacity duration-200"
         style={{ opacity: loaded ? 1 : 0 }}
       />
     </div>
