@@ -104,6 +104,9 @@ const PRODUCT_FALLBACKS: Record<string, string> = {
   m23: px("3683055"),   // Vitamin C alt
   m24: px("3683100"),   // Calcium alt
   m25: px("14064886"),  // Protein Bars alt
+  m26: whisperUltraGreen,    // Whisper Ultra — local asset, self-fallback
+  m27: whisperChoiceOrange,  // Whisper Choice — local asset, self-fallback
+  m28: rioCottonySoft,       // RIO Cottony — local asset, self-fallback
 };
 
 export const getMedicineFallback = (productId: string): string =>
