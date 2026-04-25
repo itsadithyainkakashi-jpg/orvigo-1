@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ShoppingCart, Search, Shield, Upload } from "lucide-react";
+import { ShoppingCart, Search, Shield } from "lucide-react";
 import { MEDICINE_PRODUCTS } from "@/data/medicineProducts";
 import type { Product } from "@/contexts/CartContext";
 import { useCart } from "@/contexts/CartContext";
@@ -9,34 +9,19 @@ import BottomNav from "@/components/BottomNav";
 import MedicineProductImage from "@/components/MedicineProductImage";
 import { toast } from "sonner";
 
-const medCategories = [
-  { label: "All", icon: "💊" },
-  { label: "Tablets", icon: "💉", filter: "tablet|capsule|paracetamol|cetirizine|ibuprofen|vitamin|zinc|calcium" },
-  { label: "Syrups", icon: "🧴", filter: "syrup|liquid|cough|cold|digestive|throat|vaporub|drink" },
-  { label: "Health Care", icon: "💪", filter: "protein|omega|multivitamin|calcium|health|supplement|chyawanprash|nutrition|sanitizer|mask|bandage|band-aid|cotton|thermometer|pad|spray|cream|relief|ors|electral|glucon" },
-];
-
 const MedicinePage = () => {
   const navigate = useNavigate();
   const { totalItems, addToCart } = useCart();
-  const [activeCat, setActiveCat] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
   const products = useMemo(() => {
     let items: Product[] = MEDICINE_PRODUCTS;
-    if (activeCat !== "All") {
-      const cat = medCategories.find((c) => c.label === activeCat);
-      if (cat?.filter) {
-        const regex = new RegExp(cat.filter, "i");
-        items = items.filter((p) => regex.test(p.name + " " + (p.description ?? "")));
-      }
-    }
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       items = items.filter((p) => p.name.toLowerCase().includes(q));
     }
     return items;
-  }, [activeCat, searchQuery]);
+  }, [searchQuery]);
 
   const handleAdd = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
