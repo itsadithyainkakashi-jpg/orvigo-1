@@ -12,6 +12,10 @@ import vicksLozenges from "@/assets/medicine/vicks-lozenges.jpg";
 import digitalThermometer from "@/assets/medicine/digital-thermometer.jpg";
 import vicksInhaler from "@/assets/medicine/vicks-inhaler.jpg";
 import kofletH from "@/assets/medicine/koflet-h.jpg";
+import evion400 from "@/assets/medicine/evion-400.jpg";
+import prolyteOrsDrink from "@/assets/medicine/prolyte-ors-drink.jpg";
+import orsPowderSachet from "@/assets/medicine/ors-powder-sachet.jpg";
+import nicotexGum from "@/assets/medicine/nicotex-gum.jpg";
 
 /**
  * Medicine catalog — manually curated.
@@ -125,6 +129,34 @@ const ITEMS: Item[] = [
     price: 70,
     desc: "Pack of 6",
     image: kofletH,
+  },
+  {
+    id: "m-evion-400-20",
+    name: "Evion 400 Vitamin E Capsules",
+    price: 95,
+    desc: "Strip of 20 capsules",
+    image: evion400,
+  },
+  {
+    id: "m-prolyte-ors-drink-200",
+    name: "Prolyte ORS Drink",
+    price: 35,
+    desc: "200 ml",
+    image: prolyteOrsDrink,
+  },
+  {
+    id: "m-ors-powder-sachet-1",
+    name: "ORS Powder Sachet",
+    price: 20,
+    desc: "1 Sachet",
+    image: orsPowderSachet,
+  },
+  {
+    id: "m-nicotex-gum-10",
+    name: "Nicotex Nicotine Gum",
+    price: 120,
+    desc: "4 mg, 10 gums",
+    image: nicotexGum,
   },
 ];
 
