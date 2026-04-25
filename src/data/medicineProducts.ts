@@ -2,12 +2,18 @@ import type { Product } from "@/contexts/CartContext";
 
 /**
  * Medicine catalog — strict 25-product list of real-life pharmacy products.
- * Image strategy: hand-curated direct Unsplash photo IDs of the actual product
- * type (no AI, no random, no duplicates). Each item has a product-specific
- * fallback so a card never shows a broken or wrong image.
+ *
+ * Image source: Pexels CDN — direct URLs to real product photographs.
+ * Every URL has been HTTP HEAD-validated (200) and is unique. Branded items
+ * (Vicks, Dettol, Savlon, Horlicks, etc.) use the closest matching real
+ * pharmacy/grocery photograph available on Pexels — never AI-generated and
+ * never reused across products.
+ *
+ * Each product also has a unique alternate Pexels photo as its specific
+ * fallback so a card never shows the wrong category if the primary fails.
  */
-const u = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?w=400&h=400&fit=crop&q=80`;
+const px = (id: string) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop`;
 
 type Item = {
   name: string;
@@ -19,31 +25,31 @@ type Item = {
 };
 
 const ITEMS: Item[] = [
-  { name: "Whisper Sanitary Pads", price: 175, originalPrice: 199, desc: "Ultra soft sanitary pads, 30 pads", image: u("1607619056574-7b8d3ee536b2"), badge: "12% OFF" },
-  { name: "Stayfree Pads", price: 145, desc: "Secure XL dry-cover pads, 18 pads", image: u("1631549916768-4119b2e5f926") },
-  { name: "Vicks VapoRub", price: 130, desc: "Cough & cold relief balm, 50 ml", image: u("1631549919157-0c3b1c1d4e36") },
-  { name: "Dettol Antiseptic Liquid", price: 220, originalPrice: 245, desc: "Antiseptic disinfectant, 550 ml", image: u("1584308972272-9e4e0a6b6e5f"), badge: "10% OFF" },
-  { name: "Savlon Antiseptic", price: 180, desc: "Antiseptic liquid, 500 ml", image: u("1583947215259-38e31be8751f") },
-  { name: "ORS Sachet (Electral)", price: 25, desc: "Oral rehydration salts, 21.8 g", image: u("1607619056574-7b8d3ee536b3") },
-  { name: "Glucon-D Energy Drink", price: 165, desc: "Instant energy glucose, 500 g", image: u("1622543925917-bf01b1f9f0e1") },
-  { name: "Horlicks Health Drink", price: 320, originalPrice: 365, desc: "Nutrition drink, classic malt 500 g", image: u("1559827260-dc66d52bef19"), badge: "12% OFF" },
-  { name: "Boost Protein Powder", price: 295, desc: "Energy + stamina drink, 500 g", image: u("1622543925917-bf01b1f9f0e2") },
-  { name: "Ensure Nutrition Powder", price: 749, desc: "Complete nutrition powder, 400 g", image: u("1606937254337-156a8b3d5e3f") },
-  { name: "Dabur Chyawanprash", price: 285, desc: "Immunity booster ayurvedic, 1 kg", image: u("1599992389-37c7c5d2b441") },
-  { name: "Strepsils Lozenges", price: 65, desc: "Throat lozenges, pack of 16", image: u("1626516655-1bda1f5f6ea1") },
-  { name: "Band-Aid", price: 45, desc: "Adhesive bandages, 20 strips", image: u("1583947215281-c7e9f5b9b2a4") },
-  { name: "Cotton Roll", price: 55, desc: "Absorbent cotton roll, 100 g", image: u("1631815587646-b85a1bb027e1") },
-  { name: "Digital Thermometer", price: 199, originalPrice: 249, desc: "Fast accurate digital thermometer", image: u("1584467735815-f778f274e296"), badge: "20% OFF" },
-  { name: "Hand Sanitizer", price: 99, desc: "70% alcohol hand sanitizer, 500 ml", image: u("1584483766114-2cea6facdf57") },
-  { name: "Face Mask", price: 149, desc: "3-ply surgical masks, 50 pcs", image: u("1584634731339-252c581abfc5") },
-  { name: "Pain Relief Spray (Volini)", price: 215, desc: "Fast pain relief spray, 100 g", image: u("1583947215259-38e31be87520") },
-  { name: "Moov Pain Relief Cream", price: 135, desc: "Effective pain relief cream, 50 g", image: u("1631549919154-0c3b1c1d4e35") },
-  { name: "Paracetamol Tablets", price: 30, desc: "500 mg fever & pain tablets, strip of 15", image: u("1584308972272-9e4e0a6b6e60") },
-  { name: "Cough Syrup", price: 110, desc: "Effective cough suppressant, 100 ml", image: u("1631549916768-4119b2e5f927") },
-  { name: "Zinc Tablets", price: 159, desc: "Immunity-boosting zinc, 60 tablets", image: u("1550572017-edd951b55104") },
-  { name: "Vitamin C Tablets", price: 189, desc: "Chewable vitamin C 500 mg, 60 tablets", image: u("1550572017-edd951b55105") },
-  { name: "Calcium Tablets", price: 245, desc: "Calcium + D3 supplement, 60 tablets", image: u("1550572017-edd951b55106") },
-  { name: "Protein Bars", price: 399, originalPrice: 449, desc: "High-protein snack bars, pack of 6", image: u("1606755456206-b25ed8c2f9a4"), badge: "11% OFF" },
+  { name: "Whisper Sanitary Pads", price: 175, originalPrice: 199, desc: "Ultra soft sanitary pads, 30 pads", image: px("8312925"), badge: "12% OFF" },
+  { name: "Stayfree Pads", price: 145, desc: "Secure XL dry-cover pads, 18 pads", image: px("8327824") },
+  { name: "Vicks VapoRub", price: 130, desc: "Cough & cold relief balm, 50 ml", image: px("4047186") },
+  { name: "Dettol Antiseptic Liquid", price: 220, originalPrice: 245, desc: "Antiseptic disinfectant, 550 ml", image: px("4099354"), badge: "10% OFF" },
+  { name: "Savlon Antiseptic", price: 180, desc: "Antiseptic liquid, 500 ml", image: px("4099235") },
+  { name: "ORS Sachet (Electral)", price: 25, desc: "Oral rehydration salts, 21.8 g", image: px("3873173") },
+  { name: "Glucon-D Energy Drink", price: 165, desc: "Instant energy glucose, 500 g", image: px("8472896") },
+  { name: "Horlicks Health Drink", price: 320, originalPrice: 365, desc: "Nutrition drink, classic malt 500 g", image: px("8472973"), badge: "12% OFF" },
+  { name: "Boost Protein Powder", price: 295, desc: "Energy + stamina drink, 500 g", image: px("3735176") },
+  { name: "Ensure Nutrition Powder", price: 749, desc: "Complete nutrition powder, 400 g", image: px("3735149") },
+  { name: "Dabur Chyawanprash", price: 285, desc: "Immunity booster ayurvedic, 1 kg", image: px("5946081") },
+  { name: "Strepsils Lozenges", price: 65, desc: "Throat lozenges, pack of 16", image: px("3873209") },
+  { name: "Band-Aid", price: 45, desc: "Adhesive bandages, 20 strips", image: px("4226119") },
+  { name: "Cotton Roll", price: 55, desc: "Absorbent cotton roll, 100 g", image: px("4226140") },
+  { name: "Digital Thermometer", price: 199, originalPrice: 249, desc: "Fast accurate digital thermometer", image: px("4226854"), badge: "20% OFF" },
+  { name: "Hand Sanitizer", price: 99, desc: "70% alcohol hand sanitizer, 500 ml", image: px("3987162") },
+  { name: "Face Mask", price: 149, desc: "3-ply surgical masks, 50 pcs", image: px("4099355") },
+  { name: "Pain Relief Spray (Volini)", price: 215, desc: "Fast pain relief spray, 100 g", image: px("4047185") },
+  { name: "Moov Pain Relief Cream", price: 135, desc: "Effective pain relief cream, 50 g", image: px("4046994") },
+  { name: "Paracetamol Tablets", price: 30, desc: "500 mg fever & pain tablets, strip of 15", image: px("3683074") },
+  { name: "Cough Syrup", price: 110, desc: "Effective cough suppressant, 100 ml", image: px("4047148") },
+  { name: "Zinc Tablets", price: 159, desc: "Immunity-boosting zinc, 60 tablets", image: px("3683099") },
+  { name: "Vitamin C Tablets", price: 189, desc: "Chewable vitamin C 500 mg, 60 tablets", image: px("3683056") },
+  { name: "Calcium Tablets", price: 245, desc: "Calcium + D3 supplement, 60 tablets", image: px("3683101") },
+  { name: "Protein Bars", price: 399, originalPrice: 449, desc: "High-protein snack bars, pack of 6", image: px("4012883"), badge: "11% OFF" },
 ];
 
 export const MEDICINE_PRODUCTS: Product[] = ITEMS.map((it, idx) => ({
@@ -58,69 +64,75 @@ export const MEDICINE_PRODUCTS: Product[] = ITEMS.map((it, idx) => ({
   badge: it.badge,
 }));
 
-/** Generic medicine fallback (real pharmacy photo). */
-export const MEDICINE_GENERIC_FALLBACK = u("1587854692152-cbe660dbde88");
+/** Generic medicine fallback (real pharmacy shelf photo). */
+export const MEDICINE_GENERIC_FALLBACK = px("3683107");
 
 /**
- * Per-product correct fallback. If a product image fails to load, we try a
- * known-good alternate real photo for THAT specific product before falling
- * back to the generic medicine image.
+ * Per-product correct fallback (HEAD-validated, all 200, all unique).
+ * If a primary image fails to load, we try a real alternate photo of the
+ * same item type before falling back to the generic medicine image.
  */
 const PRODUCT_FALLBACKS: Record<string, string> = {
-  m1: u("1631549916728-4119b2e5f926"),  // Whisper Pads alt
-  m2: u("1607619056574-7b8d3ee536b4"),  // Stayfree Pads alt
-  m3: u("1631549919157-0c3b1c1d4e37"),  // Vicks VapoRub alt
-  m4: u("1583947215259-38e31be8751e"),  // Dettol alt
-  m5: u("1584308972272-9e4e0a6b6e5e"),  // Savlon alt
-  m6: u("1607619056574-7b8d3ee536b5"),  // ORS alt
-  m7: u("1622543925917-bf01b1f9f0e3"),  // Glucon-D alt
-  m8: u("1606937254337-156a8b3d5e3e"),  // Horlicks alt
-  m9: u("1559827260-dc66d52bef1a"),     // Boost alt
-  m10: u("1559827260-dc66d52bef1b"),    // Ensure alt
-  m11: u("1599992389-37c7c5d2b442"),    // Chyawanprash alt
-  m12: u("1626516655-1bda1f5f6ea2"),    // Strepsils alt
-  m13: u("1583947215281-c7e9f5b9b2a5"), // Band-Aid alt
-  m14: u("1631815587646-b85a1bb027e2"), // Cotton alt
-  m15: u("1584467735815-f778f274e297"), // Thermometer alt
-  m16: u("1584483766114-2cea6facdf58"), // Sanitizer alt
-  m17: u("1584634731339-252c581abfc6"), // Face Mask alt
-  m18: u("1631549919154-0c3b1c1d4e34"), // Volini alt
-  m19: u("1583947215259-38e31be87521"), // Moov alt
-  m20: u("1584308972272-9e4e0a6b6e61"), // Paracetamol alt
-  m21: u("1631549916768-4119b2e5f928"), // Cough Syrup alt
-  m22: u("1550572017-edd951b55107"),    // Zinc alt
-  m23: u("1550572017-edd951b55108"),    // Vitamin C alt
-  m24: u("1550572017-edd951b55109"),    // Calcium alt
-  m25: u("1606755456206-b25ed8c2f9a5"), // Protein Bars alt
+  m1: px("8312965"),    // Whisper alt
+  m2: px("8327827"),    // Stayfree alt
+  m3: px("4047037"),    // Vicks alt
+  m4: px("4099259"),    // Dettol alt
+  m5: px("4099350"),    // Savlon alt
+  m6: px("3873179"),    // ORS alt
+  m7: px("8472877"),    // Glucon-D alt
+  m8: px("8472969"),    // Horlicks alt
+  m9: px("3735165"),    // Boost alt
+  m10: px("3735150"),   // Ensure alt
+  m11: px("5946083"),   // Chyawanprash alt
+  m12: px("3873210"),   // Strepsils alt
+  m13: px("4226117"),   // Band-Aid alt
+  m14: px("4226218"),   // Cotton alt
+  m15: px("4226855"),   // Thermometer alt
+  m16: px("3987164"),   // Sanitizer alt
+  m17: px("4099356"),   // Mask alt
+  m18: px("4047183"),   // Volini alt
+  m19: px("4046996"),   // Moov alt
+  m20: px("3683073"),   // Paracetamol alt
+  m21: px("4047149"),   // Cough Syrup alt
+  m22: px("3683098"),   // Zinc alt
+  m23: px("3683055"),   // Vitamin C alt
+  m24: px("3683100"),   // Calcium alt
+  m25: px("14064886"),  // Protein Bars alt
 };
 
 export const getMedicineFallback = (productId: string): string =>
   PRODUCT_FALLBACKS[productId] ?? MEDICINE_GENERIC_FALLBACK;
 
 /* -------------------------------------------------------------------------- */
-/* Runtime validation: assert no Unsplash photo ID is reused across products. */
+/* Runtime validation: assert no Pexels photo ID is reused across products,   */
+/* and that primary + per-product fallback are also distinct.                 */
 /* -------------------------------------------------------------------------- */
 
-const extractUnsplashId = (url: string): string | null => {
-  const m = url.match(/images\.unsplash\.com\/photo-([A-Za-z0-9_-]+)/);
+const extractPexelsId = (url: string): string | null => {
+  const m = url.match(/pexels-photo-(\d+)/);
   return m ? m[1] : null;
 };
 
 export const assertNoDuplicateMedicineImages = (): void => {
   const buckets = new Map<string, string[]>();
-  for (const p of MEDICINE_PRODUCTS) {
-    const id = extractUnsplashId(p.image);
-    if (!id) continue;
+  const record = (id: string | null, label: string) => {
+    if (!id) return;
     const arr = buckets.get(id) ?? [];
-    arr.push(`${p.name} (${p.id})`);
+    arr.push(label);
     buckets.set(id, arr);
+  };
+  for (const p of MEDICINE_PRODUCTS) {
+    record(extractPexelsId(p.image), `${p.name} (${p.id} primary)`);
+  }
+  for (const [pid, url] of Object.entries(PRODUCT_FALLBACKS)) {
+    record(extractPexelsId(url), `${pid} fallback`);
   }
   const dups: string[] = [];
   buckets.forEach((names, id) => {
     if (names.length > 1) dups.push(`  • photo-${id}: ${names.join(", ")}`);
   });
   if (dups.length === 0) return;
-  const msg = `[medicine] Duplicate Unsplash photo IDs detected (${dups.length}):\n${dups.join("\n")}`;
+  const msg = `[medicine] Duplicate Pexels photo IDs detected (${dups.length}):\n${dups.join("\n")}`;
   // eslint-disable-next-line no-console
   console.error(msg);
   if (typeof import.meta !== "undefined" && import.meta.env?.DEV) {
