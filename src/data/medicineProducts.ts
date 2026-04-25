@@ -1,4 +1,7 @@
 import type { Product } from "@/contexts/CartContext";
+import whisperUltraGreen from "@/assets/medicine/whisper-ultra-green.jpg";
+import whisperChoiceOrange from "@/assets/medicine/whisper-choice-orange.jpg";
+import rioCottonySoft from "@/assets/medicine/rio-cottony-soft.jpg";
 
 /**
  * Medicine catalog — strict 25-product list of real-life pharmacy products.
@@ -50,6 +53,9 @@ const ITEMS: Item[] = [
   { name: "Vitamin C Tablets", price: 189, desc: "Chewable vitamin C 500 mg, 60 tablets", image: px("3683056") },
   { name: "Calcium Tablets", price: 245, desc: "Calcium + D3 supplement, 60 tablets", image: px("3683101") },
   { name: "Protein Bars", price: 399, originalPrice: 449, desc: "High-protein snack bars, pack of 6", image: px("4012883"), badge: "11% OFF" },
+  { name: "Whisper Ultra Hygiene Sanitary Pads", price: 224, originalPrice: 299, desc: "XL, 8 Pads (284 mm)", image: whisperUltraGreen, badge: "25% OFF" },
+  { name: "Whisper Choice Ultra Sanitary Napkin", price: 45, desc: "XL, 6 Pads with wings", image: whisperChoiceOrange },
+  { name: "RIO Cottony Soft Sanitary Pads", price: 120, desc: "XL, 14 Pads + 1 Free, anti-rash", image: rioCottonySoft },
 ];
 
 export const MEDICINE_PRODUCTS: Product[] = ITEMS.map((it, idx) => ({
@@ -98,6 +104,9 @@ const PRODUCT_FALLBACKS: Record<string, string> = {
   m23: px("3683055"),   // Vitamin C alt
   m24: px("3683100"),   // Calcium alt
   m25: px("14064886"),  // Protein Bars alt
+  m26: whisperUltraGreen,    // Whisper Ultra — local asset, self-fallback
+  m27: whisperChoiceOrange,  // Whisper Choice — local asset, self-fallback
+  m28: rioCottonySoft,       // RIO Cottony — local asset, self-fallback
 };
 
 export const getMedicineFallback = (productId: string): string =>
