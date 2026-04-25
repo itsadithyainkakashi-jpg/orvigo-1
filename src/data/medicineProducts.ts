@@ -2,6 +2,16 @@ import type { Product } from "@/contexts/CartContext";
 import whisperUltraGreen from "@/assets/medicine/whisper-ultra-green.jpg";
 import whisperChoiceOrange from "@/assets/medicine/whisper-choice-orange.jpg";
 import rioCottonySoft from "@/assets/medicine/rio-cottony-soft.jpg";
+import pan40 from "@/assets/medicine/pan-40.jpg";
+import digeneOrange from "@/assets/medicine/digene-orange.jpg";
+import voliniGel from "@/assets/medicine/volini-gel.jpg";
+import voliniSpray from "@/assets/medicine/volini-spray.jpg";
+import saridon from "@/assets/medicine/saridon.jpg";
+import cofsilsOrange from "@/assets/medicine/cofsils-orange.jpg";
+import vicksLozenges from "@/assets/medicine/vicks-lozenges.jpg";
+import digitalThermometer from "@/assets/medicine/digital-thermometer.jpg";
+import vicksInhaler from "@/assets/medicine/vicks-inhaler.jpg";
+import kofletH from "@/assets/medicine/koflet-h.jpg";
 
 /**
  * Medicine catalog — manually curated.
