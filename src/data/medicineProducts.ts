@@ -16,6 +16,13 @@ import evion400 from "@/assets/medicine/evion-400.jpg";
 import prolyteOrsDrink from "@/assets/medicine/prolyte-ors-drink.jpg";
 import orsPowderSachet from "@/assets/medicine/ors-powder-sachet.jpg";
 import nicotexGum from "@/assets/medicine/nicotex-gum.jpg";
+import strepsilsOrange from "@/assets/medicine/strepsils-orange.jpg";
+import cetcip from "@/assets/medicine/cetcip.jpg";
+import pantosec from "@/assets/medicine/pantosec.jpg";
+import ophthaCare from "@/assets/medicine/ophtha-care.jpg";
+import refreshTears from "@/assets/medicine/refresh-tears.jpg";
+import systaneHydration from "@/assets/medicine/systane-hydration.jpg";
+import moxiblu from "@/assets/medicine/moxiblu.jpg";
 
 /**
  * Medicine catalog — manually curated.
@@ -34,6 +41,7 @@ type Item = {
   desc: string;   // Size / Unit
   image: string;
   badge?: string;
+  rxRequired?: boolean;
 };
 
 const ITEMS: Item[] = [
@@ -158,6 +166,64 @@ const ITEMS: Item[] = [
     desc: "4 mg, 10 gums",
     image: nicotexGum,
   },
+  {
+    id: "m-strepsils-orange-24",
+    name: "Strepsils Orange Lozenges",
+    price: 120,
+    desc: "24 lozenges",
+    image: strepsilsOrange,
+    badge: "Throat Relief",
+  },
+  {
+    id: "m-cetcip-10",
+    name: "Cetcip (Cetirizine 10mg)",
+    price: 35,
+    desc: "Strip of 10 tablets",
+    image: cetcip,
+    badge: "Allergy Relief",
+  },
+  {
+    id: "m-pantosec-15",
+    name: "Pantosec (Pantoprazole 40mg)",
+    price: 110,
+    desc: "Strip of 15 tablets",
+    image: pantosec,
+    badge: "Acidity",
+    rxRequired: true,
+  },
+  {
+    id: "m-ophtha-care-10",
+    name: "Himalaya Ophtha Care Eye Drops",
+    price: 95,
+    desc: "10 ml",
+    image: ophthaCare,
+    badge: "Eye Care",
+  },
+  {
+    id: "m-refresh-tears-15",
+    name: "Refresh Tears Eye Drops",
+    price: 180,
+    desc: "15 ml",
+    image: refreshTears,
+    badge: "Eye Lubricant",
+  },
+  {
+    id: "m-systane-hydration-10",
+    name: "Systane Hydration Eye Drops",
+    price: 350,
+    desc: "10 ml",
+    image: systaneHydration,
+    badge: "Advanced Eye Care",
+  },
+  {
+    id: "m-moxiblu-5",
+    name: "Moxifloxacin Eye Drops",
+    price: 120,
+    desc: "5 ml",
+    image: moxiblu,
+    badge: "Eye Infection",
+    rxRequired: true,
+  },
 ];
 
 export const MEDICINE_PRODUCTS: Product[] = ITEMS.map((it, idx) => ({
@@ -171,6 +237,11 @@ export const MEDICINE_PRODUCTS: Product[] = ITEMS.map((it, idx) => ({
   description: it.desc,
   badge: it.badge,
 }));
+
+/** Set of product IDs that require a prescription (Rx). */
+export const RX_REQUIRED_IDS: Set<string> = new Set(
+  ITEMS.filter((it) => it.rxRequired).map((it) => it.id),
+);
 
 /**
  * Fallback image for the MedicineProductImage component.

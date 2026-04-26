@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingCart, Search, Shield } from "lucide-react";
-import { MEDICINE_PRODUCTS } from "@/data/medicineProducts";
+import { MEDICINE_PRODUCTS, RX_REQUIRED_IDS } from "@/data/medicineProducts";
 import type { Product } from "@/contexts/CartContext";
 import { useCart } from "@/contexts/CartContext";
 import BottomNav from "@/components/BottomNav";
@@ -76,10 +76,19 @@ const MedicinePage = () => {
                 <p className="text-[11px] font-semibold text-foreground line-clamp-2 leading-tight min-h-[28px]">
                   {product.name}
                 </p>
-                {product.badge && (
-                  <span className="inline-block self-start mt-1 text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white" style={{ background: "hsl(200, 75%, 40%)" }}>
-                    {product.badge}
-                  </span>
+                {(product.badge || RX_REQUIRED_IDS.has(product.id)) && (
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {product.badge && (
+                      <span className="inline-block text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white" style={{ background: "hsl(200, 75%, 40%)" }}>
+                        {product.badge}
+                      </span>
+                    )}
+                    {RX_REQUIRED_IDS.has(product.id) && (
+                      <span className="inline-block text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white" style={{ background: "hsl(0, 75%, 50%)" }}>
+                        Rx Required
+                      </span>
+                    )}
+                  </div>
                 )}
                 <div className="flex items-center justify-between mt-auto pt-1.5">
                   <div className="flex flex-col leading-none">
