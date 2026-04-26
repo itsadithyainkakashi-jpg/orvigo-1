@@ -62,14 +62,17 @@ const MedicinePage = () => {
           {products.map((product, i) => (
             <motion.div
               key={product.id}
-              className="rounded-2xl overflow-hidden cursor-pointer glass-card flex flex-col"
+              className="rounded-xl overflow-hidden cursor-pointer glass-card flex flex-col"
               whileTap={{ scale: 0.97 }}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: (i % 9) * 0.03 }}
               onClick={() => navigate(`/medicine/product/${product.id}`)}
             >
-              <div className="aspect-square w-full p-1.5">
+              <div
+                className="w-full flex items-center justify-center rounded-t-xl"
+                style={{ height: "150px", padding: "10px", background: "#f5f5f5" }}
+              >
                 <MedicineProductImage productId={product.id} src={product.image} alt={product.name} />
               </div>
               <div className="px-2 pb-2 pt-0.5 flex-1 flex flex-col">
