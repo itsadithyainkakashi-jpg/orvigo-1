@@ -62,7 +62,12 @@ const MedicinePage = () => {
           {products.map((product, i) => (
             <motion.div
               key={product.id}
-              className="rounded-xl overflow-hidden cursor-pointer glass-card flex flex-col"
+              className="overflow-hidden cursor-pointer flex flex-col"
+              style={{
+                background: "#ffffff",
+                borderRadius: "16px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)",
+              }}
               whileTap={{ scale: 0.97 }}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -70,22 +75,14 @@ const MedicinePage = () => {
               onClick={() => navigate(`/medicine/product/${product.id}`)}
             >
               <div
-                className="w-full flex items-center justify-center rounded-t-xl relative overflow-hidden"
+                className="w-full flex items-center justify-center"
                 style={{
                   height: "150px",
-                  padding: "12px",
+                  padding: "8px",
                   background: "#ffffff",
-                  boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.04)",
                 }}
               >
-                <div
-                  className="w-full h-full flex items-center justify-center"
-                  style={{
-                    filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.12)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))",
-                  }}
-                >
-                  <MedicineProductImage productId={product.id} src={product.image} alt={product.name} />
-                </div>
+                <MedicineProductImage productId={product.id} src={product.image} alt={product.name} />
               </div>
               <div className="px-2 pb-2 pt-0.5 flex-1 flex flex-col">
                 <p className="text-[11px] font-semibold text-foreground line-clamp-2 leading-tight min-h-[28px]">
