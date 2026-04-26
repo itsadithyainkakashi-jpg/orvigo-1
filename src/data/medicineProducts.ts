@@ -291,6 +291,11 @@ export const RX_REQUIRED_IDS: Set<string> = new Set(
   ITEMS.filter((it) => it.rxRequired).map((it) => it.id),
 );
 
+/** Per-product dosage / safety warnings keyed by product ID. */
+export const PRODUCT_WARNINGS: Record<string, string> = Object.fromEntries(
+  ITEMS.filter((it) => it.warning).map((it) => [it.id, it.warning as string]),
+);
+
 /**
  * Fallback image for the MedicineProductImage component.
  * Since all current products use bundled local assets that always load,
