@@ -56,23 +56,14 @@ const MedicineProductImage = ({ productId, src, alt, className }: Props) => {
   };
 
   return (
-    <div className={`relative w-full h-full ${className ?? ""}`}>
-      {/* Placeholder layer ensures the box is never visually empty. */}
-      <div
-        className="absolute inset-0 rounded-xl"
-        style={{
-          background:
-            "linear-gradient(135deg, hsla(200, 75%, 40%, 0.18) 0%, hsla(210, 65%, 50%, 0.12) 100%)",
-        }}
-        aria-hidden="true"
-      />
+    <div className={`relative w-full h-full flex items-center justify-center ${className ?? ""}`}>
       <img
         src={currentSrc}
         alt={alt}
         loading="lazy"
         onLoad={() => setLoaded(true)}
         onError={handleError}
-        className="relative w-full h-full object-contain rounded-xl transition-opacity duration-200"
+        className="max-w-full max-h-full object-contain transition-opacity duration-200"
         style={{ opacity: loaded ? 1 : 0 }}
       />
     </div>
