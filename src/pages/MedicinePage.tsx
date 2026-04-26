@@ -58,7 +58,7 @@ const MedicinePage = () => {
           <span className="text-[11px] text-muted-foreground">{products.length} items</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-2 gap-3">
           {products.map((product, i) => (
             <motion.div
               key={product.id}
@@ -74,50 +74,75 @@ const MedicinePage = () => {
               transition={{ delay: (i % 9) * 0.03 }}
               onClick={() => navigate(`/medicine/product/${product.id}`)}
             >
+              {/* Image section */}
               <div
-                className="w-full flex items-center justify-center"
+                className="w-full flex items-center justify-center flex-shrink-0"
                 style={{
-                  height: "150px",
-                  padding: "8px",
-                  background: "#ffffff",
+                  height: "120px",
+                  padding: "10px",
+                  background: "#f5f5f5",
                 }}
               >
                 <MedicineProductImage productId={product.id} src={product.image} alt={product.name} />
               </div>
-              <div className="px-2 pb-2 pt-0.5 flex-1 flex flex-col">
-                <p className="text-[11px] font-semibold text-foreground line-clamp-2 leading-tight min-h-[28px]">
+
+              {/* Details section */}
+              <div
+                className="flex-1 flex flex-col"
+                style={{ padding: "10px", background: "#ffffff" }}
+              >
+                <p
+                  className="text-[12px] font-bold leading-tight line-clamp-2"
+                  style={{ color: "#222222", minHeight: "30px" }}
+                >
                   {product.name}
                 </p>
+
                 {(product.badge || RX_REQUIRED_IDS.has(product.id)) && (
-                  <div className="flex flex-wrap gap-1 mt-1">
+                  <div className="flex flex-wrap gap-1 mt-1.5">
                     {product.badge && (
-                      <span className="inline-block text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white" style={{ background: "hsl(200, 75%, 40%)" }}>
+                      <span
+                        className="inline-block text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white"
+                        style={{ background: "hsl(200, 75%, 40%)" }}
+                      >
                         {product.badge}
                       </span>
                     )}
                     {RX_REQUIRED_IDS.has(product.id) && (
-                      <span className="inline-block text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white" style={{ background: "hsl(0, 75%, 50%)" }}>
+                      <span
+                        className="inline-block text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white"
+                        style={{ background: "hsl(0, 75%, 50%)" }}
+                      >
                         Rx Required
                       </span>
                     )}
                   </div>
                 )}
+
                 {PRODUCT_WARNINGS[product.id] && (
-                  <p className="mt-1 text-[8px] font-semibold leading-tight px-1.5 py-1 rounded-md" style={{ background: "hsla(40, 90%, 50%, 0.15)", color: "hsl(40, 90%, 55%)" }}>
+                  <p
+                    className="mt-1.5 text-[9px] font-semibold leading-tight px-1.5 py-1 rounded-md"
+                    style={{ background: "hsla(40, 90%, 50%, 0.15)", color: "hsl(30, 90%, 35%)" }}
+                  >
                     ⚠ {PRODUCT_WARNINGS[product.id]}
                   </p>
                 )}
-                <div className="flex items-center justify-between mt-auto pt-1.5">
+
+                <div className="flex items-center justify-between mt-auto pt-2">
                   <div className="flex flex-col leading-none">
-                    <span className="text-xs font-bold text-foreground">₹{product.price}</span>
+                    <span className="text-sm font-bold" style={{ color: "#000000" }}>
+                      ₹{product.price}
+                    </span>
                     {product.originalPrice && (
-                      <span className="text-[9px] line-through text-muted-foreground">₹{product.originalPrice}</span>
+                      <span className="text-[10px] line-through" style={{ color: "#888888" }}>
+                        ₹{product.originalPrice}
+                      </span>
                     )}
                   </div>
                   <motion.button
                     whileTap={{ scale: 0.9 }}
                     onClick={(e) => handleAdd(product, e)}
-                    className="px-2 py-1 rounded-lg text-[9px] font-bold text-white"
+                    className="px-3 py-1.5 rounded-lg text-[10px] font-bold text-white"
                     style={{ background: "hsl(200, 75%, 40%)" }}
                   >
                     ADD
