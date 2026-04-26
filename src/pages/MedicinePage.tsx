@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingCart, Search, Shield } from "lucide-react";
-import { MEDICINE_PRODUCTS, RX_REQUIRED_IDS } from "@/data/medicineProducts";
+import { MEDICINE_PRODUCTS, RX_REQUIRED_IDS, PRODUCT_WARNINGS } from "@/data/medicineProducts";
 import type { Product } from "@/contexts/CartContext";
 import { useCart } from "@/contexts/CartContext";
 import BottomNav from "@/components/BottomNav";
@@ -89,6 +89,11 @@ const MedicinePage = () => {
                       </span>
                     )}
                   </div>
+                )}
+                {PRODUCT_WARNINGS[product.id] && (
+                  <p className="mt-1 text-[8px] font-semibold leading-tight px-1.5 py-1 rounded-md" style={{ background: "hsla(40, 90%, 50%, 0.15)", color: "hsl(40, 90%, 55%)" }}>
+                    ⚠ {PRODUCT_WARNINGS[product.id]}
+                  </p>
                 )}
                 <div className="flex items-center justify-between mt-auto pt-1.5">
                   <div className="flex flex-col leading-none">

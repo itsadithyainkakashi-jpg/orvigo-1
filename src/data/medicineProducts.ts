@@ -23,6 +23,11 @@ import ophthaCare from "@/assets/medicine/ophtha-care.jpg";
 import refreshTears from "@/assets/medicine/refresh-tears.jpg";
 import systaneHydration from "@/assets/medicine/systane-hydration.jpg";
 import moxiblu from "@/assets/medicine/moxiblu.jpg";
+import gelusilMps from "@/assets/medicine/gelusil-mps.jpg";
+import crocin650 from "@/assets/medicine/crocin-650.jpg";
+import biodine from "@/assets/medicine/biodine.jpg";
+import sterimmune from "@/assets/medicine/sterimmune.jpg";
+import neosporin from "@/assets/medicine/neosporin.jpg";
 
 /**
  * Medicine catalog — manually curated.
@@ -42,6 +47,7 @@ type Item = {
   image: string;
   badge?: string;
   rxRequired?: boolean;
+  warning?: string;
 };
 
 const ITEMS: Item[] = [
@@ -224,6 +230,48 @@ const ITEMS: Item[] = [
     badge: "Eye Infection",
     rxRequired: true,
   },
+  {
+    id: "m-gelusil-mps-200",
+    name: "Gelusil MPS Liquid",
+    price: 150,
+    desc: "200 ml",
+    image: gelusilMps,
+    badge: "Acidity Relief",
+  },
+  {
+    id: "m-crocin-650-15",
+    name: "Crocin 650 (Paracetamol)",
+    price: 35,
+    desc: "Strip of 15 tablets",
+    image: crocin650,
+    badge: "Fever & Pain",
+    warning: "Max 2 tablets/day without doctor advice",
+  },
+  {
+    id: "m-biodine-100",
+    name: "Povidone Iodine Solution",
+    price: 120,
+    desc: "100 ml",
+    image: biodine,
+    badge: "Antiseptic",
+  },
+  {
+    id: "m-sterimmune-15",
+    name: "Sterimmune Wound Heal Ointment",
+    price: 90,
+    desc: "15 g",
+    image: sterimmune,
+    badge: "First Aid",
+  },
+  {
+    id: "m-neosporin-10",
+    name: "Neosporin Ophthalmic Ointment",
+    price: 110,
+    desc: "10 g",
+    image: neosporin,
+    badge: "Eye Antibiotic",
+    rxRequired: true,
+  },
 ];
 
 export const MEDICINE_PRODUCTS: Product[] = ITEMS.map((it, idx) => ({
@@ -241,6 +289,11 @@ export const MEDICINE_PRODUCTS: Product[] = ITEMS.map((it, idx) => ({
 /** Set of product IDs that require a prescription (Rx). */
 export const RX_REQUIRED_IDS: Set<string> = new Set(
   ITEMS.filter((it) => it.rxRequired).map((it) => it.id),
+);
+
+/** Per-product dosage / safety warnings keyed by product ID. */
+export const PRODUCT_WARNINGS: Record<string, string> = Object.fromEntries(
+  ITEMS.filter((it) => it.warning).map((it) => [it.id, it.warning as string]),
 );
 
 /**
