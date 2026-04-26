@@ -70,10 +70,22 @@ const MedicinePage = () => {
               onClick={() => navigate(`/medicine/product/${product.id}`)}
             >
               <div
-                className="w-full flex items-center justify-center rounded-t-xl"
-                style={{ height: "150px", padding: "10px", background: "#f5f5f5" }}
+                className="w-full flex items-center justify-center rounded-t-xl relative overflow-hidden"
+                style={{
+                  height: "150px",
+                  padding: "12px",
+                  background: "#ffffff",
+                  boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.04)",
+                }}
               >
-                <MedicineProductImage productId={product.id} src={product.image} alt={product.name} />
+                <div
+                  className="w-full h-full flex items-center justify-center"
+                  style={{
+                    filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.12)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))",
+                  }}
+                >
+                  <MedicineProductImage productId={product.id} src={product.image} alt={product.name} />
+                </div>
               </div>
               <div className="px-2 pb-2 pt-0.5 flex-1 flex flex-col">
                 <p className="text-[11px] font-semibold text-foreground line-clamp-2 leading-tight min-h-[28px]">
