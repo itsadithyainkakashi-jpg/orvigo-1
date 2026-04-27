@@ -19,6 +19,7 @@ import { allProducts } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { toast } from "sonner";
+import ImageLightbox from "@/components/ImageLightbox";
 
 // Reference-accurate light theme palette (matches FashionPage)
 const ORANGE = "hsl(18, 95%, 55%)";
@@ -86,6 +87,7 @@ const ProductDetail = () => {
   const [descExpanded, setDescExpanded] = useState(false);
   const [pincode, setPincode] = useState("");
   const [pinChecked, setPinChecked] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     if (product?.sizes?.length && !selectedSize) {
@@ -239,7 +241,13 @@ const ProductDetail = () => {
 
       {/* Image carousel */}
       <div className="relative bg-white">
-        <div className="relative w-full" style={{ aspectRatio: "3/4" }}>
+        <button
+          type="button"
+          onClick={() => setLightboxOpen(true)}
+          aria-label="Open image viewer"
+          className="relative w-full block"
+          style={{ aspectRatio: "3/4" }}
+        >
           <AnimatePresence mode="wait">
             <motion.img
               key={currentImage}
@@ -260,7 +268,7 @@ const ProductDetail = () => {
               {product.badge}
             </span>
           )}
-        </div>
+        </button>
         {/* Image indicator dots */}
         {images.length > 1 && (
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
@@ -700,6 +708,15 @@ const ProductDetail = () => {
           BUY NOW
         </motion.button>
       </div>
+
+      {/* Full-screen image lightbox */}
+      <ImageLightbox
+        open={lightboxOpen}
+        images={images}
+        initialIndex={currentImage}
+        alt={product.name}
+        onClose={() => setLightboxOpen(false)}
+      />
     </div>
   );
 };
