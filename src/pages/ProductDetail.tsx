@@ -355,15 +355,18 @@ const ProductDetail = () => {
             <h3 className="text-sm font-semibold" style={{ color: TEXT }}>
               Color:{" "}
               <span style={{ color: MUTED, fontWeight: 400 }}>
-                {COLOR_SWATCHES[selectedColor].name}
+                {colorSwatches[selectedColor]?.name}
               </span>
             </h3>
           </div>
           <div className="flex gap-2.5">
-            {COLOR_SWATCHES.map((c, i) => (
+            {colorSwatches.map((c, i) => (
               <button
                 key={c.name}
-                onClick={() => setSelectedColor(i)}
+                onClick={() => {
+                  setSelectedColor(i);
+                  setCurrentImage(0);
+                }}
                 className="w-9 h-9 rounded-full flex items-center justify-center transition-all"
                 style={{
                   background: c.hex,
