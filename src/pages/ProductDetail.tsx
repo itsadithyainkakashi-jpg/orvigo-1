@@ -708,6 +708,15 @@ const ProductDetail = () => {
           BUY NOW
         </motion.button>
       </div>
+
+      {/* Full-screen image lightbox */}
+      <ImageLightbox
+        open={lightboxOpen}
+        images={images}
+        initialIndex={currentImage}
+        alt={product.name}
+        onClose={() => setLightboxOpen(false)}
+      />
     </div>
   );
 };
