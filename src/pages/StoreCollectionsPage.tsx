@@ -162,12 +162,16 @@ const StoreCollectionsPage = () => {
               ))
             : displayTiles.map((col, i) => {
                 const dbTile = col.id ? tiles[col.id] : undefined;
-                const count = dbTile?.count ?? 0;
-                const image = dbTile?.image ?? null;
-                const disabled = col.comingSoon || !col.id;
+                const count = dbTile?.count ?? col.staticCount ?? 0;
+                const image = col.previewImage ?? dbTile?.image ?? null;
+                const disabled = col.comingSoon || (!col.id && !col.route);
                 const go = () => {
-                  if (disabled || !col.id) return;
-                  navigate(`/store/${category}/${col.id}`);
+                  if (disabled) return;
+                  if (col.route) {
+                    navigate(col.route);
+                    return;
+                  }
+                  if (col.id) navigate(`/store/${category}/${col.id}`);
                 };
                 return (
                   <motion.div
