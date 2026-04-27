@@ -249,19 +249,21 @@ const ProductDetail = () => {
           )}
         </div>
         {/* Image indicator dots */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentImage(i)}
-              className="h-1.5 rounded-full transition-all"
-              style={{
-                background: currentImage === i ? ORANGE : "hsla(20,14%,15%,0.25)",
-                width: currentImage === i ? 18 : 6,
-              }}
-            />
-          ))}
-        </div>
+        {images.length > 1 && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentImage(i)}
+                className="h-1.5 rounded-full transition-all"
+                style={{
+                  background: currentImage === i ? ORANGE : "hsla(20,14%,15%,0.25)",
+                  width: currentImage === i ? 18 : 6,
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Content */}
