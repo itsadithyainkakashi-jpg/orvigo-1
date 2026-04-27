@@ -87,6 +87,7 @@ const ProductDetail = () => {
   const [descExpanded, setDescExpanded] = useState(false);
   const [pincode, setPincode] = useState("");
   const [pinChecked, setPinChecked] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     if (product?.sizes?.length && !selectedSize) {
@@ -240,7 +241,13 @@ const ProductDetail = () => {
 
       {/* Image carousel */}
       <div className="relative bg-white">
-        <div className="relative w-full" style={{ aspectRatio: "3/4" }}>
+        <button
+          type="button"
+          onClick={() => setLightboxOpen(true)}
+          aria-label="Open image viewer"
+          className="relative w-full block"
+          style={{ aspectRatio: "3/4" }}
+        >
           <AnimatePresence mode="wait">
             <motion.img
               key={currentImage}
@@ -261,7 +268,7 @@ const ProductDetail = () => {
               {product.badge}
             </span>
           )}
-        </div>
+        </button>
         {/* Image indicator dots */}
         {images.length > 1 && (
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
