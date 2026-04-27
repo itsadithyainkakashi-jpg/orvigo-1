@@ -23,6 +23,15 @@ import medTablets from "@/assets/home/med-tablets.jpg";
 import medSyrup from "@/assets/home/med-syrup.jpg";
 import medHealth from "@/assets/home/med-health.jpg";
 
+// Polo T-Shirt variants
+import poloBlue from "@/assets/fashion/polo-blue.png";
+import poloBlueModel from "@/assets/fashion/polo-blue-model.png";
+import poloWhiteModel from "@/assets/fashion/polo-white-model.png";
+import poloWhiteModel2 from "@/assets/fashion/polo-white-model2.png";
+import poloBlackModel from "@/assets/fashion/polo-black-model.png";
+import poloBrownModel from "@/assets/fashion/polo-brown-model.png";
+import poloCollection from "@/assets/fashion/polo-collection.png";
+
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
 
