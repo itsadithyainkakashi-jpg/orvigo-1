@@ -20,18 +20,31 @@ export const COLLECTIONS: { id: StoreCollection; title: string }[] = [
 
 // Display tiles per category. `id` is the real DB enum value (or null for
 // "Coming Soon" placeholder tiles that have no backing collection yet).
+// `previewImage` overrides the DB-derived thumbnail.
+// `route` overrides the default `/store/:cat/:id` navigation target.
 export type DisplayTile = {
   id: StoreCollection | null;
   title: string;
   comingSoon?: boolean;
+  previewImage?: string;
+  route?: string;
+  staticCount?: number;
 };
+
+import tshirtsThumb from "@/assets/fashion/category-tshirts.png";
 
 export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
   mens: [
     { id: "new_arrivals", title: "New Arrivals" },
     { id: "classic", title: "Classic Shirts" },
     { id: "striped", title: "Striped Shirts" },
-    { id: null, title: "T-Shirts", comingSoon: true },
+    {
+      id: null,
+      title: "T-Shirts",
+      previewImage: tshirtsThumb,
+      route: "/search?q=Polo",
+      staticCount: 4,
+    },
     { id: null, title: "Sweatshirts", comingSoon: true },
     { id: "socks", title: "Socks" },
   ],
