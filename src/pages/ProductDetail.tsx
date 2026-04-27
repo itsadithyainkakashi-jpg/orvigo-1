@@ -113,7 +113,10 @@ const ProductDetail = () => {
   }
 
   const isWishlisted = wishlist.some((p) => p.id === product.id);
-  const images = [product.image, product.image, product.image];
+  const images =
+    product.gallery && product.gallery.length > 0
+      ? product.gallery
+      : [product.image];
 
   const similar = allProducts
     .filter((p) => p.category === product.category && p.id !== product.id)
