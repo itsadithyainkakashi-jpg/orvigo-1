@@ -12,6 +12,14 @@ export interface Product {
   badge?: string;
   sizes?: string[];
   gallery?: string[];
+  colors?: ProductColorVariant[];
+}
+
+export interface ProductColorVariant {
+  name: string;
+  hex: string;
+  image: string;
+  gallery: string[];
 }
 
 export interface CartItem {
