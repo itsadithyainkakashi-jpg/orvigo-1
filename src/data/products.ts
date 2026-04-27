@@ -58,9 +58,9 @@ const baseProducts: Product[] = [
   { id: "f19", name: "Kids Tracksuit", price: 649, originalPrice: 849, image: fashionKids, rating: 4.2, category: "Fashion", description: "Sporty tracksuit set for active kids.", badge: "23% OFF", sizes: ["2-3Y", "4-5Y", "6-7Y"] },
   { id: "f20", name: "Slip-on Shoes", price: 699, image: fashionSneakers, rating: 4.0, category: "Fashion", description: "Comfortable slip-on loafers for casual outings.", sizes: ["7", "8", "9", "10"] },
 
-  // ─── Premium Printed Polo T-Shirt Variants ───
+  // ─── Premium Printed Polo T-Shirt (single product, multiple color variants) ───
   {
-    id: "f-polo-blue",
+    id: "f-polo",
     name: "Printed Polo T-Shirt",
     price: 899,
     originalPrice: 1499,
@@ -68,48 +68,36 @@ const baseProducts: Product[] = [
     gallery: [poloBlue, poloBlueModel, poloCollection],
     rating: 4.6,
     category: "Fashion",
-    description: "Premium printed polo t-shirt in teal blue with geometric pattern, embroidered chest badge, and contrast checkered details. Soft cotton-blend fabric with a tailored slim fit.",
+    description:
+      "Premium printed polo t-shirt with geometric pattern, embroidered chest badge, and contrast checkered details. Soft cotton-blend fabric with a tailored slim fit. Available in multiple colors.",
     badge: "40% OFF",
     sizes: ["S", "M", "L", "XL", "XXL"],
-  },
-  {
-    id: "f-polo-white",
-    name: "Printed Polo T-Shirt",
-    price: 899,
-    originalPrice: 1499,
-    image: poloWhiteModel2,
-    gallery: [poloWhiteModel2, poloWhiteModel, poloCollection],
-    rating: 4.5,
-    category: "Fashion",
-    description: "Premium printed polo t-shirt in crisp white with subtle geometric pattern, embroidered chest badge, and contrast checkered details. Breathable cotton-blend fabric.",
-    badge: "40% OFF",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-  },
-  {
-    id: "f-polo-black",
-    name: "Printed Polo T-Shirt",
-    price: 949,
-    originalPrice: 1599,
-    image: poloBlackModel,
-    gallery: [poloBlackModel, poloCollection, poloBlueModel],
-    rating: 4.7,
-    category: "Fashion",
-    description: "Premium printed polo t-shirt in classic black with bold geometric pattern, embroidered chest badge, and contrast checkered details. Soft cotton-blend with a sharp fit.",
-    badge: "41% OFF",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-  },
-  {
-    id: "f-polo-brown",
-    name: "Printed Polo T-Shirt",
-    price: 899,
-    originalPrice: 1499,
-    image: poloBrownModel,
-    gallery: [poloBrownModel, poloCollection, poloBlackModel],
-    rating: 4.4,
-    category: "Fashion",
-    description: "Premium printed polo t-shirt in earthy brown with sleek geometric pattern, embroidered chest badge, and contrast checkered details. Comfortable everyday wear.",
-    badge: "40% OFF",
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    colors: [
+      {
+        name: "Teal Blue",
+        hex: "hsl(190, 60%, 45%)",
+        image: poloBlue,
+        gallery: [poloBlue, poloBlueModel, poloCollection],
+      },
+      {
+        name: "White",
+        hex: "hsl(0, 0%, 96%)",
+        image: poloWhiteModel2,
+        gallery: [poloWhiteModel2, poloWhiteModel, poloCollection],
+      },
+      {
+        name: "Black",
+        hex: "hsl(0, 0%, 10%)",
+        image: poloBlackModel,
+        gallery: [poloBlackModel, poloCollection, poloBlueModel],
+      },
+      {
+        name: "Brown",
+        hex: "hsl(25, 35%, 35%)",
+        image: poloBrownModel,
+        gallery: [poloBrownModel, poloCollection, poloBlackModel],
+      },
+    ],
   },
 
   // ─── Items ───
