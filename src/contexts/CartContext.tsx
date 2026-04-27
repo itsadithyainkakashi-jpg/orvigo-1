@@ -11,6 +11,7 @@ export interface Product {
   description: string;
   badge?: string;
   sizes?: string[];
+  gallery?: string[];
 }
 
 export interface CartItem {
