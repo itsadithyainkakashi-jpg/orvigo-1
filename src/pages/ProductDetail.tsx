@@ -29,7 +29,7 @@ const TEXT = "hsl(20, 14%, 15%)";
 const MUTED = "hsl(20, 10%, 45%)";
 const BORDER = "hsl(20, 10%, 90%)";
 
-const COLOR_SWATCHES = [
+const DEFAULT_COLOR_SWATCHES = [
   { name: "Coral", hex: "hsl(8, 80%, 65%)" },
   { name: "Navy", hex: "hsl(220, 50%, 25%)" },
   { name: "Sand", hex: "hsl(35, 40%, 75%)" },
@@ -95,6 +95,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     setCurrentImage(0);
+    setSelectedColor(0);
   }, [product?.id]);
 
   if (dbLoading) {
@@ -117,8 +118,16 @@ const ProductDetail = () => {
   }
 
   const isWishlisted = wishlist.some((p) => p.id === product.id);
-  const images =
-    product.gallery && product.gallery.length > 0
+
+  const colorSwatches =
+    product.colors && product.colors.length > 0
+      ? product.colors.map((c) => ({ name: c.name, hex: c.hex }))
+      : DEFAULT_COLOR_SWATCHES;
+
+  const activeVariant = product.colors?.[selectedColor];
+  const images = activeVariant
+    ? activeVariant.gallery
+    : product.gallery && product.gallery.length > 0
       ? product.gallery
       : [product.image];
 
