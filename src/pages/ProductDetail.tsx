@@ -19,6 +19,7 @@ import { allProducts } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { toast } from "sonner";
+import ImageLightbox from "@/components/ImageLightbox";
 
 // Reference-accurate light theme palette (matches FashionPage)
 const ORANGE = "hsl(18, 95%, 55%)";
