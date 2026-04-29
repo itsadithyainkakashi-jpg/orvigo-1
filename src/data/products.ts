@@ -119,6 +119,22 @@ const baseProducts: Product[] = [
     sizes: ["S", "M", "L", "XL", "XXL"],
   },
 
+  // ─── Dual Tone Premium Polo T-Shirt (T-Shirt category, also in New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000002",
+    name: "Dual Tone Premium Polo T-Shirt",
+    price: 1699,
+    originalPrice: 2499,
+    image: dualTonePolo,
+    gallery: [dualTonePolo],
+    rating: 4.6,
+    category: "Fashion",
+    description:
+      "Premium dual tone polo t-shirt with a black body and contrast olive textured panel down the front. Soft breathable fabric, tailored slim fit and metal brand badge. A versatile statement piece for smart-casual looks.",
+    badge: "32% OFF",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+  },
+
   // ─── Items ───
   { id: "i1", name: "Kitchen Organizer", price: 349, image: itemKitchen, rating: 4.1, category: "Items", description: "Stainless steel kitchen organizer set with premium finish." },
   { id: "i2", name: "Gold Earrings Set", price: 1499, originalPrice: 1899, image: itemAccessories, rating: 4.7, category: "Items", description: "Elegant gold-plated earrings set with stone work.", badge: "20% OFF" },
