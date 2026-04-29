@@ -33,6 +33,7 @@ import poloBrownModel from "@/assets/fashion/polo-brown-model.png";
 import poloCollection from "@/assets/fashion/polo-collection.png";
 import dragonFront from "@/assets/fashion/dragon-sweatshirt-front.png";
 import dragonDetail from "@/assets/fashion/dragon-sweatshirt-detail.png";
+import dualTonePolo from "@/assets/fashion/dual-tone-polo.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -115,6 +116,22 @@ const baseProducts: Product[] = [
     description:
       "Premium teal sweatshirt featuring a striking metallic dragon graphic print and gold-trim collar detail. Soft cotton-blend fabric, relaxed fit. T-shirt style crewneck.",
     badge: "40% OFF",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+  },
+
+  // ─── Dual Tone Premium Polo T-Shirt (T-Shirt category, also in New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000002",
+    name: "Dual Tone Premium Polo T-Shirt",
+    price: 1699,
+    originalPrice: 2499,
+    image: dualTonePolo,
+    gallery: [dualTonePolo],
+    rating: 4.6,
+    category: "Fashion",
+    description:
+      "Premium dual tone polo t-shirt with a black body and contrast olive textured panel down the front. Soft breathable fabric, tailored slim fit and metal brand badge. A versatile statement piece for smart-casual looks.",
+    badge: "32% OFF",
     sizes: ["S", "M", "L", "XL", "XXL"],
   },
 
