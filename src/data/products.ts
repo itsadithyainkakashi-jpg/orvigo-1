@@ -33,6 +33,7 @@ import poloBrownModel from "@/assets/fashion/polo-brown-model.png";
 import poloCollection from "@/assets/fashion/polo-collection.png";
 import dragonFront from "@/assets/fashion/dragon-sweatshirt-front.png";
 import dragonDetail from "@/assets/fashion/dragon-sweatshirt-detail.png";
+import dualTonePolo from "@/assets/fashion/dual-tone-polo.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
