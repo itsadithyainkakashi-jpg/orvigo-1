@@ -42,6 +42,7 @@ import minimalPoloGrey from "@/assets/fashion/minimal-polo-grey.png";
 import minimalPoloHanger from "@/assets/fashion/minimal-polo-hanger.png";
 import minimalPoloDetailGrey from "@/assets/fashion/minimal-polo-detail-grey.jpg";
 import minimalPoloBeige from "@/assets/fashion/minimal-polo-beige.jpg";
+import knitHalfzipWhite from "@/assets/fashion/knit-halfzip-white.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
