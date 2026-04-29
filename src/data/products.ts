@@ -42,6 +42,7 @@ import minimalPoloGrey from "@/assets/fashion/minimal-polo-grey.png";
 import minimalPoloHanger from "@/assets/fashion/minimal-polo-hanger.png";
 import minimalPoloDetailGrey from "@/assets/fashion/minimal-polo-detail-grey.jpg";
 import minimalPoloBeige from "@/assets/fashion/minimal-polo-beige.jpg";
+import knitHalfzipWhite from "@/assets/fashion/knit-halfzip-white.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -213,6 +214,22 @@ const baseProducts: Product[] = [
         gallery: [minimalPoloBeige, minimalPoloHanger],
       },
     ],
+  },
+
+  // ─── Premium Knit Half-Zip Sweater (Sweatshirts / Winter, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000005",
+    name: "Premium Knit Half-Zip Sweater",
+    price: 2199,
+    originalPrice: 2999,
+    image: knitHalfzipWhite,
+    gallery: [knitHalfzipWhite],
+    rating: 4.7,
+    category: "Fashion",
+    description:
+      "Premium cable-knit half-zip sweater in classic ivory white with a ribbed mock-neck collar and embroidered chest emblem. Soft cotton blend, regular fit — perfect for winter layering.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
   },
 
   // ─── Items ───

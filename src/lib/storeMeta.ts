@@ -32,6 +32,7 @@ export type DisplayTile = {
 };
 
 import tshirtsThumb from "@/assets/fashion/category-tshirts.png";
+import knitHalfzipThumb from "@/assets/fashion/knit-halfzip-white.png";
 
 export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
   mens: [
@@ -45,7 +46,13 @@ export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
       route: "/search?q=t-shirt",
       staticCount: 5,
     },
-    { id: null, title: "Sweatshirts", comingSoon: true },
+    {
+      id: null,
+      title: "Sweatshirts",
+      previewImage: knitHalfzipThumb,
+      route: "/product/d4a90000-0000-4000-8000-000000000005",
+      staticCount: 1,
+    },
     { id: "socks", title: "Socks" },
   ],
   womens: [
