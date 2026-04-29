@@ -34,6 +34,10 @@ import poloCollection from "@/assets/fashion/polo-collection.png";
 import dragonFront from "@/assets/fashion/dragon-sweatshirt-front.png";
 import dragonDetail from "@/assets/fashion/dragon-sweatshirt-detail.png";
 import dualTonePolo from "@/assets/fashion/dual-tone-polo.png";
+import designerTeeBlue from "@/assets/fashion/designer-tee-blue.png";
+import designerTeeMaroon from "@/assets/fashion/designer-tee-maroon.png";
+import designerTeeBrown from "@/assets/fashion/designer-tee-brown.png";
+import designerTeeBlack from "@/assets/fashion/designer-tee-black.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -133,6 +137,48 @@ const baseProducts: Product[] = [
       "Premium dual tone polo t-shirt with a black body and contrast olive textured panel down the front. Soft breathable fabric, tailored slim fit and metal brand badge. A versatile statement piece for smart-casual looks.",
     badge: "32% OFF",
     sizes: ["S", "M", "L", "XL", "XXL"],
+  },
+
+  // ─── Premium Printed Designer T-Shirt (T-Shirt category, also in New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000003",
+    name: "Premium Printed Designer T-Shirt",
+    price: 1699,
+    originalPrice: 2499,
+    image: designerTeeBlue,
+    gallery: [designerTeeBlue, designerTeeMaroon, designerTeeBrown, designerTeeBlack],
+    rating: 4.7,
+    category: "Fashion",
+    description:
+      "Premium designer crew-neck t-shirt with subtle diamond mesh weave and embroidered eagle crest. Soft breathable cotton-blend, tailored regular fit. Available in 4 colors: Dark Blue, Maroon, Brown and Black.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      {
+        name: "Dark Blue",
+        hex: "hsl(215, 30%, 28%)",
+        image: designerTeeBlue,
+        gallery: [designerTeeBlue],
+      },
+      {
+        name: "Maroon",
+        hex: "hsl(0, 45%, 32%)",
+        image: designerTeeMaroon,
+        gallery: [designerTeeMaroon],
+      },
+      {
+        name: "Brown",
+        hex: "hsl(10, 35%, 30%)",
+        image: designerTeeBrown,
+        gallery: [designerTeeBrown],
+      },
+      {
+        name: "Black",
+        hex: "hsl(0, 0%, 8%)",
+        image: designerTeeBlack,
+        gallery: [designerTeeBlack],
+      },
+    ],
   },
 
   // ─── Items ───
