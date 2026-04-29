@@ -34,6 +34,10 @@ import poloCollection from "@/assets/fashion/polo-collection.png";
 import dragonFront from "@/assets/fashion/dragon-sweatshirt-front.png";
 import dragonDetail from "@/assets/fashion/dragon-sweatshirt-detail.png";
 import dualTonePolo from "@/assets/fashion/dual-tone-polo.png";
+import designerTeeBlue from "@/assets/fashion/designer-tee-blue.png";
+import designerTeeMaroon from "@/assets/fashion/designer-tee-maroon.png";
+import designerTeeBrown from "@/assets/fashion/designer-tee-brown.png";
+import designerTeeBlack from "@/assets/fashion/designer-tee-black.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
