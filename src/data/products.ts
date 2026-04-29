@@ -185,6 +185,36 @@ const baseProducts: Product[] = [
     ],
   },
 
+  // ─── Minimal Contrast Polo T-Shirt (T-Shirt category, also in New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000004",
+    name: "Minimal Contrast Polo T-Shirt",
+    price: 1499,
+    originalPrice: 2199,
+    image: minimalPoloGrey,
+    gallery: [minimalPoloGrey, minimalPoloHanger, minimalPoloDetailGrey, minimalPoloBeige],
+    rating: 4.6,
+    category: "Fashion",
+    description:
+      "Minimal contrast polo t-shirt with crisp white body, contrast shoulder yoke and tipped collar. Soft breathable pique fabric with a tailored regular fit. Available in Grey and Beige.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      {
+        name: "Grey",
+        hex: "hsl(210, 12%, 65%)",
+        image: minimalPoloGrey,
+        gallery: [minimalPoloGrey, minimalPoloDetailGrey, minimalPoloHanger],
+      },
+      {
+        name: "Beige",
+        hex: "hsl(35, 25%, 75%)",
+        image: minimalPoloBeige,
+        gallery: [minimalPoloBeige, minimalPoloHanger],
+      },
+    ],
+  },
+
   // ─── Items ───
   { id: "i1", name: "Kitchen Organizer", price: 349, image: itemKitchen, rating: 4.1, category: "Items", description: "Stainless steel kitchen organizer set with premium finish." },
   { id: "i2", name: "Gold Earrings Set", price: 1499, originalPrice: 1899, image: itemAccessories, rating: 4.7, category: "Items", description: "Elegant gold-plated earrings set with stone work.", badge: "20% OFF" },
