@@ -38,6 +38,10 @@ import designerTeeBlue from "@/assets/fashion/designer-tee-blue.png";
 import designerTeeMaroon from "@/assets/fashion/designer-tee-maroon.png";
 import designerTeeBrown from "@/assets/fashion/designer-tee-brown.png";
 import designerTeeBlack from "@/assets/fashion/designer-tee-black.png";
+import minimalPoloGrey from "@/assets/fashion/minimal-polo-grey.png";
+import minimalPoloHanger from "@/assets/fashion/minimal-polo-hanger.png";
+import minimalPoloDetailGrey from "@/assets/fashion/minimal-polo-detail-grey.jpg";
+import minimalPoloBeige from "@/assets/fashion/minimal-polo-beige.jpg";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -177,6 +181,36 @@ const baseProducts: Product[] = [
         hex: "hsl(0, 0%, 8%)",
         image: designerTeeBlack,
         gallery: [designerTeeBlack],
+      },
+    ],
+  },
+
+  // ─── Minimal Contrast Polo T-Shirt (T-Shirt category, also in New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000004",
+    name: "Minimal Contrast Polo T-Shirt",
+    price: 1499,
+    originalPrice: 2199,
+    image: minimalPoloGrey,
+    gallery: [minimalPoloGrey, minimalPoloHanger, minimalPoloDetailGrey, minimalPoloBeige],
+    rating: 4.6,
+    category: "Fashion",
+    description:
+      "Minimal contrast polo t-shirt with crisp white body, contrast shoulder yoke and tipped collar. Soft breathable pique fabric with a tailored regular fit. Available in Grey and Beige.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      {
+        name: "Grey",
+        hex: "hsl(210, 12%, 65%)",
+        image: minimalPoloGrey,
+        gallery: [minimalPoloGrey, minimalPoloDetailGrey, minimalPoloHanger],
+      },
+      {
+        name: "Beige",
+        hex: "hsl(35, 25%, 75%)",
+        image: minimalPoloBeige,
+        gallery: [minimalPoloBeige, minimalPoloHanger],
       },
     ],
   },
