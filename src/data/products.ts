@@ -31,6 +31,8 @@ import poloWhiteModel2 from "@/assets/fashion/polo-white-model2.png";
 import poloBlackModel from "@/assets/fashion/polo-black-model.png";
 import poloBrownModel from "@/assets/fashion/polo-brown-model.png";
 import poloCollection from "@/assets/fashion/polo-collection.png";
+import dragonFront from "@/assets/fashion/dragon-sweatshirt-front.png";
+import dragonDetail from "@/assets/fashion/dragon-sweatshirt-detail.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -98,6 +100,22 @@ const baseProducts: Product[] = [
         gallery: [poloBrownModel, poloCollection, poloBlackModel],
       },
     ],
+  },
+
+  // ─── Dragon Graphic Sweatshirt (T-Shirt category, also in New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000001",
+    name: "Dragon Graphic Sweatshirt",
+    price: 1499,
+    originalPrice: 2499,
+    image: dragonFront,
+    gallery: [dragonFront, dragonDetail],
+    rating: 4.7,
+    category: "Fashion",
+    description:
+      "Premium teal sweatshirt featuring a striking metallic dragon graphic print and gold-trim collar detail. Soft cotton-blend fabric, relaxed fit. T-shirt style crewneck.",
+    badge: "40% OFF",
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
 
   // ─── Items ───
