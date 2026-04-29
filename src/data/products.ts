@@ -38,6 +38,10 @@ import designerTeeBlue from "@/assets/fashion/designer-tee-blue.png";
 import designerTeeMaroon from "@/assets/fashion/designer-tee-maroon.png";
 import designerTeeBrown from "@/assets/fashion/designer-tee-brown.png";
 import designerTeeBlack from "@/assets/fashion/designer-tee-black.png";
+import minimalPoloGrey from "@/assets/fashion/minimal-polo-grey.png";
+import minimalPoloHanger from "@/assets/fashion/minimal-polo-hanger.png";
+import minimalPoloDetailGrey from "@/assets/fashion/minimal-polo-detail-grey.jpg";
+import minimalPoloBeige from "@/assets/fashion/minimal-polo-beige.jpg";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
