@@ -102,7 +102,22 @@ const baseProducts: Product[] = [
     ],
   },
 
-  // ─── Items ───
+  // ─── Dragon Graphic Sweatshirt (T-Shirt category, also in New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000001",
+    name: "Dragon Graphic Sweatshirt",
+    price: 1499,
+    originalPrice: 2499,
+    image: dragonFront,
+    gallery: [dragonFront, dragonDetail],
+    rating: 4.7,
+    category: "Fashion",
+    description:
+      "Premium teal sweatshirt featuring a striking metallic dragon graphic print and gold-trim collar detail. Soft cotton-blend fabric, relaxed fit. T-shirt style crewneck.",
+    badge: "40% OFF",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+  },
+
   { id: "i1", name: "Kitchen Organizer", price: 349, image: itemKitchen, rating: 4.1, category: "Items", description: "Stainless steel kitchen organizer set with premium finish." },
   { id: "i2", name: "Gold Earrings Set", price: 1499, originalPrice: 1899, image: itemAccessories, rating: 4.7, category: "Items", description: "Elegant gold-plated earrings set with stone work.", badge: "20% OFF" },
   { id: "i3", name: "iPhone Silicone Case", price: 199, image: itemPhonecase, rating: 4.0, category: "Items", description: "Premium silicone protective case with soft-touch finish." },
