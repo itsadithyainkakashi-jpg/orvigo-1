@@ -216,6 +216,22 @@ const baseProducts: Product[] = [
     ],
   },
 
+  // ─── Premium Knit Half-Zip Sweater (Sweatshirts / Winter, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000005",
+    name: "Premium Knit Half-Zip Sweater",
+    price: 2199,
+    originalPrice: 2999,
+    image: knitHalfzipWhite,
+    gallery: [knitHalfzipWhite],
+    rating: 4.7,
+    category: "Fashion",
+    description:
+      "Premium cable-knit half-zip sweater in classic ivory white with a ribbed mock-neck collar and embroidered chest emblem. Soft cotton blend, regular fit — perfect for winter layering.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+  },
+
   // ─── Items ───
   { id: "i1", name: "Kitchen Organizer", price: 349, image: itemKitchen, rating: 4.1, category: "Items", description: "Stainless steel kitchen organizer set with premium finish." },
   { id: "i2", name: "Gold Earrings Set", price: 1499, originalPrice: 1899, image: itemAccessories, rating: 4.7, category: "Items", description: "Elegant gold-plated earrings set with stone work.", badge: "20% OFF" },
