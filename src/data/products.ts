@@ -118,6 +118,7 @@ const baseProducts: Product[] = [
     sizes: ["S", "M", "L", "XL", "XXL"],
   },
 
+  // ─── Items ───
   { id: "i1", name: "Kitchen Organizer", price: 349, image: itemKitchen, rating: 4.1, category: "Items", description: "Stainless steel kitchen organizer set with premium finish." },
   { id: "i2", name: "Gold Earrings Set", price: 1499, originalPrice: 1899, image: itemAccessories, rating: 4.7, category: "Items", description: "Elegant gold-plated earrings set with stone work.", badge: "20% OFF" },
   { id: "i3", name: "iPhone Silicone Case", price: 199, image: itemPhonecase, rating: 4.0, category: "Items", description: "Premium silicone protective case with soft-touch finish." },
