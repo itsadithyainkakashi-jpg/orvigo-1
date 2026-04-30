@@ -44,7 +44,7 @@ export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
       title: "T-Shirts",
       previewImage: tshirtsThumb,
       route: "/search?q=t-shirt",
-      staticCount: 6,
+      staticCount: 7,
     },
     {
       id: null,
