@@ -52,6 +52,9 @@ import stripedPoloBlue from "@/assets/fashion/striped-polo-blue.jpg";
 import stripedPoloGrey from "@/assets/fashion/striped-polo-grey.jpg";
 import stripedPoloTeal from "@/assets/fashion/striped-polo-teal.jpg";
 import stripedPoloBrown from "@/assets/fashion/striped-polo-brown.jpg";
+import minimalClassicPoloOlive from "@/assets/fashion/minimal-classic-polo-olive.png";
+import minimalClassicPoloWhite from "@/assets/fashion/minimal-classic-polo-white.png";
+import minimalClassicPoloDarkGreen from "@/assets/fashion/minimal-classic-polo-darkgreen.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -301,6 +304,27 @@ const baseProducts: Product[] = [
       { name: "Grey", hex: "hsl(0, 0%, 45%)", image: stripedPoloGrey, gallery: [stripedPoloGrey] },
       { name: "Teal", hex: "hsl(185, 28%, 42%)", image: stripedPoloTeal, gallery: [stripedPoloTeal] },
       { name: "Brown", hex: "hsl(30, 22%, 38%)", image: stripedPoloBrown, gallery: [stripedPoloBrown] },
+    ],
+  },
+
+  // ─── Minimal Classic Polo T-Shirt (T-Shirt, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000009",
+    name: "Minimal Classic Polo T-Shirt",
+    price: 1799,
+    originalPrice: 2499,
+    image: minimalClassicPoloOlive,
+    gallery: [minimalClassicPoloOlive, minimalClassicPoloWhite, minimalClassicPoloDarkGreen],
+    rating: 4.7,
+    category: "Fashion",
+    description:
+      "Minimal classic pique polo with contrast tipped collar and cuffs. Soft breathable cotton blend tailored for an elegant smart-casual look.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      { name: "Olive Green", hex: "hsl(85, 25%, 35%)", image: minimalClassicPoloOlive, gallery: [minimalClassicPoloOlive] },
+      { name: "White", hex: "hsl(0, 0%, 96%)", image: minimalClassicPoloWhite, gallery: [minimalClassicPoloWhite] },
+      { name: "Dark Green", hex: "hsl(120, 15%, 20%)", image: minimalClassicPoloDarkGreen, gallery: [minimalClassicPoloDarkGreen] },
     ],
   },
 
