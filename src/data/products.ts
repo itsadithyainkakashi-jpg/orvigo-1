@@ -43,6 +43,9 @@ import minimalPoloHanger from "@/assets/fashion/minimal-polo-hanger.png";
 import minimalPoloDetailGrey from "@/assets/fashion/minimal-polo-detail-grey.jpg";
 import minimalPoloBeige from "@/assets/fashion/minimal-polo-beige.jpg";
 import knitHalfzipWhite from "@/assets/fashion/knit-halfzip-white.png";
+import texturedPoloBlue from "@/assets/fashion/textured-polo-blue.png";
+import texturedPoloBrown from "@/assets/fashion/textured-polo-brown.png";
+import texturedPoloGrey from "@/assets/fashion/textured-polo-grey.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -230,6 +233,27 @@ const baseProducts: Product[] = [
       "Premium cable-knit half-zip sweater in classic ivory white with a ribbed mock-neck collar and embroidered chest emblem. Soft cotton blend, regular fit — perfect for winter layering.",
     badge: "NEW",
     sizes: ["S", "M", "L", "XL"],
+  },
+
+  // ─── Textured Long Sleeve Polo T-Shirt (T-Shirt, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000006",
+    name: "Textured Long Sleeve Polo T-Shirt",
+    price: 1799,
+    originalPrice: 2499,
+    image: texturedPoloBlue,
+    gallery: [texturedPoloBlue, texturedPoloBrown, texturedPoloGrey],
+    rating: 4.6,
+    category: "Fashion",
+    description:
+      "Premium textured jacquard long-sleeve polo with a classic three-button placket and ribbed cuffs. Soft, breathable knit with a subtle tonal pattern — refined essential for smart-casual wear.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      { name: "Blue", hex: "hsl(210, 35%, 42%)", image: texturedPoloBlue, gallery: [texturedPoloBlue] },
+      { name: "Brown", hex: "hsl(25, 25%, 40%)", image: texturedPoloBrown, gallery: [texturedPoloBrown] },
+      { name: "Grey", hex: "hsl(0, 0%, 45%)", image: texturedPoloGrey, gallery: [texturedPoloGrey] },
+    ],
   },
 
   // ─── Items ───
