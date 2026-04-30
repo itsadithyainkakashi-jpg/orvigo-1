@@ -46,6 +46,8 @@ import knitHalfzipWhite from "@/assets/fashion/knit-halfzip-white.png";
 import texturedPoloBlue from "@/assets/fashion/textured-polo-blue.png";
 import texturedPoloBrown from "@/assets/fashion/textured-polo-brown.png";
 import texturedPoloGrey from "@/assets/fashion/textured-polo-grey.png";
+import luxuryEmbossedWhite from "@/assets/fashion/luxury-embossed-polo-white.png";
+import luxuryEmbossedBlack from "@/assets/fashion/luxury-embossed-polo-black.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -253,6 +255,26 @@ const baseProducts: Product[] = [
       { name: "Blue", hex: "hsl(210, 35%, 42%)", image: texturedPoloBlue, gallery: [texturedPoloBlue] },
       { name: "Brown", hex: "hsl(25, 25%, 40%)", image: texturedPoloBrown, gallery: [texturedPoloBrown] },
       { name: "Grey", hex: "hsl(0, 0%, 45%)", image: texturedPoloGrey, gallery: [texturedPoloGrey] },
+    ],
+  },
+
+  // ─── Luxury Embossed Polo T-Shirt (T-Shirt, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000007",
+    name: "Luxury Embossed Polo T-Shirt",
+    price: 2299,
+    originalPrice: 3199,
+    image: luxuryEmbossedWhite,
+    gallery: [luxuryEmbossedWhite, luxuryEmbossedBlack],
+    rating: 4.8,
+    category: "Fashion",
+    description:
+      "Premium embossed monogram polo crafted from soft pique cotton with a refined three-button placket and tonal collar. Subtle raised pattern delivers a quiet luxury aesthetic — perfect for elevated everyday wear.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      { name: "White", hex: "hsl(0, 0%, 96%)", image: luxuryEmbossedWhite, gallery: [luxuryEmbossedWhite] },
+      { name: "Black", hex: "hsl(0, 0%, 8%)", image: luxuryEmbossedBlack, gallery: [luxuryEmbossedBlack] },
     ],
   },
 
