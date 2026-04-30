@@ -48,6 +48,10 @@ import texturedPoloBrown from "@/assets/fashion/textured-polo-brown.png";
 import texturedPoloGrey from "@/assets/fashion/textured-polo-grey.png";
 import luxuryEmbossedWhite from "@/assets/fashion/luxury-embossed-polo-white.png";
 import luxuryEmbossedBlack from "@/assets/fashion/luxury-embossed-polo-black.png";
+import stripedPoloBlue from "@/assets/fashion/striped-polo-blue.jpg";
+import stripedPoloGrey from "@/assets/fashion/striped-polo-grey.jpg";
+import stripedPoloTeal from "@/assets/fashion/striped-polo-teal.jpg";
+import stripedPoloBrown from "@/assets/fashion/striped-polo-brown.jpg";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -275,6 +279,28 @@ const baseProducts: Product[] = [
     colors: [
       { name: "White", hex: "hsl(0, 0%, 96%)", image: luxuryEmbossedWhite, gallery: [luxuryEmbossedWhite] },
       { name: "Black", hex: "hsl(0, 0%, 8%)", image: luxuryEmbossedBlack, gallery: [luxuryEmbossedBlack] },
+    ],
+  },
+
+  // ─── Premium Striped Polo T-Shirt (T-Shirt, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000008",
+    name: "Premium Striped Polo T-Shirt",
+    price: 1899,
+    originalPrice: 2699,
+    image: stripedPoloBlue,
+    gallery: [stripedPoloBlue, stripedPoloGrey, stripedPoloTeal, stripedPoloBrown],
+    rating: 4.7,
+    category: "Fashion",
+    description:
+      "Classic horizontal-stripe pique polo with a contrast solid collar, three-button placket, and signature metal emblem. Soft breathable cotton blend tailored for an effortless smart-casual look.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      { name: "Blue", hex: "hsl(210, 28%, 48%)", image: stripedPoloBlue, gallery: [stripedPoloBlue] },
+      { name: "Grey", hex: "hsl(0, 0%, 45%)", image: stripedPoloGrey, gallery: [stripedPoloGrey] },
+      { name: "Teal", hex: "hsl(185, 28%, 42%)", image: stripedPoloTeal, gallery: [stripedPoloTeal] },
+      { name: "Brown", hex: "hsl(30, 22%, 38%)", image: stripedPoloBrown, gallery: [stripedPoloBrown] },
     ],
   },
 
