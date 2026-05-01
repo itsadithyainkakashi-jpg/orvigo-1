@@ -60,6 +60,10 @@ import texturedSummerOlive from "@/assets/fashion/textured-summer-olive.png";
 import texturedSummerLightGreen from "@/assets/fashion/textured-summer-lightgreen.png";
 import urbanPatternFront from "@/assets/fashion/urban-pattern-front.jpg";
 import urbanPatternBack from "@/assets/fashion/urban-pattern-back.jpg";
+import checkedPoloBeigeMain from "@/assets/fashion/checked-polo-beige-main.jpg";
+import checkedPoloBeigeModel from "@/assets/fashion/checked-polo-beige-model.jpg";
+import checkedPoloBeigeBox from "@/assets/fashion/checked-polo-beige-box.jpg";
+import checkedPoloRed from "@/assets/fashion/checked-polo-red.jpg";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
