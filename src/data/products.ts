@@ -60,6 +60,10 @@ import texturedSummerOlive from "@/assets/fashion/textured-summer-olive.png";
 import texturedSummerLightGreen from "@/assets/fashion/textured-summer-lightgreen.png";
 import urbanPatternFront from "@/assets/fashion/urban-pattern-front.jpg";
 import urbanPatternBack from "@/assets/fashion/urban-pattern-back.jpg";
+import checkedPoloBeigeMain from "@/assets/fashion/checked-polo-beige-main.jpg";
+import checkedPoloBeigeModel from "@/assets/fashion/checked-polo-beige-model.jpg";
+import checkedPoloBeigeBox from "@/assets/fashion/checked-polo-beige-box.jpg";
+import checkedPoloRed from "@/assets/fashion/checked-polo-red.jpg";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -368,6 +372,26 @@ const baseProducts: Product[] = [
       "Modern waffle-knit tee with bold urban graphic print across the chest and sleeves. Soft, breathable fabric with a relaxed contemporary fit.",
     badge: "NEW",
     sizes: ["S", "M", "L", "XL"],
+  },
+
+  // ─── Classic Checked Polo T-Shirt (T-Shirt, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000012",
+    name: "Classic Checked Polo T-Shirt",
+    price: 1699,
+    originalPrice: 2299,
+    image: checkedPoloBeigeMain,
+    gallery: [checkedPoloBeigeMain, checkedPoloBeigeBox, checkedPoloBeigeModel, checkedPoloRed],
+    rating: 4.6,
+    category: "Fashion",
+    description:
+      "Classic gingham checked polo with contrast black collar and placket. Soft stretch fabric tailored for a refined smart-casual look.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      { name: "Beige Check", hex: "hsl(40, 28%, 55%)", image: checkedPoloBeigeMain, gallery: [checkedPoloBeigeMain, checkedPoloBeigeBox, checkedPoloBeigeModel] },
+      { name: "Red Check", hex: "hsl(8, 65%, 52%)", image: checkedPoloRed, gallery: [checkedPoloRed] },
+    ],
   },
 
   // ─── Items ───
