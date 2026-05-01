@@ -68,6 +68,8 @@ import zipPoloGreen from "@/assets/fashion/zip-polo-green.jpg";
 import zipPoloWhite from "@/assets/fashion/zip-polo-white.jpg";
 import zipPoloBlack from "@/assets/fashion/zip-polo-black.jpg";
 import zipPoloBeige from "@/assets/fashion/zip-polo-beige.jpg";
+import highneckTopBrown from "@/assets/fashion/highneck-top-brown.png";
+import highneckTopBlack from "@/assets/fashion/highneck-top-black.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -417,6 +419,26 @@ const baseProducts: Product[] = [
       { name: "White", hex: "hsl(0, 0%, 96%)", image: zipPoloWhite, gallery: [zipPoloWhite] },
       { name: "Black", hex: "hsl(0, 0%, 8%)", image: zipPoloBlack, gallery: [zipPoloBlack] },
       { name: "Beige", hex: "hsl(32, 30%, 55%)", image: zipPoloBeige, gallery: [zipPoloBeige] },
+    ],
+  },
+
+  // ─── Elegant High Neck Slim Fit Top (Women, Modern Wear, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000014",
+    name: "Elegant High Neck Slim Fit Top",
+    price: 1499,
+    originalPrice: 1999,
+    image: highneckTopBrown,
+    gallery: [highneckTopBrown, highneckTopBlack],
+    rating: 4.6,
+    category: "Fashion",
+    description:
+      "Elegant high-neck slim-fit top with embossed geometric texture. Soft stretch fabric flatters the silhouette — perfect for modern layered looks.",
+    badge: "NEW",
+    sizes: ["S", "M", "L"],
+    colors: [
+      { name: "Brown", hex: "hsl(28, 25%, 28%)", image: highneckTopBrown, gallery: [highneckTopBrown] },
+      { name: "Black", hex: "hsl(0, 0%, 8%)", image: highneckTopBlack, gallery: [highneckTopBlack] },
     ],
   },
 
