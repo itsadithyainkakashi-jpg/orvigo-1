@@ -58,6 +58,8 @@ import minimalClassicPoloDarkGreen from "@/assets/fashion/minimal-classic-polo-d
 import texturedSummerWhite from "@/assets/fashion/textured-summer-white.png";
 import texturedSummerOlive from "@/assets/fashion/textured-summer-olive.png";
 import texturedSummerLightGreen from "@/assets/fashion/textured-summer-lightgreen.png";
+import urbanPatternFront from "@/assets/fashion/urban-pattern-front.jpg";
+import urbanPatternBack from "@/assets/fashion/urban-pattern-back.jpg";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
