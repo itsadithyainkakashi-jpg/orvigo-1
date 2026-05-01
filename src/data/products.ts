@@ -64,6 +64,10 @@ import checkedPoloBeigeMain from "@/assets/fashion/checked-polo-beige-main.jpg";
 import checkedPoloBeigeModel from "@/assets/fashion/checked-polo-beige-model.jpg";
 import checkedPoloBeigeBox from "@/assets/fashion/checked-polo-beige-box.jpg";
 import checkedPoloRed from "@/assets/fashion/checked-polo-red.jpg";
+import zipPoloGreen from "@/assets/fashion/zip-polo-green.jpg";
+import zipPoloWhite from "@/assets/fashion/zip-polo-white.jpg";
+import zipPoloBlack from "@/assets/fashion/zip-polo-black.jpg";
+import zipPoloBeige from "@/assets/fashion/zip-polo-beige.jpg";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -391,6 +395,28 @@ const baseProducts: Product[] = [
     colors: [
       { name: "Beige Check", hex: "hsl(40, 28%, 55%)", image: checkedPoloBeigeMain, gallery: [checkedPoloBeigeMain, checkedPoloBeigeBox, checkedPoloBeigeModel] },
       { name: "Red Check", hex: "hsl(8, 65%, 52%)", image: checkedPoloRed, gallery: [checkedPoloRed] },
+    ],
+  },
+
+  // ─── Premium Striped Zip Polo T-Shirt (T-Shirt, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000013",
+    name: "Premium Striped Zip Polo T-Shirt",
+    price: 1899,
+    originalPrice: 2499,
+    image: zipPoloGreen,
+    gallery: [zipPoloGreen, zipPoloWhite, zipPoloBlack, zipPoloBeige],
+    rating: 4.7,
+    category: "Fashion",
+    description:
+      "Premium textured knit polo with vertical stripes and quarter-zip placket. Soft breathable fabric with a refined modern silhouette.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      { name: "Green", hex: "hsl(85, 18%, 38%)", image: zipPoloGreen, gallery: [zipPoloGreen] },
+      { name: "White", hex: "hsl(0, 0%, 96%)", image: zipPoloWhite, gallery: [zipPoloWhite] },
+      { name: "Black", hex: "hsl(0, 0%, 8%)", image: zipPoloBlack, gallery: [zipPoloBlack] },
+      { name: "Beige", hex: "hsl(32, 30%, 55%)", image: zipPoloBeige, gallery: [zipPoloBeige] },
     ],
   },
 
