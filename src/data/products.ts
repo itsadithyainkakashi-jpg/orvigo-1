@@ -354,6 +354,22 @@ const baseProducts: Product[] = [
     ],
   },
 
+  // ─── Urban Pattern Graphic T-Shirt (T-Shirt, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000011",
+    name: "Urban Pattern Graphic T-Shirt",
+    price: 1499,
+    originalPrice: 2099,
+    image: urbanPatternFront,
+    gallery: [urbanPatternFront, urbanPatternBack],
+    rating: 4.5,
+    category: "Fashion",
+    description:
+      "Modern waffle-knit tee with bold urban graphic print across the chest and sleeves. Soft, breathable fabric with a relaxed contemporary fit.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+  },
+
   // ─── Items ───
   { id: "i1", name: "Kitchen Organizer", price: 349, image: itemKitchen, rating: 4.1, category: "Items", description: "Stainless steel kitchen organizer set with premium finish." },
   { id: "i2", name: "Gold Earrings Set", price: 1499, originalPrice: 1899, image: itemAccessories, rating: 4.7, category: "Items", description: "Elegant gold-plated earrings set with stone work.", badge: "20% OFF" },
