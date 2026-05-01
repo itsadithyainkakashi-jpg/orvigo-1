@@ -55,6 +55,9 @@ import stripedPoloBrown from "@/assets/fashion/striped-polo-brown.jpg";
 import minimalClassicPoloOlive from "@/assets/fashion/minimal-classic-polo-olive.png";
 import minimalClassicPoloWhite from "@/assets/fashion/minimal-classic-polo-white.png";
 import minimalClassicPoloDarkGreen from "@/assets/fashion/minimal-classic-polo-darkgreen.png";
+import texturedSummerWhite from "@/assets/fashion/textured-summer-white.png";
+import texturedSummerOlive from "@/assets/fashion/textured-summer-olive.png";
+import texturedSummerLightGreen from "@/assets/fashion/textured-summer-lightgreen.png";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -325,6 +328,27 @@ const baseProducts: Product[] = [
       { name: "Olive Green", hex: "hsl(85, 25%, 35%)", image: minimalClassicPoloOlive, gallery: [minimalClassicPoloOlive] },
       { name: "White", hex: "hsl(0, 0%, 96%)", image: minimalClassicPoloWhite, gallery: [minimalClassicPoloWhite] },
       { name: "Dark Green", hex: "hsl(120, 15%, 20%)", image: minimalClassicPoloDarkGreen, gallery: [minimalClassicPoloDarkGreen] },
+    ],
+  },
+
+  // ─── Textured Summer T-Shirt (T-Shirt, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000010",
+    name: "Textured Summer T-Shirt",
+    price: 1599,
+    originalPrice: 2199,
+    image: texturedSummerWhite,
+    gallery: [texturedSummerWhite, texturedSummerOlive, texturedSummerLightGreen],
+    rating: 4.6,
+    category: "Fashion",
+    description:
+      "Lightweight textured knit summer tee with breathable waffle weave. Soft, airy, and perfectly tailored for an effortless modern look.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      { name: "White", hex: "hsl(0, 0%, 96%)", image: texturedSummerWhite, gallery: [texturedSummerWhite] },
+      { name: "Olive Green", hex: "hsl(75, 22%, 42%)", image: texturedSummerOlive, gallery: [texturedSummerOlive] },
+      { name: "Light Green", hex: "hsl(95, 18%, 50%)", image: texturedSummerLightGreen, gallery: [texturedSummerLightGreen] },
     ],
   },
 
