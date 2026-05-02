@@ -131,7 +131,7 @@ const FashionLayout = ({ products, navigate }: { products: typeof allProducts; n
           onClick={() => navigate(`/product/${p.id}`)}
         >
           <div className="h-48 overflow-hidden">
-            <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
+            <img src={p.image} srcSet={p.imageSrcSet} sizes={p.imageSrcSet ? "(max-width: 768px) 50vw, 400px" : undefined} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
           </div>
           <div className="p-2.5">
             <p className="text-xs truncate font-medium" style={{ color: "hsl(220, 20%, 30%)" }}>{p.name}</p>
