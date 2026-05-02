@@ -314,7 +314,7 @@ const CategoryPage = () => {
             </button>
 
             <div className="relative aspect-square overflow-hidden">
-              <img src={product.image} alt={product.name} loading="lazy" className="w-full h-full object-cover" />
+              <img src={product.image} srcSet={product.imageSrcSet} sizes={product.imageSrcSet ? "(max-width: 768px) 50vw, 400px" : undefined} alt={product.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
               {product.badge && (
                 <span className="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "hsl(0, 75%, 55%)" }}>
                   {product.badge}
