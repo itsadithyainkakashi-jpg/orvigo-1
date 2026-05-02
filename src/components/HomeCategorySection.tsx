@@ -264,7 +264,7 @@ const ProductCard = ({ product: p, index: i, navigate }: { product: typeof allPr
     onClick={() => navigate(`/product/${p.id}`)}
   >
     <div className="relative aspect-square overflow-hidden">
-      <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
+      <img src={p.image} srcSet={p.imageSrcSet} sizes={p.imageSrcSet ? "(max-width: 768px) 50vw, 400px" : undefined} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
       {p.badge && (
         <span className="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "hsl(0, 75%, 55%)" }}>
           {p.badge}
