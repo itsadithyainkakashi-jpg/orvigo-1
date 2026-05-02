@@ -81,7 +81,7 @@ import { MEDICINE_PRODUCTS } from "./medicineProducts";
 const baseProducts: Product[] = [
   // ─── Fashion ───
   { id: "f1", name: "Women Ethnic Dress", price: 899, originalPrice: 1499, image: fashionWomen, rating: 4.3, category: "Fashion", description: "Beautiful ethnic dress with intricate embroidery work, perfect for festive occasions.", badge: "40% OFF", sizes: ["S", "M", "L", "XL"] },
-  { id: "f2", name: "Men Casual Shirt", price: 599, originalPrice: 899, image: casualShirtGreen, rating: 4.1, category: "Fashion", description: "Premium cotton casual shirt with a modern slim fit design.", badge: "30% OFF", sizes: ["S", "M", "L", "XL"] },
+  { id: "f2", name: "Men Casual Shirt", price: 599, originalPrice: 899, image: casualShirtGreen, imageSrcSet: `${casualShirtGreen400} 400w, ${casualShirtGreen800} 800w`, imageSizes: "(max-width: 768px) 50vw, 400px", rating: 4.1, category: "Fashion", description: "Premium cotton casual shirt with a modern slim fit design.", badge: "30% OFF", sizes: ["S", "M", "L", "XL"] },
   { id: "f3", name: "Kids Summer Wear", price: 449, image: fashionKids, rating: 4.5, category: "Fashion", description: "Colorful and comfortable summer wear set for kids.", sizes: ["2-3Y", "4-5Y", "6-7Y"] },
   { id: "f4", name: "Sports Sneakers", price: 1299, originalPrice: 1799, image: fashionSneakers, rating: 4.4, category: "Fashion", description: "Lightweight running sneakers with cushioned sole for maximum comfort.", badge: "25% OFF", sizes: ["7", "8", "9", "10"] },
   { id: "f5", name: "Designer Saree", price: 1199, originalPrice: 2399, image: fashionWomen, rating: 4.6, category: "Fashion", description: "Elegant designer saree with gold zari border, perfect for weddings.", badge: "50% OFF", sizes: ["Free Size"] },
