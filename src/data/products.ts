@@ -70,6 +70,7 @@ import zipPoloBlack from "@/assets/fashion/zip-polo-black.jpg";
 import zipPoloBeige from "@/assets/fashion/zip-polo-beige.jpg";
 import highneckTopBrown from "@/assets/fashion/highneck-top-brown.png";
 import highneckTopBlack from "@/assets/fashion/highneck-top-black.png";
+import premiumSolidFormalOrange from "@/assets/fashion/premium-solid-formal-orange.jpg";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
@@ -440,6 +441,22 @@ const baseProducts: Product[] = [
       { name: "Brown", hex: "hsl(28, 25%, 28%)", image: highneckTopBrown, gallery: [highneckTopBrown] },
       { name: "Black", hex: "hsl(0, 0%, 8%)", image: highneckTopBlack, gallery: [highneckTopBlack] },
     ],
+  },
+
+  // ─── Premium Solid Formal Shirt (Men, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000015",
+    name: "Premium Solid Formal Shirt",
+    price: 999,
+    originalPrice: 1499,
+    image: premiumSolidFormalOrange,
+    gallery: [premiumSolidFormalOrange],
+    rating: 4.5,
+    category: "Fashion",
+    description:
+      "Premium solid formal shirt in rich orange. Full sleeve, regular fit — versatile for casual and office wear.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
   },
 
   // ─── Items ───
