@@ -443,6 +443,22 @@ const baseProducts: Product[] = [
     ],
   },
 
+  // ─── Premium Solid Formal Shirt (Men, New Arrivals) ───
+  {
+    id: "d4a90000-0000-4000-8000-000000000015",
+    name: "Premium Solid Formal Shirt",
+    price: 999,
+    originalPrice: 1499,
+    image: premiumSolidFormalOrange,
+    gallery: [premiumSolidFormalOrange],
+    rating: 4.5,
+    category: "Fashion",
+    description:
+      "Premium solid formal shirt in rich orange. Full sleeve, regular fit — versatile for casual and office wear.",
+    badge: "NEW",
+    sizes: ["S", "M", "L", "XL"],
+  },
+
   // ─── Items ───
   { id: "i1", name: "Kitchen Organizer", price: 349, image: itemKitchen, rating: 4.1, category: "Items", description: "Stainless steel kitchen organizer set with premium finish." },
   { id: "i2", name: "Gold Earrings Set", price: 1499, originalPrice: 1899, image: itemAccessories, rating: 4.7, category: "Items", description: "Elegant gold-plated earrings set with stone work.", badge: "20% OFF" },
