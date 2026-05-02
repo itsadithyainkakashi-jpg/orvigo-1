@@ -167,7 +167,7 @@ const FoodLayout = ({ products, navigate }: { products: typeof allProducts; navi
         onClick={() => navigate(`/product/${p.id}`)}
       >
         <div className="w-28 h-28 flex-shrink-0 overflow-hidden">
-          <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
+          <img src={p.image} srcSet={p.imageSrcSet} sizes={p.imageSrcSet ? "112px" : undefined} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
         </div>
         <div className="flex-1 py-3 pr-3">
           <p className="text-sm font-semibold truncate" style={{ color: "hsl(220, 40%, 13%)" }}>{p.name}</p>
