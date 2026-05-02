@@ -17,6 +17,16 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@Lovable" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <!-- Preload Casual Shirt thumbnail for fast first paint on mobile listings -->
+    <link
+      rel="preload"
+      as="image"
+      href="/src/assets/fashion/casual-shirt-green-400.webp"
+      imagesrcset="/src/assets/fashion/casual-shirt-green-400.webp 400w, /src/assets/fashion/casual-shirt-green-800.webp 800w"
+      imagesizes="(max-width: 768px) 50vw, 400px"
+      fetchpriority="high"
+    />
   </head>
 
   <body>
