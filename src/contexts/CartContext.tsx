@@ -6,6 +6,8 @@ export interface Product {
   price: number;
   originalPrice?: number;
   image: string;
+  srcSet?: string;
+  sizes?: string;
   rating: number;
   category: string;
   description: string;
