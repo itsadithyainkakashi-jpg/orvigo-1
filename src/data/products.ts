@@ -3,6 +3,8 @@ import type { Product } from "@/contexts/CartContext";
 import fashionWomen from "@/assets/home/fashion-women-dress.jpg";
 import fashionMen from "@/assets/home/fashion-men-shirt.jpg";
 import casualShirtGreen from "@/assets/fashion/casual-shirt-green.jpg";
+import casualShirtGreen400 from "@/assets/fashion/casual-shirt-green-400.webp";
+import casualShirtGreen800 from "@/assets/fashion/casual-shirt-green-800.webp";
 import fashionKids from "@/assets/home/fashion-kids.jpg";
 import fashionSneakers from "@/assets/home/fashion-sneakers.jpg";
 import itemKitchen from "@/assets/home/item-kitchen.jpg";
