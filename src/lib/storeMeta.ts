@@ -53,7 +53,7 @@ export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
       route: "/product/d4a90000-0000-4000-8000-000000000005",
       staticCount: 1,
     },
-    { id: "socks", title: "Socks" },
+    { id: "socks", title: "Casual Pants & Trouser" },
   ],
   womens: [
     { id: "new_arrivals", title: "New Arrivals" },
