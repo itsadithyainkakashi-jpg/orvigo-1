@@ -70,6 +70,7 @@ import zipPoloBlack from "@/assets/fashion/zip-polo-black.jpg";
 import zipPoloBeige from "@/assets/fashion/zip-polo-beige.jpg";
 import highneckTopBrown from "@/assets/fashion/highneck-top-brown.png";
 import highneckTopBlack from "@/assets/fashion/highneck-top-black.png";
+import premiumSolidFormalOrange from "@/assets/fashion/premium-solid-formal-orange.jpg";
 
 import { GROCERY_PRODUCTS } from "./groceryProducts";
 import { MEDICINE_PRODUCTS } from "./medicineProducts";
