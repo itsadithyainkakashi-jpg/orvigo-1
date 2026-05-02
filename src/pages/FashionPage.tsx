@@ -175,7 +175,7 @@ const FashionPage = () => {
                 whileTap={{ scale: 0.97 }}
               >
                 <div className="relative h-36 overflow-hidden">
-                  <img src={p.image} alt={p.name} className="w-full h-full object-cover" loading="lazy" />
+                  <img src={p.image} srcSet={p.imageSrcSet} sizes={p.imageSrcSet ? "(max-width: 768px) 50vw, 400px" : undefined} alt={p.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   <button
                     onClick={(e) => { e.stopPropagation(); toggleWishlist(p); }}
                     className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center"
@@ -253,7 +253,7 @@ const FashionPage = () => {
                   whileTap={{ scale: 0.97 }}
                 >
                   <div className="relative h-32 overflow-hidden">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover" loading="lazy" />
+                    <img src={p.image} srcSet={p.imageSrcSet} sizes={p.imageSrcSet ? "144px" : undefined} alt={p.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                     <button
                       onClick={(e) => { e.stopPropagation(); toggleWishlist(p); }}
                       className="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center"

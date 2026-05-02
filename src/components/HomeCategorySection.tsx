@@ -131,7 +131,7 @@ const FashionLayout = ({ products, navigate }: { products: typeof allProducts; n
           onClick={() => navigate(`/product/${p.id}`)}
         >
           <div className="h-48 overflow-hidden">
-            <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
+            <img src={p.image} srcSet={p.imageSrcSet} sizes={p.imageSrcSet ? "(max-width: 768px) 50vw, 400px" : undefined} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
           </div>
           <div className="p-2.5">
             <p className="text-xs truncate font-medium" style={{ color: "hsl(220, 20%, 30%)" }}>{p.name}</p>
@@ -167,7 +167,7 @@ const FoodLayout = ({ products, navigate }: { products: typeof allProducts; navi
         onClick={() => navigate(`/product/${p.id}`)}
       >
         <div className="w-28 h-28 flex-shrink-0 overflow-hidden">
-          <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
+          <img src={p.image} srcSet={p.imageSrcSet} sizes={p.imageSrcSet ? "112px" : undefined} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
         </div>
         <div className="flex-1 py-3 pr-3">
           <p className="text-sm font-semibold truncate" style={{ color: "hsl(220, 40%, 13%)" }}>{p.name}</p>
@@ -264,7 +264,7 @@ const ProductCard = ({ product: p, index: i, navigate }: { product: typeof allPr
     onClick={() => navigate(`/product/${p.id}`)}
   >
     <div className="relative aspect-square overflow-hidden">
-      <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
+      <img src={p.image} srcSet={p.imageSrcSet} sizes={p.imageSrcSet ? "(max-width: 768px) 50vw, 400px" : undefined} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
       {p.badge && (
         <span className="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "hsl(0, 75%, 55%)" }}>
           {p.badge}
