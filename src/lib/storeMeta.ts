@@ -27,18 +27,23 @@ export type DisplayTile = {
   title: string;
   comingSoon?: boolean;
   previewImage?: string;
+  /** Wide banner image overrides previewImage and renders with dark overlay + title text. */
+  bannerImage?: string;
   route?: string;
   staticCount?: number;
 };
 
 import tshirtsThumb from "@/assets/fashion/category-tshirts.png";
 import knitHalfzipThumb from "@/assets/fashion/knit-halfzip-white.png";
+import bannerCasualShirts from "@/assets/fashion/banner-casual-shirts.jpg";
+import bannerStripedShirts from "@/assets/fashion/banner-striped-shirts.jpg";
+import bannerNewArrivals from "@/assets/fashion/banner-new-arrivals.jpg";
 
 export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
   mens: [
-    { id: "new_arrivals", title: "New Arrivals" },
-    { id: "classic", title: "Classic Shirts" },
-    { id: "striped", title: "Striped Shirts" },
+    { id: "new_arrivals", title: "New Arrivals", bannerImage: bannerNewArrivals },
+    { id: "classic", title: "Casual Shirts", bannerImage: bannerCasualShirts },
+    { id: "striped", title: "Striped Shirts", bannerImage: bannerStripedShirts },
     {
       id: null,
       title: "T-Shirts",
@@ -67,7 +72,7 @@ export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
 
 export const COLLECTION_LABEL: Record<StoreCollection, string> = {
   new_arrivals: "New Arrivals",
-  classic: "Classic Shirts",
+  classic: "Casual Shirts",
   striped: "Striped Shirts",
   socks: "Socks",
 };
