@@ -27,12 +27,17 @@ export type DisplayTile = {
   title: string;
   comingSoon?: boolean;
   previewImage?: string;
+  /** Wide banner image overrides previewImage and renders with dark overlay + title text. */
+  bannerImage?: string;
   route?: string;
   staticCount?: number;
 };
 
 import tshirtsThumb from "@/assets/fashion/category-tshirts.png";
 import knitHalfzipThumb from "@/assets/fashion/knit-halfzip-white.png";
+import bannerCasualShirts from "@/assets/fashion/banner-casual-shirts.jpg";
+import bannerStripedShirts from "@/assets/fashion/banner-striped-shirts.jpg";
+import bannerNewArrivals from "@/assets/fashion/banner-new-arrivals.jpg";
 
 export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
   mens: [
