@@ -125,7 +125,7 @@ const StoreProductsPage = () => {
               className="rounded-2xl overflow-hidden glass-card text-left flex flex-col"
             >
               <div className="aspect-square w-full bg-muted">
-                <img src={p.image_url} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
+                <img src={withCacheBust(p.image_url, p.updated_at)} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
               </div>
               <div className="p-2.5 space-y-1">
                 <div className="text-sm font-medium text-foreground line-clamp-1">{p.name}</div>
