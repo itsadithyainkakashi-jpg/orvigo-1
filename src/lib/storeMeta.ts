@@ -72,7 +72,7 @@ export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
 
 export const COLLECTION_LABEL: Record<StoreCollection, string> = {
   new_arrivals: "New Arrivals",
-  classic: "Classic Shirts",
+  classic: "Casual Shirts",
   striped: "Striped Shirts",
   socks: "Socks",
 };
