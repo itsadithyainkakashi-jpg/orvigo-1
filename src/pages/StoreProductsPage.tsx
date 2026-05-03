@@ -17,7 +17,16 @@ interface ProductRow {
   price: number;
   original_price: number | null;
   image_url: string;
+  updated_at?: string;
 }
+
+/** Append updated_at as cache-bust so freshly re-uploaded images refresh. */
+const withCacheBust = (url: string, updatedAt?: string) => {
+  if (!url) return url;
+  if (!updatedAt) return url;
+  const v = encodeURIComponent(updatedAt);
+  return url.includes("?") ? `${url}&v=${v}` : `${url}?v=${v}`;
+};
 
 const StoreProductsPage = () => {
   const navigate = useNavigate();
@@ -36,7 +45,7 @@ const StoreProductsPage = () => {
     const load = async () => {
       const { data, error } = await supabase
         .from("products")
-        .select("id, name, price, original_price, image_url")
+        .select("id, name, price, original_price, image_url, updated_at")
         .eq("category", category)
         .eq("collection", collection)
         .order("created_at", { ascending: false });
@@ -44,7 +53,14 @@ const StoreProductsPage = () => {
       if (error) {
         setError(error.message);
       } else {
-        setProducts(data ?? []);
+        // Dedupe by id (defensive; DB should already be unique).
+        const seen = new Set<string>();
+        const unique = (data ?? []).filter((p) => {
+          if (seen.has(p.id)) return false;
+          seen.add(p.id);
+          return true;
+        });
+        setProducts(unique);
         setError(null);
       }
       setLoading(false);
@@ -109,7 +125,7 @@ const StoreProductsPage = () => {
               className="rounded-2xl overflow-hidden glass-card text-left flex flex-col"
             >
               <div className="aspect-square w-full bg-muted">
-                <img src={p.image_url} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
+                <img src={withCacheBust(p.image_url, p.updated_at)} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
               </div>
               <div className="p-2.5 space-y-1">
                 <div className="text-sm font-medium text-foreground line-clamp-1">{p.name}</div>
