@@ -45,7 +45,7 @@ const StoreProductsPage = () => {
     const load = async () => {
       const { data, error } = await supabase
         .from("products")
-        .select("id, name, price, original_price, image_url")
+        .select("id, name, price, original_price, image_url, updated_at")
         .eq("category", category)
         .eq("collection", collection)
         .order("created_at", { ascending: false });
@@ -53,7 +53,14 @@ const StoreProductsPage = () => {
       if (error) {
         setError(error.message);
       } else {
-        setProducts(data ?? []);
+        // Dedupe by id (defensive; DB should already be unique).
+        const seen = new Set<string>();
+        const unique = (data ?? []).filter((p) => {
+          if (seen.has(p.id)) return false;
+          seen.add(p.id);
+          return true;
+        });
+        setProducts(unique);
         setError(null);
       }
       setLoading(false);
