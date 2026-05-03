@@ -41,9 +41,9 @@ import bannerNewArrivals from "@/assets/fashion/banner-new-arrivals.jpg";
 
 export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
   mens: [
-    { id: "new_arrivals", title: "New Arrivals" },
-    { id: "classic", title: "Classic Shirts" },
-    { id: "striped", title: "Striped Shirts" },
+    { id: "new_arrivals", title: "New Arrivals", bannerImage: bannerNewArrivals },
+    { id: "classic", title: "Casual Shirts", bannerImage: bannerCasualShirts },
+    { id: "striped", title: "Striped Shirts", bannerImage: bannerStripedShirts },
     {
       id: null,
       title: "T-Shirts",
