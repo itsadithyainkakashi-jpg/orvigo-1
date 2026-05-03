@@ -17,7 +17,16 @@ interface ProductRow {
   price: number;
   original_price: number | null;
   image_url: string;
+  updated_at?: string;
 }
+
+/** Append updated_at as cache-bust so freshly re-uploaded images refresh. */
+const withCacheBust = (url: string, updatedAt?: string) => {
+  if (!url) return url;
+  if (!updatedAt) return url;
+  const v = encodeURIComponent(updatedAt);
+  return url.includes("?") ? `${url}&v=${v}` : `${url}?v=${v}`;
+};
 
 const StoreProductsPage = () => {
   const navigate = useNavigate();
