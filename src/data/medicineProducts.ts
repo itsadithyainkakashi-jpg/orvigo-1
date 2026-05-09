@@ -38,6 +38,16 @@ import hydrocortisoneCream from "@/assets/medicine/hydrocortisone-cream.jpg";
 import morphineSulfate from "@/assets/medicine/morphine-sulfate.jpg";
 import atorvastatin from "@/assets/medicine/atorvastatin.jpg";
 import lexapro from "@/assets/medicine/lexapro.jpg";
+import domperidone10mg from "@/assets/medicine/domperidone-10mg.jpg";
+import cetzineCetirizine from "@/assets/medicine/cetzine-cetirizine.jpg";
+import ramipril125 from "@/assets/medicine/ramipril-1-25.jpg";
+import mirtazapine15mg from "@/assets/medicine/mirtazapine-15mg.jpg";
+import betamethasoneCream from "@/assets/medicine/betamethasone-cream.jpg";
+import famotidine20mg from "@/assets/medicine/famotidine-20mg.jpg";
+import clonazepam from "@/assets/medicine/clonazepam.jpg";
+import zoloft100mg from "@/assets/medicine/zoloft-100mg.jpg";
+import digoxin from "@/assets/medicine/digoxin.jpg";
+import montelukast10mg from "@/assets/medicine/montelukast-10mg.jpg";
 
 /**
  * Medicine catalog — manually curated.
