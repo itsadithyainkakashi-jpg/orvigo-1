@@ -28,6 +28,16 @@ import crocin650 from "@/assets/medicine/crocin-650.png";
 import biodine from "@/assets/medicine/biodine.png";
 import sterimmune from "@/assets/medicine/sterimmune.png";
 import neosporin from "@/assets/medicine/neosporin.png";
+import tylenolExtraStrength from "@/assets/medicine/tylenol-extra-strength.jpg";
+import antihistamine10mg from "@/assets/medicine/antihistamine-10mg.jpg";
+import tumsAntacid from "@/assets/medicine/tums-antacid.jpg";
+import doubleAntibioticOintment from "@/assets/medicine/double-antibiotic-ointment.jpg";
+import imodiumOriginal from "@/assets/medicine/imodium-original.jpg";
+import dettolAntiseptic from "@/assets/medicine/dettol-antiseptic.jpg";
+import hydrocortisoneCream from "@/assets/medicine/hydrocortisone-cream.jpg";
+import morphineSulfate from "@/assets/medicine/morphine-sulfate.jpg";
+import atorvastatin from "@/assets/medicine/atorvastatin.jpg";
+import lexapro from "@/assets/medicine/lexapro.jpg";
 
 /**
  * Medicine catalog — manually curated.
