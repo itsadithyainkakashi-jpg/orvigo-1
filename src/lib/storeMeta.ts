@@ -38,6 +38,7 @@ import knitHalfzipThumb from "@/assets/fashion/knit-halfzip-white.png";
 import bannerCasualShirts from "@/assets/fashion/banner-casual-shirts.jpg";
 import bannerStripedShirts from "@/assets/fashion/banner-striped-shirts.jpg";
 import bannerNewArrivals from "@/assets/fashion/banner-new-arrivals.jpg";
+import bannerPantsTrousers from "@/assets/fashion/banner-pants-trousers.jpg";
 
 export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
   mens: [
@@ -58,7 +59,7 @@ export const COLLECTIONS_BY_CATEGORY: Record<StoreCategory, DisplayTile[]> = {
       route: "/product/d4a90000-0000-4000-8000-000000000005",
       staticCount: 1,
     },
-    { id: "socks", title: "Casual Pants & Trouser" },
+    { id: "socks", title: "Casual Pants & Trouser", bannerImage: bannerPantsTrousers },
   ],
   womens: [
     { id: "new_arrivals", title: "New Arrivals" },
