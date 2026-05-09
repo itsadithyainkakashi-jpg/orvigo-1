@@ -58,6 +58,7 @@ type Item = {
   badge?: string;
   rxRequired?: boolean;
   warning?: string;
+  rating?: number;
 };
 
 const ITEMS: Item[] = [
