@@ -28,6 +28,16 @@ import crocin650 from "@/assets/medicine/crocin-650.png";
 import biodine from "@/assets/medicine/biodine.png";
 import sterimmune from "@/assets/medicine/sterimmune.png";
 import neosporin from "@/assets/medicine/neosporin.png";
+import tylenolExtraStrength from "@/assets/medicine/tylenol-extra-strength.jpg";
+import antihistamine10mg from "@/assets/medicine/antihistamine-10mg.jpg";
+import tumsAntacid from "@/assets/medicine/tums-antacid.jpg";
+import doubleAntibioticOintment from "@/assets/medicine/double-antibiotic-ointment.jpg";
+import imodiumOriginal from "@/assets/medicine/imodium-original.jpg";
+import dettolAntiseptic from "@/assets/medicine/dettol-antiseptic.jpg";
+import hydrocortisoneCream from "@/assets/medicine/hydrocortisone-cream.jpg";
+import morphineSulfate from "@/assets/medicine/morphine-sulfate.jpg";
+import atorvastatin from "@/assets/medicine/atorvastatin.jpg";
+import lexapro from "@/assets/medicine/lexapro.jpg";
 
 /**
  * Medicine catalog — manually curated.
@@ -48,6 +58,7 @@ type Item = {
   badge?: string;
   rxRequired?: boolean;
   warning?: string;
+  rating?: number;
 };
 
 const ITEMS: Item[] = [
@@ -272,6 +283,112 @@ const ITEMS: Item[] = [
     badge: "Eye Antibiotic",
     rxRequired: true,
   },
+  {
+    id: "m-tylenol-extra-strength-50",
+    name: "Tylenol Extra Strength Acetaminophen",
+    price: 299,
+    originalPrice: 399,
+    desc: "Fever & Pain Relief, 50 Rapid Release Gels",
+    image: tylenolExtraStrength,
+    badge: "25% OFF",
+    rating: 4.8,
+  },
+  {
+    id: "m-antihistamine-10mg-28",
+    name: "Antihistamine 10mg Tablets",
+    price: 199,
+    originalPrice: 249,
+    desc: "Allergy Relief Medication, 28 tablets",
+    image: antihistamine10mg,
+    badge: "Allergy Relief",
+    rxRequired: true,
+    rating: 4.5,
+  },
+  {
+    id: "m-tums-antacid-330",
+    name: "Tums Antacid Extra Strength",
+    price: 349,
+    originalPrice: 449,
+    desc: "Heartburn & Acidity Relief, 330 tablets",
+    image: tumsAntacid,
+    badge: "Antacid",
+    rating: 4.7,
+  },
+  {
+    id: "m-imodium-original-6",
+    name: "Imodium Original Capsules",
+    price: 179,
+    originalPrice: 229,
+    desc: "Fast Diarrhoea Relief, 6 Capsules (2mg)",
+    image: imodiumOriginal,
+    badge: "Diarrhoea Relief",
+    rating: 4.4,
+  },
+  {
+    id: "m-double-antibiotic-ointment-28",
+    name: "Double Antibiotic Ointment",
+    price: 159,
+    originalPrice: 199,
+    desc: "First Aid Antibiotic Cream, 28.4 g",
+    image: doubleAntibioticOintment,
+    badge: "First Aid",
+    rating: 4.6,
+  },
+  {
+    id: "m-dettol-antiseptic-500",
+    name: "Dettol Antiseptic Liquid",
+    price: 129,
+    originalPrice: 169,
+    desc: "Germ Protection Disinfectant, 500 ml",
+    image: dettolAntiseptic,
+    badge: "Antiseptic",
+    rating: 4.9,
+  },
+  {
+    id: "m-hydrocortisone-cream-20",
+    name: "Hydrocortisone Cream USP 2.5%",
+    price: 219,
+    originalPrice: 299,
+    desc: "Skin Irritation Relief Cream, 20 g",
+    image: hydrocortisoneCream,
+    badge: "Skin Care",
+    rxRequired: true,
+    rating: 4.3,
+  },
+  {
+    id: "m-morphine-sulfate-28",
+    name: "Morphine Sulfate 10mg Tablets",
+    price: 499,
+    originalPrice: 599,
+    desc: "Prescription Pain Relief, 28 tablets",
+    image: morphineSulfate,
+    badge: "Pain Relief",
+    rxRequired: true,
+    warning: "Strictly as prescribed. Risk of dependence.",
+    rating: 4.2,
+  },
+  {
+    id: "m-atorvastatin-10mg-28",
+    name: "Atorvastatin 10mg Tablets",
+    price: 259,
+    originalPrice: 329,
+    desc: "Cholesterol Control Medicine, 28 tablets",
+    image: atorvastatin,
+    badge: "Cholesterol",
+    rxRequired: true,
+    rating: 4.5,
+  },
+  {
+    id: "m-lexapro-escitalopram-28",
+    name: "Lexapro Escitalopram Tablets",
+    price: 399,
+    originalPrice: 499,
+    desc: "Anxiety & Depression Relief, 10mg, 28 tablets",
+    image: lexapro,
+    badge: "Mental Health",
+    rxRequired: true,
+    rating: 4.6,
+  },
 ];
 
 export const MEDICINE_PRODUCTS: Product[] = ITEMS.map((it, idx) => ({
@@ -280,7 +397,7 @@ export const MEDICINE_PRODUCTS: Product[] = ITEMS.map((it, idx) => ({
   price: it.price,
   originalPrice: it.originalPrice,
   image: it.image,
-  rating: 4.3 + (idx % 3) * 0.1,
+  rating: it.rating ?? 4.3 + (idx % 3) * 0.1,
   category: "Medicine",
   description: it.desc,
   badge: it.badge,
