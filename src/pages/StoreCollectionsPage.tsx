@@ -179,6 +179,7 @@ const StoreCollectionsPage = () => {
                       alt={col.title}
                       loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover"
+                      style={{ objectPosition: "center 30%" }}
                     />
                     <div
                       className="absolute inset-0"
