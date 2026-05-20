@@ -48,6 +48,7 @@ import clonazepam from "@/assets/medicine/clonazepam.jpg";
 import zoloft100mg from "@/assets/medicine/zoloft-100mg.jpg";
 import digoxin from "@/assets/medicine/digoxin.jpg";
 import montelukast10mg from "@/assets/medicine/montelukast-10mg.jpg";
+import gabapentin100mg from "@/assets/medicine/gabapentin-100mg.jpg";
 
 /**
  * Medicine catalog — manually curated.
