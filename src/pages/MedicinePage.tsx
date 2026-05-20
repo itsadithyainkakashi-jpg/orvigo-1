@@ -17,7 +17,7 @@ import {
   Hand,
   Pill,
   Droplet,
-  Sparkles,
+  
 } from "lucide-react";
 import { MEDICINE_PRODUCTS } from "@/data/medicineProducts";
 import type { Product } from "@/contexts/CartContext";
