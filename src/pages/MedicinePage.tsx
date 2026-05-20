@@ -99,7 +99,6 @@ const CATEGORIES = [
   { id: "mental", label: "Mental Wellness", Icon: Brain, bg: "hsl(280, 60%, 96%)", fg: "hsl(280, 55%, 50%)" },
   { id: "stomach", label: "Stomach & Acidity", Icon: Droplet, bg: "hsl(165, 60%, 94%)", fg: "hsl(165, 70%, 35%)" },
   { id: "diabetes", label: "Diabetes Care", Icon: Pill, bg: "hsl(345, 80%, 95%)", fg: "hsl(345, 75%, 50%)" },
-  { id: "vitamins", label: "Vitamins & Supplements", Icon: Sparkles, bg: "hsl(40, 85%, 94%)", fg: "hsl(35, 90%, 45%)" },
 ];
 
 const TEAL = "hsl(165, 75%, 38%)";
