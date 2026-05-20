@@ -48,6 +48,7 @@ import clonazepam from "@/assets/medicine/clonazepam.jpg";
 import zoloft100mg from "@/assets/medicine/zoloft-100mg.jpg";
 import digoxin from "@/assets/medicine/digoxin.jpg";
 import montelukast10mg from "@/assets/medicine/montelukast-10mg.jpg";
+import gabapentin100mg from "@/assets/medicine/gabapentin-100mg.jpg";
 
 /**
  * Medicine catalog — manually curated.
@@ -509,6 +510,18 @@ const ITEMS: Item[] = [
     badge: "Asthma Relief",
     rxRequired: true,
     rating: 4.7,
+  },
+  {
+    id: "m-gabapentin-100mg-100",
+    name: "Gabapentin 100mg Capsules",
+    price: 389,
+    originalPrice: 499,
+    desc: "Nerve pain & seizure control, 100 capsules",
+    image: gabapentin100mg,
+    badge: "Nerve Care",
+    rxRequired: true,
+    warning: "Use only as prescribed by doctor.",
+    rating: 4.6,
   },
 ];
 
