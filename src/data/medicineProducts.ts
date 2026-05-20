@@ -511,6 +511,18 @@ const ITEMS: Item[] = [
     rxRequired: true,
     rating: 4.7,
   },
+  {
+    id: "m-gabapentin-100mg-100",
+    name: "Gabapentin 100mg Capsules",
+    price: 389,
+    originalPrice: 499,
+    desc: "Nerve pain & seizure control, 100 capsules",
+    image: gabapentin100mg,
+    badge: "Nerve Care",
+    rxRequired: true,
+    warning: "Use only as prescribed by doctor.",
+    rating: 4.6,
+  },
 ];
 
 export const MEDICINE_PRODUCTS: Product[] = ITEMS.map((it, idx) => ({
