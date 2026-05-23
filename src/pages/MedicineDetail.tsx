@@ -1,25 +1,41 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, ShoppingBag, ShieldCheck } from "lucide-react";
+import {
+  ArrowLeft,
+  ShoppingBag,
+  ShieldCheck,
+  Truck,
+  Star,
+  Heart,
+  CheckCircle2,
+  Pill,
+  AlertTriangle,
+  Clock,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { allProducts } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
+import MedicineProductImage from "@/components/MedicineProductImage";
 import type { Product } from "@/contexts/CartContext";
 import { toast } from "sonner";
 
-// Clean clinical palette — used only on this medicine detail page.
-const ACCENT = "hsl(200, 75%, 40%)";
+// Premium pharmacy palette
+const ACCENT = "hsl(170, 80%, 32%)";
+const ACCENT_SOFT = "hsl(170, 70%, 95%)";
+const BLUE = "hsl(200, 80%, 42%)";
 const BG = "hsl(0, 0%, 100%)";
-const SURFACE = "hsl(210, 30%, 98%)";
+const SURFACE = "hsl(180, 30%, 98%)";
 const TEXT = "hsl(215, 25%, 15%)";
 const MUTED = "hsl(215, 12%, 45%)";
-const BORDER = "hsl(210, 20%, 92%)";
+const BORDER = "hsl(180, 20%, 92%)";
 
 const MedicineDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart, totalItems } = useCart();
+  const { toggleWishlist, isWishlisted } = useWishlist();
   const local = allProducts.find((p) => p.id === id);
   const [dbProduct, setDbProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(!local);
@@ -73,6 +89,10 @@ const MedicineDetail = () => {
     );
   }
 
+  const original = product.originalPrice ?? Math.round(product.price * 1.25);
+  const discount = Math.max(0, Math.round(((original - product.price) / original) * 100));
+  const wished = isWishlisted(product.id);
+
   const handleAdd = () => {
     addToCart(product, 1);
     toast.success(`${product.name} added to cart`);
@@ -88,7 +108,7 @@ const MedicineDetail = () => {
       {/* Top bar */}
       <div
         className="sticky top-0 z-50 flex items-center justify-between px-4 py-3"
-        style={{ background: BG, borderBottom: `1px solid ${BORDER}` }}
+        style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(12px)", borderBottom: `1px solid ${BORDER}` }}
       >
         <button
           onClick={() => navigate(-1)}
@@ -119,25 +139,46 @@ const MedicineDetail = () => {
         </button>
       </div>
 
-      {/* Product image */}
+      {/* Product image - transparent on soft surface */}
       <div className="px-4 pt-4">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="rounded-2xl overflow-hidden flex items-center justify-center"
+          className="relative rounded-3xl overflow-hidden flex items-center justify-center p-6"
           style={{
-            background: SURFACE,
+            background: `linear-gradient(135deg, ${ACCENT_SOFT}, #ffffff)`,
             border: `1px solid ${BORDER}`,
             aspectRatio: "1 / 1",
+            boxShadow: "0 10px 30px rgba(15, 76, 95, 0.08)",
           }}
         >
-          <img
+          <MedicineProductImage
+            productId={product.id}
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-contain p-6"
-            loading="lazy"
+            className="w-full h-full"
           />
+          {discount > 0 && (
+            <span
+              className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-bold text-white"
+              style={{ background: ACCENT }}
+            >
+              {discount}% OFF
+            </span>
+          )}
+          <button
+            onClick={() => toggleWishlist(product)}
+            aria-label="Wishlist"
+            className="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center"
+            style={{ background: "rgba(255,255,255,0.95)", boxShadow: "0 4px 10px rgba(0,0,0,0.08)" }}
+          >
+            <Heart
+              size={18}
+              style={{ color: wished ? "#ef4444" : MUTED }}
+              fill={wished ? "#ef4444" : "none"}
+            />
+          </button>
         </motion.div>
       </div>
 
@@ -147,35 +188,109 @@ const MedicineDetail = () => {
           <h1 className="text-xl font-bold leading-tight" style={{ color: TEXT }}>
             {product.name}
           </h1>
+          <div className="flex items-center gap-2 mt-2">
+            <div
+              className="flex items-center gap-1 px-2 py-0.5 rounded-md"
+              style={{ background: ACCENT_SOFT }}
+            >
+              <Star size={12} fill={ACCENT} style={{ color: ACCENT }} />
+              <span className="text-xs font-semibold" style={{ color: ACCENT }}>
+                {product.rating.toFixed(1)}
+              </span>
+            </div>
+            <span className="text-xs" style={{ color: MUTED }}>
+              (1,248 reviews)
+            </span>
+            <span
+              className="text-xs font-semibold flex items-center gap-1 ml-1"
+              style={{ color: ACCENT }}
+            >
+              <CheckCircle2 size={12} /> In Stock
+            </span>
+          </div>
           {product.description && (
-            <p className="text-sm mt-2 leading-relaxed" style={{ color: MUTED }}>
+            <p className="text-sm mt-3 leading-relaxed" style={{ color: MUTED }}>
               {product.description}
             </p>
           )}
         </div>
 
+        {/* Price */}
         <div
-          className="rounded-xl px-4 py-3 flex items-baseline gap-2"
+          className="rounded-2xl px-4 py-3"
           style={{ background: SURFACE, border: `1px solid ${BORDER}` }}
         >
-          <span className="text-2xl font-bold" style={{ color: TEXT }}>
-            ₹{product.price}
-          </span>
-          <span className="text-xs" style={{ color: MUTED }}>
-            inclusive of all taxes
-          </span>
+          <div className="flex items-baseline gap-2 flex-wrap">
+            <span className="text-2xl font-bold" style={{ color: TEXT }}>
+              ₹{product.price}
+            </span>
+            {original > product.price && (
+              <>
+                <span className="text-sm line-through" style={{ color: MUTED }}>
+                  ₹{original}
+                </span>
+                <span className="text-xs font-bold" style={{ color: ACCENT }}>
+                  {discount}% off
+                </span>
+              </>
+            )}
+          </div>
+          <p className="text-[11px] mt-1" style={{ color: MUTED }}>
+            Inclusive of all taxes
+          </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs" style={{ color: MUTED }}>
-          <ShieldCheck size={14} style={{ color: ACCENT }} />
-          <span>100% genuine medicine</span>
+        {/* Trust strip */}
+        <div className="grid grid-cols-3 gap-2">
+          {[
+            { icon: ShieldCheck, label: "100% Genuine" },
+            { icon: Truck, label: "Free Delivery" },
+            { icon: Clock, label: "Quick Dispatch" },
+          ].map((b) => (
+            <div
+              key={b.label}
+              className="rounded-xl p-2.5 flex flex-col items-center text-center gap-1"
+              style={{ background: SURFACE, border: `1px solid ${BORDER}` }}
+            >
+              <b.icon size={16} style={{ color: ACCENT }} />
+              <span className="text-[10px] font-medium" style={{ color: TEXT }}>
+                {b.label}
+              </span>
+            </div>
+          ))}
         </div>
+
+        {/* Usage */}
+        <Section title="Usage Information" icon={Pill} iconColor={BLUE}>
+          <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
+            Take as directed by your physician. Typically 1 tablet/dose with water, after food.
+            Do not exceed the recommended dose. Maintain consistent timing for best results.
+          </p>
+        </Section>
+
+        {/* Side effects */}
+        <Section title="Possible Side Effects" icon={AlertTriangle} iconColor="hsl(35, 90%, 50%)">
+          <ul className="text-sm space-y-1 list-disc pl-4" style={{ color: MUTED }}>
+            <li>Mild drowsiness or dizziness</li>
+            <li>Nausea or stomach discomfort</li>
+            <li>Headache (uncommon)</li>
+            <li>Consult a doctor if symptoms persist</li>
+          </ul>
+        </Section>
+
+        {/* Delivery */}
+        <Section title="Delivery Details" icon={Truck} iconColor={ACCENT}>
+          <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
+            Free standard delivery in 2–3 business days. Express delivery available at checkout.
+            Cash on delivery supported across all pincodes.
+          </p>
+        </Section>
       </div>
 
       {/* Bottom action bar */}
       <div
         className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3 flex gap-3"
-        style={{ background: BG, borderTop: `1px solid ${BORDER}` }}
+        style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(14px)", borderTop: `1px solid ${BORDER}` }}
       >
         <motion.button
           whileTap={{ scale: 0.97 }}
@@ -193,7 +308,7 @@ const MedicineDetail = () => {
           whileTap={{ scale: 0.97 }}
           onClick={handleBuy}
           className="flex-1 h-12 rounded-xl text-sm font-bold text-white"
-          style={{ background: ACCENT }}
+          style={{ background: `linear-gradient(135deg, hsl(150, 75%, 42%), ${ACCENT})` }}
         >
           Buy Now
         </motion.button>
@@ -201,5 +316,30 @@ const MedicineDetail = () => {
     </div>
   );
 };
+
+const Section = ({
+  title,
+  icon: Icon,
+  iconColor,
+  children,
+}: {
+  title: string;
+  icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>;
+  iconColor: string;
+  children: React.ReactNode;
+}) => (
+  <div
+    className="rounded-2xl p-4"
+    style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(10px)", border: `1px solid ${BORDER}` }}
+  >
+    <div className="flex items-center gap-2 mb-2">
+      <Icon size={16} style={{ color: iconColor }} />
+      <h3 className="text-sm font-semibold" style={{ color: TEXT }}>
+        {title}
+      </h3>
+    </div>
+    {children}
+  </div>
+);
 
 export default MedicineDetail;
