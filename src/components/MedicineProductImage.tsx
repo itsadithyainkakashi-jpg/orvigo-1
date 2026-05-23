@@ -66,8 +66,7 @@ const MedicineProductImage = ({ productId, src, alt, className }: Props) => {
         className="max-w-full max-h-full object-contain transition-all duration-200"
         style={{
           opacity: loaded ? 1 : 0,
-          mixBlendMode: "multiply",
-          filter: "drop-shadow(0 6px 10px rgba(15, 76, 95, 0.18)) drop-shadow(0 2px 4px rgba(15, 76, 95, 0.12))",
+          filter: "drop-shadow(0 8px 14px rgba(15, 76, 95, 0.18)) drop-shadow(0 2px 4px rgba(15, 76, 95, 0.10))",
         }}
       />
     </div>
