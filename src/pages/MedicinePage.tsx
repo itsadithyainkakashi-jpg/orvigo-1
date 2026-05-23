@@ -144,24 +144,38 @@ const MedicinePage = () => {
     const discount = item.original ? Math.round(((item.original - item.price) / item.original) * 100) : 0;
     return (
       <motion.div
-        whileHover={{ y: -4, boxShadow: "0 12px 28px rgba(15, 76, 95, 0.12)" }}
+        whileHover={{ y: -5, boxShadow: "0 18px 38px rgba(15, 76, 95, 0.16)" }}
         whileTap={{ scale: 0.98 }}
-        className="relative flex flex-col bg-white rounded-2xl overflow-hidden cursor-pointer border border-gray-100"
-        style={{ boxShadow: "0 4px 14px rgba(15, 76, 95, 0.06)" }}
+        className="relative flex flex-col rounded-2xl overflow-hidden cursor-pointer border border-white/60"
+        style={{
+          background:
+            "linear-gradient(160deg, rgba(255,255,255,0.92) 0%, rgba(240,253,250,0.78) 100%)",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          boxShadow: "0 6px 20px rgba(15, 76, 95, 0.08)",
+        }}
         onClick={() => goToProduct(item.id)}
       >
         {discount > 0 && (
           <span
             className="absolute top-2 left-2 z-10 text-[9px] font-bold px-2 py-0.5 rounded-md text-white"
-            style={{ background: "hsl(0, 80%, 55%)" }}
+            style={{ background: "linear-gradient(135deg, hsl(0,80%,55%), hsl(15,85%,55%))" }}
           >
             {discount}% OFF
           </span>
         )}
-        <div className="w-full flex items-center justify-center" style={{ height: 110, background: "#f8fafb", padding: 8 }}>
+        <button
+          onClick={(e) => { e.stopPropagation(); toast.success(`${item.name} added to wishlist`, { duration: 1200 }); }}
+          className="absolute top-2 right-2 z-10 w-7 h-7 rounded-full flex items-center justify-center bg-white/80 backdrop-blur-md border border-white/70"
+          style={{ boxShadow: "0 2px 6px rgba(15, 76, 95, 0.12)" }}
+          aria-label="Add to wishlist"
+        >
+          <Heart size={13} className="text-rose-500" />
+        </button>
+        <div className="w-full flex items-center justify-center pt-4 pb-2" style={{ height: 130 }}>
           <MedicineProductImage productId={item.id} src={base.image} alt={item.name} />
         </div>
-        <div className="flex-1 flex flex-col p-2.5">
+        <div className="flex-1 flex flex-col px-2.5 pb-2.5">
           <p className="text-[12px] font-bold leading-tight text-gray-900 line-clamp-1">{item.name}</p>
           <p className="text-[10px] text-gray-500 leading-tight mt-0.5 line-clamp-1">{item.sub}</p>
           <div className="flex items-center gap-1 mt-1.5">
@@ -178,12 +192,12 @@ const MedicinePage = () => {
           <button
             onClick={(e) => handleAdd(item, e)}
             className="mt-2 w-full flex items-center justify-center gap-1 py-1.5 rounded-lg text-[11px] font-bold text-white transition-transform active:scale-95"
-            style={{ background: `linear-gradient(135deg, ${TEAL} 0%, ${TEAL_DARK} 100%)` }}
+            style={{ background: "linear-gradient(135deg, hsl(150, 75%, 42%) 0%, hsl(170, 80%, 32%) 100%)" }}
           >
             <ShoppingCart size={12} /> Add to Cart
           </button>
           <div className="flex items-center gap-1 mt-1.5">
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: TEAL }} />
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "hsl(150, 75%, 42%)" }} />
             <span className="text-[9px] font-semibold" style={{ color: TEAL_DARK }}>In Stock</span>
           </div>
         </div>
