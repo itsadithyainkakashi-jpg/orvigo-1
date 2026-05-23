@@ -324,7 +324,7 @@ const Section = ({
   children,
 }: {
   title: string;
-  icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>;
+  icon: React.ElementType;
   iconColor: string;
   children: React.ReactNode;
 }) => (
