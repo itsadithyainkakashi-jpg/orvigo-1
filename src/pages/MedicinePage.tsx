@@ -432,7 +432,7 @@ const MedicinePage = () => {
           <div className="bg-white rounded-2xl p-3" style={{ boxShadow: "0 4px 14px rgba(15, 76, 95, 0.05)" }}>
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-[13px] font-extrabold text-gray-900">⭐ Recommended for You</h3>
-              <button className="text-[10px] font-bold" style={{ color: TEAL }}>View All ›</button>
+              <button onClick={() => goToCategory("skin")} className="text-[10px] font-bold active:scale-95 transition-transform" style={{ color: TEAL }}>View All ›</button>
             </div>
             <div className="grid grid-cols-3 gap-2">
               {RECOMMENDED.map((it) => <ProductCard key={`rec-${it.id}`} item={it} />)}
