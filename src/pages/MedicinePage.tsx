@@ -222,13 +222,18 @@ const MedicinePage = () => {
     );
   };
 
-  const Section = ({ emoji, title, items }: { emoji: string; title: string; items: DisplayItem[] }) => (
-    <section className="mt-5">
+  const Section = ({ emoji, title, items, catId }: { emoji: string; title: string; items: DisplayItem[]; catId: string }) => (
+    <section
+      ref={(el) => { sectionRefs.current[catId] = el; }}
+      id={`cat-${catId}`}
+      className="mt-5 scroll-mt-20 rounded-2xl transition-colors"
+      style={highlight === catId ? { background: "hsl(165, 70%, 95%)", padding: 8 } : undefined}
+    >
       <div className="flex items-center justify-between mb-2.5 px-1">
         <h2 className="text-[15px] font-extrabold text-gray-900 flex items-center gap-1.5">
           <span>{emoji}</span> {title}
         </h2>
-        <button className="text-[11px] font-bold flex items-center gap-0.5" style={{ color: TEAL }}>
+        <button onClick={() => goToCategory(catId)} className="text-[11px] font-bold flex items-center gap-0.5 active:scale-95 transition-transform" style={{ color: TEAL }}>
           View All ›
         </button>
       </div>
@@ -237,6 +242,7 @@ const MedicinePage = () => {
       </div>
     </section>
   );
+
 
   return (
     <div className="min-h-screen pb-24" style={{ background: "#f4f7fa" }}>
