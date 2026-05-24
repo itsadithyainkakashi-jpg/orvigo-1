@@ -23,6 +23,7 @@ import FoodPage from "./pages/FoodPage.tsx";
 import GroceryPage from "./pages/GroceryPage.tsx";
 import MedicinePage from "./pages/MedicinePage.tsx";
 import MedicineDetail from "./pages/MedicineDetail.tsx";
+import MedicineCategoryPage from "./pages/MedicineCategoryPage.tsx";
 import ShoppingPage from "./pages/ShoppingPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import EditProfilePage from "./pages/EditProfilePage.tsx";
