@@ -107,8 +107,23 @@ const BLUE = "hsl(205, 80%, 40%)";
 
 const MedicinePage = () => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const scrollTo = params.get("scrollTo");
   const { totalItems, addToCart } = useCart();
   const [searchQuery, setSearchQuery] = useState("");
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const [highlight, setHighlight] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!scrollTo) return;
+    const el = sectionRefs.current[scrollTo];
+    if (el) {
+      setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+      setHighlight(scrollTo);
+      const t = setTimeout(() => setHighlight(null), 2200);
+      return () => clearTimeout(t);
+    }
+  }, [scrollTo]);
 
   const productMap = useMemo(() => {
     const m = new Map<string, Product>();
@@ -125,6 +140,8 @@ const MedicinePage = () => {
   };
 
   const goToProduct = (id: string) => navigate(`/medicine/product/${id}`);
+  const goToCategory = (catId: string) => navigate(`/medicine/category/${catId}`);
+
 
   const renderStars = (rating: number) => (
     <div className="flex items-center gap-0.5">
