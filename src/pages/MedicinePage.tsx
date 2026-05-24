@@ -317,30 +317,55 @@ const MedicinePage = () => {
         <div className="bg-white rounded-2xl p-3" style={{ boxShadow: "0 4px 14px rgba(15, 76, 95, 0.05)" }}>
           <div className="flex items-center justify-between mb-2.5">
             <h2 className="text-[13px] font-extrabold text-gray-900">Shop by Category</h2>
-            <button className="text-[11px] font-bold" style={{ color: TEAL }}>View All ›</button>
+            <button onClick={() => goToCategory("fever")} className="text-[11px] font-bold active:scale-95 transition-transform" style={{ color: TEAL }}>View All ›</button>
           </div>
           <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
-            {CATEGORIES.map(({ id, label, Icon, bg, fg }) => (
-              <button key={id} className="flex flex-col items-center flex-shrink-0 w-[68px]">
-                <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ background: bg }}>
-                  <Icon size={22} style={{ color: fg }} strokeWidth={2.2} />
-                </div>
-                <span className="text-[9px] font-semibold text-gray-700 text-center leading-tight mt-1.5">{label}</span>
-              </button>
-            ))}
+            {CATEGORIES.map(({ id, label, Icon, bg, fg }) => {
+              const isActive = highlight === id;
+              return (
+                <motion.button
+                  key={id}
+                  onClick={() => goToCategory(id)}
+                  whileTap={{ scale: 0.92 }}
+                  whileHover={{ y: -2 }}
+                  className="flex flex-col items-center flex-shrink-0 w-[68px]"
+                >
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center transition-all"
+                    style={{
+                      background: bg,
+                      boxShadow: isActive ? `0 0 0 2px ${fg}, 0 4px 12px ${fg}40` : undefined,
+                    }}
+                  >
+                    <Icon size={22} style={{ color: fg }} strokeWidth={2.2} />
+                  </div>
+                  <span
+                    className="text-[9px] font-semibold text-center leading-tight mt-1.5"
+                    style={{ color: isActive ? fg : "hsl(220, 20%, 30%)" }}
+                  >
+                    {label}
+                  </span>
+                </motion.button>
+              );
+            })}
           </div>
         </div>
 
-        <Section emoji="🔥" title="Fever & Pain Relief" items={FEVER_PAIN} />
-        <Section emoji="🤧" title="Cold & Allergy" items={COLD_ALLERGY} />
+        <Section emoji="🔥" title="Fever & Pain Relief" items={FEVER_PAIN} catId="fever" />
+        <Section emoji="🤧" title="Cold & Allergy" items={COLD_ALLERGY} catId="cold" />
 
         {/* Heart & BP Care with 20% OFF card */}
-        <section className="mt-5">
+        <section
+          ref={(el) => { sectionRefs.current["heart"] = el; }}
+          id="cat-heart"
+          className="mt-5 scroll-mt-20 rounded-2xl transition-colors"
+          style={highlight === "heart" ? { background: "hsl(165, 70%, 95%)", padding: 8 } : undefined}
+        >
           <div className="flex items-center justify-between mb-2.5 px-1">
             <h2 className="text-[15px] font-extrabold text-gray-900 flex items-center gap-1.5">
               <span>❤️</span> Heart & BP Care
             </h2>
-            <button className="text-[11px] font-bold" style={{ color: TEAL }}>View All ›</button>
+            <button onClick={() => goToCategory("heart")} className="text-[11px] font-bold active:scale-95 transition-transform" style={{ color: TEAL }}>View All ›</button>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {HEART_BP.map((item) => <ProductCard key={`heart-${item.id}`} item={item} />)}
@@ -356,16 +381,17 @@ const MedicinePage = () => {
               <div className="mt-2 px-2 py-1 rounded-md bg-white text-[10px] font-bold" style={{ color: TEAL_DARK }}>
                 Use Code: MED20
               </div>
-              <button className="mt-3 px-4 py-1.5 rounded-lg text-[11px] font-bold text-white" style={{ background: TEAL }}>
+              <button onClick={() => goToCategory("heart")} className="mt-3 px-4 py-1.5 rounded-lg text-[11px] font-bold text-white active:scale-95 transition-transform" style={{ background: TEAL }}>
                 Shop Now
               </button>
             </div>
           </div>
         </section>
 
-        <Section emoji="🧠" title="Mental Wellness" items={MENTAL} />
-        <Section emoji="🧴" title="Skin Care" items={SKIN} />
-        <Section emoji="💊" title="Stomach & Acidity" items={STOMACH} />
+        <Section emoji="🧠" title="Mental Wellness" items={MENTAL} catId="mental" />
+        <Section emoji="🧴" title="Skin Care" items={SKIN} catId="skin" />
+        <Section emoji="💊" title="Stomach & Acidity" items={STOMACH} catId="stomach" />
+
 
         {/* Top Sellers + Recommended */}
         <section className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-3">
