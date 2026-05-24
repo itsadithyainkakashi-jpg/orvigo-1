@@ -398,7 +398,7 @@ const MedicinePage = () => {
           <div className="bg-white rounded-2xl p-3" style={{ boxShadow: "0 4px 14px rgba(15, 76, 95, 0.05)" }}>
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-[13px] font-extrabold text-gray-900">🏆 Top Selling Medicines</h3>
-              <button className="text-[10px] font-bold" style={{ color: TEAL }}>View All</button>
+              <button onClick={() => goToCategory("fever")} className="text-[10px] font-bold active:scale-95 transition-transform" style={{ color: TEAL }}>View All</button>
             </div>
             <ul className="space-y-2.5">
               {TOP_SELLERS.map((it, idx) => (
