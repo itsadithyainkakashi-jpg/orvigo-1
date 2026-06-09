@@ -37,7 +37,7 @@ const GREEN_DARK = "hsl(155, 70%, 32%)";
 const GroceryPage = () => {
   const navigate = useNavigate();
   const { totalItems, addToCart } = useCart();
-  const { toggleWishlist, isInWishlist } = useWishlist();
+  const { toggleWishlist, isWishlisted } = useWishlist();
   const [searchQuery, setSearchQuery] = useState("");
   const [quantities, setQuantities] = useState<Record<string, number>>({});
 
