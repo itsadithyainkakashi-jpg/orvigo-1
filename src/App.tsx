@@ -21,6 +21,7 @@ import OrderSuccess from "./pages/OrderSuccess.tsx";
 import FashionPage from "./pages/FashionPage.tsx";
 import FoodPage from "./pages/FoodPage.tsx";
 import GroceryPage from "./pages/GroceryPage.tsx";
+import GroceryCategoryPage from "./pages/GroceryCategoryPage.tsx";
 import MedicinePage from "./pages/MedicinePage.tsx";
 import MedicineDetail from "./pages/MedicineDetail.tsx";
 import MedicineCategoryPage from "./pages/MedicineCategoryPage.tsx";
