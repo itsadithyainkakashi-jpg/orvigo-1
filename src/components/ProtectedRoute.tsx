@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { user, firebaseUser, loading } = useAuth();
+  const { user, firebaseUser, demoUser, loading } = useAuth();
 
   if (loading) {
     return (
@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (!user && !firebaseUser) return <Navigate to="/login" replace />;
+  if (!user && !firebaseUser && !demoUser) return <Navigate to="/login" replace />;
   return <>{children}</>;
 };
 
