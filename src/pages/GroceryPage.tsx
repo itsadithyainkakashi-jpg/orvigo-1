@@ -71,7 +71,7 @@ const GroceryPage = () => {
 
   const ProductCard = ({ p, index = 0 }: { p: GroceryItem; index?: number }) => {
     const qty = quantities[p.id] || 0;
-    const wished = isInWishlist(p.id);
+    const wished = isWishlisted(p.id);
     return (
       <motion.div
         whileHover={{ y: -4 }}
