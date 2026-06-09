@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (!user && !firebaseUser) return <Navigate to="/login" replace />;
+  if (!user && !firebaseUser && !demoUser) return <Navigate to="/login" replace />;
   return <>{children}</>;
 };
 
