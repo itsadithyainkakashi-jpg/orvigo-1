@@ -1,243 +1,219 @@
 import type { Product } from "@/contexts/CartContext";
 
-export type GrocerySubCategory = "Veg" | "Non-Veg";
+/* -------------------------------------------------------------------------- */
+/* Grocery Categories                                                          */
+/* -------------------------------------------------------------------------- */
 
-/**
- * Image strategy: hand-curated direct Unsplash photo IDs.
- * - Each product is mapped to a specific real photo of that exact item.
- * - No tag-fetchers, no randomness, no AI, no duplicates.
- */
+export type GroceryCategoryId =
+  | "fruits"
+  | "vegetables"
+  | "dairy"
+  | "snacks"
+  | "beverages"
+  | "bakery"
+  | "grains"
+  | "essentials"
+  | "instant"
+  | "personal-care";
+
+export interface GroceryCategoryMeta {
+  id: GroceryCategoryId;
+  label: string;
+  icon: string;        // emoji
+  tint: string;        // soft pastel HSL background for category card
+  accent: string;      // accent color
+}
+
+export const GROCERY_CATEGORIES: GroceryCategoryMeta[] = [
+  { id: "fruits",       label: "Fruits",            icon: "🍎", tint: "hsl(0, 80%, 95%)",   accent: "hsl(0, 75%, 55%)" },
+  { id: "vegetables",   label: "Vegetables",        icon: "🥦", tint: "hsl(120, 50%, 92%)", accent: "hsl(140, 65%, 38%)" },
+  { id: "dairy",        label: "Dairy & Milk",      icon: "🥛", tint: "hsl(210, 60%, 95%)", accent: "hsl(210, 75%, 55%)" },
+  { id: "snacks",       label: "Snacks",            icon: "🍪", tint: "hsl(35, 80%, 92%)",  accent: "hsl(28, 85%, 55%)" },
+  { id: "beverages",    label: "Beverages",         icon: "🥤", tint: "hsl(195, 70%, 92%)", accent: "hsl(195, 80%, 50%)" },
+  { id: "bakery",       label: "Bakery",            icon: "🍞", tint: "hsl(40, 80%, 92%)",  accent: "hsl(32, 75%, 50%)" },
+  { id: "grains",       label: "Rice & Grains",     icon: "🌾", tint: "hsl(45, 75%, 92%)",  accent: "hsl(38, 70%, 45%)" },
+  { id: "essentials",   label: "Cooking Essentials",icon: "🧂", tint: "hsl(25, 65%, 92%)",  accent: "hsl(20, 75%, 48%)" },
+  { id: "instant",      label: "Instant Foods",     icon: "🍜", tint: "hsl(15, 80%, 92%)",  accent: "hsl(12, 80%, 55%)" },
+  { id: "personal-care",label: "Personal Care",     icon: "🧴", tint: "hsl(280, 50%, 94%)", accent: "hsl(280, 60%, 55%)" },
+];
+
+export const GROCERY_CATEGORY_BY_ID: Record<GroceryCategoryId, GroceryCategoryMeta> =
+  GROCERY_CATEGORIES.reduce((acc, c) => ({ ...acc, [c.id]: c }), {} as Record<GroceryCategoryId, GroceryCategoryMeta>);
+
+/* -------------------------------------------------------------------------- */
+/* Grocery Product type                                                        */
+/* -------------------------------------------------------------------------- */
+
+export interface GroceryItem extends Product {
+  categoryId: GroceryCategoryId;
+  weight: string;
+  originalPrice: number;
+  discount: number;     // percent
+  deliveryMins: number;
+  inStock: boolean;
+  bestseller?: boolean;
+  recommended?: boolean;
+}
+
 const u = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?w=400&h=400&fit=crop&q=80`;
+  `https://images.unsplash.com/photo-${id}?w=500&h=500&fit=crop&q=85`;
 
-type Item = { name: string; price: number; desc: string; image: string };
+type Seed = {
+  name: string;
+  weight: string;
+  price: number;
+  originalPrice: number;
+  image: string;
+  bestseller?: boolean;
+  recommended?: boolean;
+};
 
-/**
- * Veg — strict curated list from reference image.
- * Each entry mapped to a verified real photograph of that exact vegetable.
- */
-const VEG: Item[] = [
-  { name: "Mint", price: 15, desc: "Fresh mint leaves, 1 bunch", image: u("1628556270448-4d4e4148e1b1") },
-  { name: "Lettuce", price: 50, desc: "Crisp iceberg lettuce, 1 pc", image: u("1622206151226-18ca2c9ab4a1") },
-  { name: "Cabbage", price: 30, desc: "Fresh green cabbage, 1 pc", image: u("1551888419-7b7a520fe0ca") },
-  { name: "Cauliflower", price: 45, desc: "Crisp white cauliflower, 1 pc", image: u("1568584711271-6c929fb49b60") },
-  { name: "Leek", price: 80, desc: "Fresh leek stalks, 500 g", image: u("1664527010763-b4f7f64af6d0") },
-  { name: "Broccoli", price: 90, desc: "Fresh green broccoli, 500 g", image: u("1459411552884-841db9b3cc2a") },
-  { name: "Eggplant (Brinjal)", price: 45, desc: "Tender purple brinjal, 500 g", image: u("1659261200833-ec8761558af7") },
-  { name: "Brussels Sprout", price: 120, desc: "Fresh Brussels sprouts, 250 g", image: u("1438118907704-7718ee9a191a") },
-  { name: "Beetroot", price: 40, desc: "Deep red beetroot, 500 g", image: u("1593105544559-ecb03bf76f82") },
-  { name: "Fennel", price: 70, desc: "Fresh fennel bulb, 1 pc", image: u("1591375372226-1c2a6b9b3b19") },
-  { name: "Coriander", price: 10, desc: "Fresh coriander leaves, 1 bunch", image: u("1615485290382-441e4d049cb5") },
-  { name: "Knol Khol", price: 35, desc: "Fresh kohlrabi (knol khol), 500 g", image: u("1664527011435-d2b3a3e1c45a") },
-  { name: "Turnip", price: 40, desc: "Fresh purple turnip, 500 g", image: u("1611759557060-ff9c3f9d8b94") },
-  { name: "Bell Pepper (Capsicum)", price: 60, desc: "Mixed bell peppers, 500 g", image: u("1563565375-f3fdfdbefa83") },
-  { name: "Bitter Gourd", price: 50, desc: "Fresh bitter gourd, 500 g", image: u("1631204184884-1b9b6a6fbe17") },
-  { name: "Radish", price: 30, desc: "White radish (mooli), 500 g", image: u("1576181256399-834e3b3a49bf") },
-  { name: "Garlic", price: 70, desc: "Fresh garlic bulbs, 250 g", image: u("1615477550927-6ec8445fcfe3") },
-  { name: "Spinach", price: 20, desc: "Fresh spinach leaves, 1 bunch", image: u("1576045057995-568f588f82fb") },
-  { name: "Zucchini", price: 80, desc: "Fresh green zucchini, 500 g", image: u("1596397249129-c7a8f8718873") },
-  { name: "Ginger", price: 60, desc: "Fresh ginger root, 250 g", image: u("1573414405398-79c39d0c7bc7") },
-  { name: "Corn", price: 30, desc: "Sweet corn cob, 2 pcs", image: u("1601593768799-76d3b96c8b4b") },
-  { name: "Pumpkin", price: 35, desc: "Yellow pumpkin, 1 kg", image: u("1570586437263-ab629fccc818") },
-  { name: "Okra", price: 40, desc: "Fresh ladies finger, 500 g", image: u("1664527011447-3c4b7c1a2c8a") },
-  { name: "Red Chillies", price: 25, desc: "Fresh red chillies, 100 g", image: u("1583119022894-919a68a3d0e3") },
-  { name: "Celery", price: 90, desc: "Fresh celery stalks, 1 bunch", image: u("1604329760661-e71dc83f8f26") },
-  { name: "Tomato", price: 30, desc: "Ripe red tomatoes, 1 kg", image: u("1592924357228-91a4daadcfea") },
-  { name: "Moringa (Drumstick)", price: 60, desc: "Fresh drumsticks, 250 g", image: u("1644664444770-3f3f3f0a8b8a") },
-  { name: "Onion", price: 40, desc: "Bellary onions, 1 kg", image: u("1518977676601-b53f82aba655") },
-  { name: "Peas", price: 60, desc: "Fresh green peas, 500 g", image: u("1587735243615-c03f25aaff15") },
-  { name: "Potato", price: 35, desc: "Farm fresh potatoes, 1 kg", image: u("1518977091478-0d4baf6aef98") },
-  { name: "Yam", price: 70, desc: "Fresh yam (suran), 500 g", image: u("1606923829579-0cb981a83e2e") },
-  { name: "Horseradish", price: 100, desc: "Fresh horseradish root, 250 g", image: u("1603048719539-9ecb4aec5e4d") },
-  { name: "Parsnip", price: 90, desc: "Fresh parsnip, 500 g", image: u("1606923829579-0cb981a83e2f") },
-  { name: "Artichoke", price: 150, desc: "Fresh globe artichoke, 1 pc", image: u("1551893665-f843f600794e") },
-  { name: "Swiss Chard", price: 80, desc: "Fresh Swiss chard, 1 bunch", image: u("1576181256399-834e3b3a49b0") },
-  { name: "Mushroom", price: 80, desc: "Button mushrooms, 200 g", image: u("1504545102099-3f4d2f8e4f4f") },
-  { name: "Ash Gourd", price: 40, desc: "White ash gourd, 1 kg", image: u("1604908554049-24a5b9f3f7a6") },
-  { name: "Olive", price: 200, desc: "Fresh green olives, 200 g", image: u("1611171711791-b34b41b1a8f6") },
-  { name: "Lemon", price: 40, desc: "Fresh lemons, 500 g", image: u("1590502593747-42a996133562") },
-  { name: "Asparagus", price: 180, desc: "Fresh green asparagus, 250 g", image: u("1515471209610-dae1c92d8777") },
-  { name: "Sweet Potato", price: 50, desc: "Fresh sweet potatoes, 1 kg", image: u("1596097635121-14b38c5d7a55") },
-  { name: "Bok Choy", price: 90, desc: "Fresh baby bok choy, 250 g", image: u("1576181256648-4cd7d80e7a9c") },
-  { name: "Kohlrabi", price: 60, desc: "Fresh kohlrabi, 500 g", image: u("1664527011436-d2b3a3e1c45b") },
+const FRUITS: Seed[] = [
+  { name: "Royal Gala Apple",  weight: "1 kg",   price: 159, originalPrice: 199, image: u("1568702846914-96b305d2aaeb"), bestseller: true },
+  { name: "Robusta Banana",    weight: "6 pcs",  price: 49,  originalPrice: 69,  image: u("1571771894821-ce9b6c11b08e"), recommended: true },
+  { name: "Nagpur Orange",     weight: "1 kg",   price: 129, originalPrice: 169, image: u("1611080626919-7cf5a9dbab12") },
+  { name: "Watermelon",        weight: "1 pc",   price: 89,  originalPrice: 129, image: u("1587049352846-4a222e784d38"), bestseller: true },
+  { name: "Alphonso Mango",    weight: "1 kg",   price: 349, originalPrice: 499, image: u("1553279768-865429fa0078"), recommended: true },
+  { name: "Sweet Pineapple",   weight: "1 pc",   price: 79,  originalPrice: 99,  image: u("1550258987-190a2d41a8ba") },
+  { name: "Red Grapes",        weight: "500 g",  price: 89,  originalPrice: 119, image: u("1599819811279-d5ad9cccf838") },
+  { name: "Pomegranate",       weight: "500 g",  price: 119, originalPrice: 149, image: u("1541344999736-83eca272f6fc") },
 ];
 
-/**
- * Non-Veg — strict curated list as specified.
- */
-const NONVEG: Item[] = [
-  { name: "Chicken", price: 220, desc: "Skinless cleaned chicken, 1 kg", image: u("1587593810167-a84920ea0781") },
-  { name: "Boneless Chicken", price: 280, desc: "Boneless chicken pieces, 500 g", image: u("1604503468506-a8da13d82791") },
-  { name: "Mutton", price: 650, desc: "Goat mutton curry cut, 500 g", image: u("1603048297172-c92544798d5a") },
-  { name: "Fish", price: 320, desc: "Fresh whole fish, 500 g", image: u("1535140728325-a4d3707eee94") },
-  { name: "Egg", price: 90, desc: "Farm fresh eggs, 6 pcs", image: u("1582722872445-44dc5f7e3c8f") },
+const VEGETABLES: Seed[] = [
+  { name: "Hybrid Tomato",     weight: "500 g",  price: 25, originalPrice: 35, image: u("1592924357228-91a4daadcfea"), bestseller: true },
+  { name: "Red Onion",         weight: "1 kg",   price: 39, originalPrice: 49, image: u("1518977676601-b53f82aba655"), recommended: true },
+  { name: "Farm Potato",       weight: "1 kg",   price: 29, originalPrice: 39, image: u("1518977091478-0d4baf6aef98") },
+  { name: "Fresh Carrot",      weight: "500 g",  price: 35, originalPrice: 49, image: u("1582515073490-39981397c445") },
+  { name: "Broccoli",          weight: "500 g",  price: 79, originalPrice: 99, image: u("1459411552884-841db9b3cc2a"), recommended: true },
+  { name: "Capsicum Mix",      weight: "500 g",  price: 59, originalPrice: 79, image: u("1563565375-f3fdfdbefa83") },
+  { name: "Baby Spinach",      weight: "250 g",  price: 25, originalPrice: 35, image: u("1576045057995-568f588f82fb") },
+  { name: "Sweet Corn",        weight: "2 pcs",  price: 35, originalPrice: 45, image: u("1601593768799-76d3b96c8b4b") },
 ];
 
-const buildProducts = (
-  items: Item[],
-  prefix: string
-): Product[] =>
-  items.map((it, idx) => ({
-    id: `gr-${prefix}-${idx + 1}`,
-    name: it.name,
-    price: it.price,
-    image: it.image,
-    rating: 4.0 + ((idx % 9) * 0.1),
+const DAIRY: Seed[] = [
+  { name: "Amul Toned Milk",   weight: "1 L",    price: 64, originalPrice: 68, image: u("1550583724-b2692b85b150"), bestseller: true },
+  { name: "Amul Butter",       weight: "100 g",  price: 56, originalPrice: 62, image: u("1589985270826-4b7bb135bc9d"), recommended: true },
+  { name: "Cheese Slices",     weight: "200 g",  price: 145, originalPrice: 175, image: u("1486297678162-eb2a19b0a32d") },
+  { name: "Greek Yogurt",      weight: "400 g",  price: 80,  originalPrice: 99,  image: u("1488477181946-6428a0291777") },
+  { name: "Paneer Cubes",      weight: "200 g",  price: 89,  originalPrice: 110, image: u("1631452180519-c014fe946bc7"), recommended: true },
+  { name: "Fresh Cream",       weight: "200 ml", price: 65,  originalPrice: 75,  image: u("1568476237742-c2c0d4d3e0f1") },
+];
+
+const SNACKS: Seed[] = [
+  { name: "Lay's Magic Masala",weight: "90 g",   price: 30,  originalPrice: 35,  image: u("1599490659213-e2b9527bd087"), bestseller: true },
+  { name: "Parle-G Biscuits",  weight: "200 g",  price: 25,  originalPrice: 30,  image: u("1558961363-fa8fdf82db35") },
+  { name: "Cadbury Dairy Milk",weight: "150 g",  price: 145, originalPrice: 175, image: u("1606312619070-d48b4c652a52"), bestseller: true },
+  { name: "Oreo Cookies",      weight: "120 g",  price: 35,  originalPrice: 45,  image: u("1599599810769-bcde5a160d32"), recommended: true },
+  { name: "Haldiram's Bhujia", weight: "200 g",  price: 65,  originalPrice: 75,  image: u("1600718374662-0483d2b9da44") },
+  { name: "Kurkure Masala",    weight: "85 g",   price: 20,  originalPrice: 25,  image: u("1621447504864-d8686e12698c") },
+];
+
+const BEVERAGES: Seed[] = [
+  { name: "Coca-Cola",         weight: "750 ml", price: 40,  originalPrice: 45,  image: u("1554866585-cd94860890b7"), bestseller: true },
+  { name: "Pepsi Black",       weight: "750 ml", price: 40,  originalPrice: 45,  image: u("1629203851122-3726ecdf080e") },
+  { name: "Real Mixed Juice",  weight: "1 L",    price: 110, originalPrice: 135, image: u("1600271886742-f049cd451bba"), recommended: true },
+  { name: "Red Bull Energy",   weight: "250 ml", price: 125, originalPrice: 130, image: u("1613214049841-028e017a01e1") },
+  { name: "Tropicana Orange",  weight: "1 L",    price: 130, originalPrice: 150, image: u("1600271886742-f049cd451bbb") },
+  { name: "Bisleri Water",     weight: "2 L",    price: 30,  originalPrice: 35,  image: u("1606168094336-48f8b0c1d8e0") },
+];
+
+const BAKERY: Seed[] = [
+  { name: "Brown Bread",       weight: "400 g",  price: 45,  originalPrice: 55,  image: u("1509440159596-0249088772ff"), bestseller: true },
+  { name: "Chocolate Cake",    weight: "500 g",  price: 349, originalPrice: 449, image: u("1578985545062-69928b1d9587"), recommended: true },
+  { name: "Glazed Donuts",     weight: "4 pcs",  price: 199, originalPrice: 249, image: u("1551024506-0bccd828d307") },
+  { name: "Choco Muffins",     weight: "6 pcs",  price: 149, originalPrice: 199, image: u("1486427944299-d1955d23e34d"), recommended: true },
+  { name: "Butter Croissant",  weight: "2 pcs",  price: 99,  originalPrice: 129, image: u("1555507036-ab1f4038808a") },
+  { name: "Pav Buns",          weight: "6 pcs",  price: 35,  originalPrice: 45,  image: u("1568471173242-461f0a730452") },
+];
+
+const GRAINS: Seed[] = [
+  { name: "Basmati Rice",      weight: "5 kg",   price: 549, originalPrice: 699, image: u("1586201375761-83865001e31c"), bestseller: true },
+  { name: "Sona Masoori Rice", weight: "5 kg",   price: 399, originalPrice: 499, image: u("1614961233913-a5113a4a34ed") },
+  { name: "Whole Wheat Atta",  weight: "5 kg",   price: 245, originalPrice: 299, image: u("1568254183919-78a4f43a2877"), recommended: true },
+  { name: "Toor Dal",          weight: "1 kg",   price: 145, originalPrice: 175, image: u("1599909533730-5dfa9d4d1f15") },
+  { name: "Moong Dal",         weight: "1 kg",   price: 135, originalPrice: 165, image: u("1612257999691-c8c4e6a6e2b6") },
+  { name: "Chana Dal",         weight: "1 kg",   price: 110, originalPrice: 140, image: u("1607619056574-7b8d3ee536b2") },
+];
+
+const ESSENTIALS: Seed[] = [
+  { name: "Fortune Sunflower Oil", weight: "1 L", price: 159, originalPrice: 199, image: u("1620706857370-e1b9770e8bb1"), bestseller: true },
+  { name: "Tata Iodised Salt", weight: "1 kg",   price: 28,  originalPrice: 32,  image: u("1518110925495-b37653a13e8c") },
+  { name: "Sugar",             weight: "1 kg",   price: 49,  originalPrice: 55,  image: u("1581365365964-7f9d4f5d3a6c") },
+  { name: "Red Chilli Powder", weight: "200 g",  price: 79,  originalPrice: 99,  image: u("1599909533730-5dfa9d4d1f16"), recommended: true },
+  { name: "Turmeric Powder",   weight: "200 g",  price: 65,  originalPrice: 85,  image: u("1615485290598-3b3d5dabbf73") },
+  { name: "Garam Masala",      weight: "100 g",  price: 89,  originalPrice: 110, image: u("1596040033229-a9821ebd058d") },
+];
+
+const INSTANT: Seed[] = [
+  { name: "Maggi 2-Minute Noodles", weight: "560 g (8 pk)", price: 96, originalPrice: 112, image: u("1612966809470-1ae6a3e2da75"), bestseller: true },
+  { name: "MTR Poha Mix",      weight: "160 g",  price: 60,  originalPrice: 75,  image: u("1604908176997-43ce2b6ed6c6") },
+  { name: "Knorr Sweet Corn Soup", weight: "60 g", price: 55, originalPrice: 65, image: u("1547592180-85f173990554"), recommended: true },
+  { name: "Yippee Magic Masala",weight: "260 g", price: 60, originalPrice: 70, image: u("1612966809470-1ae6a3e2da76") },
+  { name: "Top Ramen Curry",   weight: "560 g",  price: 105, originalPrice: 125, image: u("1612966809470-1ae6a3e2da77"), recommended: true },
+  { name: "MTR Upma Mix",      weight: "200 g",  price: 65,  originalPrice: 80,  image: u("1604908176997-43ce2b6ed6c7") },
+];
+
+const PERSONAL_CARE: Seed[] = [
+  { name: "Colgate Strong Teeth", weight: "200 g", price: 110, originalPrice: 140, image: u("1559591935-c6c92c6e3a40"), bestseller: true },
+  { name: "Dove Body Wash",    weight: "250 ml", price: 199, originalPrice: 249, image: u("1556228720-195a672e8a03") },
+  { name: "Head & Shoulders Shampoo", weight: "340 ml", price: 290, originalPrice: 360, image: u("1535585209827-a15fcdbc4c2d"), recommended: true },
+  { name: "Dettol Original Soap", weight: "4 x 75 g", price: 145, originalPrice: 180, image: u("1585652757173-57de5e9fab42") },
+  { name: "Gillette Mach3 Razor", weight: "1 pc", price: 245, originalPrice: 299, image: u("1626808642875-0aa545482dfb") },
+  { name: "Nivea Body Lotion", weight: "400 ml", price: 349, originalPrice: 425, image: u("1571781926291-c477ebfd024b") },
+];
+
+const CATEGORY_SEEDS: Record<GroceryCategoryId, Seed[]> = {
+  fruits: FRUITS,
+  vegetables: VEGETABLES,
+  dairy: DAIRY,
+  snacks: SNACKS,
+  beverages: BEVERAGES,
+  bakery: BAKERY,
+  grains: GRAINS,
+  essentials: ESSENTIALS,
+  instant: INSTANT,
+  "personal-care": PERSONAL_CARE,
+};
+
+const buildItems = (categoryId: GroceryCategoryId, seeds: Seed[]): GroceryItem[] =>
+  seeds.map((s, idx) => ({
+    id: `gr-${categoryId}-${idx + 1}`,
+    name: s.name,
+    price: s.price,
+    image: s.image,
+    rating: 4.1 + ((idx * 13) % 9) * 0.1,
     category: "Grocery",
-    description: it.desc,
+    description: `${s.weight} • Fresh & hygienically packed`,
+    categoryId,
+    weight: s.weight,
+    originalPrice: s.originalPrice,
+    discount: Math.max(1, Math.round(((s.originalPrice - s.price) / s.originalPrice) * 100)),
+    deliveryMins: 10 + (idx % 6),
+    inStock: true,
+    bestseller: s.bestseller,
+    recommended: s.recommended,
   }));
 
-export const GROCERY_SUBS: { label: GrocerySubCategory }[] = [
-  { label: "Veg" },
-  { label: "Non-Veg" },
-];
+export const GROCERY_PRODUCTS: GroceryItem[] = GROCERY_CATEGORIES.flatMap((c) =>
+  buildItems(c.id, CATEGORY_SEEDS[c.id])
+);
 
-export const GROCERY_PRODUCTS: Product[] = [
-  ...buildProducts(VEG, "v"),
-  ...buildProducts(NONVEG, "n"),
-];
-
-export const GROCERY_SUB_BY_ID: Record<string, GrocerySubCategory> =
-  GROCERY_PRODUCTS.reduce((acc, p) => {
-    const key = p.id.split("-")[1];
-    const map: Record<string, GrocerySubCategory> = {
-      v: "Veg",
-      n: "Non-Veg",
-    };
-    acc[p.id] = map[key];
+export const GROCERY_BY_CATEGORY: Record<GroceryCategoryId, GroceryItem[]> =
+  GROCERY_CATEGORIES.reduce((acc, c) => {
+    acc[c.id] = GROCERY_PRODUCTS.filter((p) => p.categoryId === c.id);
     return acc;
-  }, {} as Record<string, GrocerySubCategory>);
+  }, {} as Record<GroceryCategoryId, GroceryItem[]>);
 
-/**
- * Per-category fallback images. Used only as a last resort if a product
- * image AND its specific fallback both fail. Each is a real category photo.
- */
-export const GROCERY_FALLBACKS: Record<GrocerySubCategory, string> = {
-  Veg: u("1540420773420-3366772f4999"),       // mixed vegetable basket
-  "Non-Veg": u("1607623814075-e51df1bdc82f"), // raw meat platter
-};
+export const GROCERY_BESTSELLERS: GroceryItem[] = GROCERY_PRODUCTS.filter((p) => p.bestseller);
+export const GROCERY_RECOMMENDED: GroceryItem[] = GROCERY_PRODUCTS.filter((p) => p.recommended);
 
-/** Generic last-resort fallback. */
+/* -------------------------------------------------------------------------- */
+/* Compatibility shims — kept so other modules don't break.                    */
+/* -------------------------------------------------------------------------- */
+
 export const GROCERY_GENERIC_FALLBACK = u("1540420773420-3366772f4999");
 
-/**
- * Per-product correct fallback. If a product image fails to load,
- * we try a known-good alternate real photo for THAT specific product
- * before falling back to the category image.
- */
-const PRODUCT_FALLBACKS: Record<string, string> = {
-  // Veg
-  "gr-v-1": u("1600692568655-66f8e6b3b04f"),  // Mint
-  "gr-v-2": u("1640958900904-9d9e9e9f1a5e"),  // Lettuce
-  "gr-v-3": u("1594282486552-05b4d80fbb9f"),  // Cabbage
-  "gr-v-4": u("1613743983303-b3e89f8a2b5b"),  // Cauliflower
-  "gr-v-5": u("1583398701624-1ce4f4b1f5b1"),  // Leek
-  "gr-v-6": u("1584270354949-c26b0d5b4a0c"),  // Broccoli
-  "gr-v-7": u("1605196560547-b2f7281b8355"),  // Brinjal
-  "gr-v-8": u("1605204551739-6a7d2b8e3c0a"),  // Brussels Sprout
-  "gr-v-9": u("1582284540020-8acbe03f4924"),  // Beetroot
-  "gr-v-10": u("1591375372226-1c2a6b9b3b1a"), // Fennel
-  "gr-v-11": u("1592978919-8ad2e5b1a23d"),    // Coriander
-  "gr-v-12": u("1664527011435-d2b3a3e1c45c"), // Knol Khol
-  "gr-v-13": u("1611759557060-ff9c3f9d8b95"), // Turnip
-  "gr-v-14": u("1525607551316-4a8e16d1f9b6"), // Bell Pepper
-  "gr-v-15": u("1631204184884-1b9b6a6fbe18"), // Bitter Gourd
-  "gr-v-16": u("1597362925123-77861d3fbac7"), // Radish
-  "gr-v-17": u("1508747703725-719777637510"), // Garlic
-  "gr-v-18": u("1576045057995-568f588f82fc"), // Spinach
-  "gr-v-19": u("1596397249129-c7a8f8718874"), // Zucchini
-  "gr-v-20": u("1573414405398-79c39d0c7bc8"), // Ginger
-  "gr-v-21": u("1601593768799-76d3b96c8b4c"), // Corn
-  "gr-v-22": u("1570586437263-ab629fccc819"), // Pumpkin
-  "gr-v-23": u("1664527011447-3c4b7c1a2c8b"), // Okra
-  "gr-v-24": u("1583119022894-919a68a3d0e4"), // Red Chillies
-  "gr-v-25": u("1604329760661-e71dc83f8f27"), // Celery
-  "gr-v-26": u("1546470427-e26264be0b0d"),    // Tomato
-  "gr-v-27": u("1591868088953-c5a8b4e0e1d5"), // Drumstick
-  "gr-v-28": u("1508747703725-719777637511"), // Onion
-  "gr-v-29": u("1587735243615-c03f25aaff16"), // Peas
-  "gr-v-30": u("1535631049551-d8a539b6d49c"), // Potato
-  "gr-v-31": u("1606923829579-0cb981a83e2d"), // Yam
-  "gr-v-32": u("1603048719539-9ecb4aec5e4e"), // Horseradish
-  "gr-v-33": u("1606923829579-0cb981a83e30"), // Parsnip
-  "gr-v-34": u("1551893665-f843f600794f"),    // Artichoke
-  "gr-v-35": u("1576181256399-834e3b3a49b1"), // Swiss Chard
-  "gr-v-36": u("1504545102099-3f4d2f8e4f50"), // Mushroom
-  "gr-v-37": u("1604908554049-24a5b9f3f7a7"), // Ash Gourd
-  "gr-v-38": u("1611171711791-b34b41b1a8f7"), // Olive
-  "gr-v-39": u("1590502593747-42a996133563"), // Lemon
-  "gr-v-40": u("1515471209610-dae1c92d8778"), // Asparagus
-  "gr-v-41": u("1596097635121-14b38c5d7a56"), // Sweet Potato
-  "gr-v-42": u("1576181256648-4cd7d80e7a9d"), // Bok Choy
-  "gr-v-43": u("1664527011436-d2b3a3e1c45d"), // Kohlrabi
-  // Non-Veg
-  "gr-n-1": u("1604503468506-a8da13d82791"),  // Chicken
-  "gr-n-2": u("1587593810167-a84920ea0781"),  // Boneless Chicken
-  "gr-n-3": u("1551028150-64b9f398f678"),     // Mutton
-  "gr-n-4": u("1611171711791-b34b41b1a8f5"),  // Fish
-  "gr-n-5": u("1587486913049-53fc88980cfc"),  // Egg
-};
-
 export const getGroceryFallback = (productId: string): string => {
-  if (PRODUCT_FALLBACKS[productId]) return PRODUCT_FALLBACKS[productId];
-  const sub = GROCERY_SUB_BY_ID[productId];
-  return sub ? GROCERY_FALLBACKS[sub] : GROCERY_GENERIC_FALLBACK;
+  const product = GROCERY_PRODUCTS.find((p) => p.id === productId);
+  return product?.image ?? GROCERY_GENERIC_FALLBACK;
 };
-
-/* -------------------------------------------------------------------------- */
-/* Runtime validation: assert no Unsplash photo ID is reused across products. */
-/* -------------------------------------------------------------------------- */
-
-const extractUnsplashId = (url: string): string | null => {
-  const m = url.match(/images\.unsplash\.com\/photo-([A-Za-z0-9_-]+)/);
-  return m ? m[1] : null;
-};
-
-export type GroceryDuplicateImage = {
-  id: string;
-  productIds: string[];
-  productNames: string[];
-};
-
-export const findDuplicateGroceryImages = (): GroceryDuplicateImage[] => {
-  const buckets = new Map<string, { ids: string[]; names: string[] }>();
-
-  for (const p of GROCERY_PRODUCTS) {
-    const id = extractUnsplashId(p.image);
-    if (!id) continue;
-    const bucket = buckets.get(id) ?? { ids: [], names: [] };
-    bucket.ids.push(p.id);
-    bucket.names.push(p.name);
-    buckets.set(id, bucket);
-  }
-
-  const dups: GroceryDuplicateImage[] = [];
-  buckets.forEach((bucket, id) => {
-    if (bucket.ids.length > 1) {
-      dups.push({ id, productIds: bucket.ids, productNames: bucket.names });
-    }
-  });
-  return dups;
-};
-
-export const assertNoDuplicateGroceryImages = (): void => {
-  const dups = findDuplicateGroceryImages();
-  if (dups.length === 0) return;
-
-  const lines = dups.map(
-    (d) =>
-      `  • photo-${d.id} reused by ${d.productIds.length} items: ${d.productNames
-        .map((n, i) => `"${n}" (${d.productIds[i]})`)
-        .join(", ")}`
-  );
-  const msg = `[grocery] Duplicate Unsplash photo IDs detected (${dups.length}):\n${lines.join("\n")}`;
-
-  // eslint-disable-next-line no-console
-  console.error(msg);
-
-  if (typeof import.meta !== "undefined" && import.meta.env?.DEV) {
-    throw new Error(msg);
-  }
-};
-
-assertNoDuplicateGroceryImages();

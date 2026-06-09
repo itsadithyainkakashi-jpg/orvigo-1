@@ -21,6 +21,7 @@ import OrderSuccess from "./pages/OrderSuccess.tsx";
 import FashionPage from "./pages/FashionPage.tsx";
 import FoodPage from "./pages/FoodPage.tsx";
 import GroceryPage from "./pages/GroceryPage.tsx";
+import GroceryCategoryPage from "./pages/GroceryCategoryPage.tsx";
 import MedicinePage from "./pages/MedicinePage.tsx";
 import MedicineDetail from "./pages/MedicineDetail.tsx";
 import MedicineCategoryPage from "./pages/MedicineCategoryPage.tsx";
@@ -73,6 +74,7 @@ const App = () => (
             <Route path="/fashion" element={<Protected><FashionPage /></Protected>} />
             <Route path="/food" element={<Protected><FoodPage /></Protected>} />
             <Route path="/grocery" element={<Protected><GroceryPage /></Protected>} />
+            <Route path="/grocery/category/:categoryId" element={<Protected><GroceryCategoryPage /></Protected>} />
             <Route path="/medicine" element={<Protected><MedicinePage /></Protected>} />
             <Route path="/medicine/product/:id" element={<Protected><MedicineDetail /></Protected>} />
             <Route path="/medicine/category/:categoryId" element={<Protected><MedicineCategoryPage /></Protected>} />
