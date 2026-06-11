@@ -240,9 +240,8 @@ const buildItems = (categoryId: GroceryCategoryId, seeds: Seed[]): GroceryItem[]
     recommended: s.recommended,
   }));
 
-export const GROCERY_PRODUCTS: GroceryItem[] = GROCERY_CATEGORIES.flatMap((c) =>
-  buildItems(c.id, CATEGORY_SEEDS[c.id])
-);
+export const GROCERY_PRODUCTS: GroceryItem[] = (Object.keys(CATEGORY_SEEDS) as GroceryCategoryId[])
+  .flatMap((id) => buildItems(id, CATEGORY_SEEDS[id]));
 
 export const GROCERY_BY_CATEGORY: Record<GroceryCategoryId, GroceryItem[]> =
   GROCERY_CATEGORIES.reduce((acc, c) => {
