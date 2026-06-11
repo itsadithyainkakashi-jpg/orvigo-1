@@ -266,30 +266,67 @@ const GroceryPage = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative rounded-2xl overflow-hidden"
-            style={{ boxShadow: "0 10px 28px rgba(20, 80, 40, 0.18)" }}
+            className="relative rounded-3xl overflow-hidden"
+            style={{ boxShadow: "0 14px 36px rgba(20, 80, 40, 0.22)" }}
           >
-            <img src={heroBanner} alt="Fresh Groceries Delivered Fast" className="w-full h-36 object-cover" />
+            <img
+              src={heroBanner}
+              alt="Fresh groceries delivered in 10 minutes"
+              className="w-full h-52 object-cover"
+            />
+            {/* gradient veil */}
             <div
-              className="absolute inset-0 flex flex-col justify-center px-4"
-              style={{ background: "linear-gradient(90deg, rgba(15,80,45,0.78) 0%, rgba(20,120,60,0.4) 55%, transparent 75%)" }}
-            >
-              <span
-                className="self-start inline-flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full mb-1.5"
-                style={{ background: "hsl(45, 95%, 55%)", color: "hsl(35, 80%, 20%)" }}
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(115deg, rgba(10,90,40,0.85) 0%, rgba(20,140,60,0.55) 45%, rgba(255,180,40,0.18) 75%, rgba(255,140,40,0.05) 100%)",
+              }}
+            />
+            {/* glass content panel */}
+            <div className="absolute inset-0 flex flex-col justify-center px-4">
+              <motion.span
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="self-start inline-flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full mb-2"
+                style={{
+                  background: "rgba(255,255,255,0.95)",
+                  color: "hsl(145, 70%, 28%)",
+                  backdropFilter: "blur(6px)",
+                }}
               >
-                <Tag size={9} /> FLAT 20% OFF
-              </span>
-              <h2 className="text-white font-extrabold text-lg leading-tight max-w-[68%]">
-                Fresh Groceries<br />Delivered Fast
-              </h2>
-              <p className="text-white/90 text-[11px] mt-1 flex items-center gap-1">
-                <Zap size={11} className="text-yellow-300" /> 10 Minute Delivery
-              </p>
+                <Zap size={9} className="text-yellow-500" fill="currentColor" /> 10 MIN DELIVERY
+              </motion.span>
+              <motion.h2
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-white font-extrabold text-[20px] leading-[1.1] max-w-[78%]"
+                style={{ textShadow: "0 2px 12px rgba(0,0,0,0.45)" }}
+              >
+                Fresh Groceries<br />Delivered in 10 Minutes
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.32 }}
+                className="text-white/95 text-[11px] font-medium mt-2 max-w-[78%]"
+                style={{ textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
+              >
+                Best Prices · Fresh Quality · Fast Delivery
+              </motion.p>
             </div>
+            {/* floating accent dots */}
+            <motion.div
+              className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full"
+              style={{ background: "radial-gradient(circle, rgba(255,220,80,0.55), transparent 65%)" }}
+              animate={{ scale: [1, 1.15, 1] }}
+              transition={{ duration: 4, repeat: Infinity }}
+            />
           </motion.div>
         </div>
       )}
+
 
       {/* ───────────────────────────── SEARCH RESULTS ───────────────────────────── */}
       {searchQuery && (
@@ -316,40 +353,55 @@ const GroceryPage = () => {
         <>
           {/* ──────────────────────── SHOP BY CATEGORY ──────────────────────── */}
           <section className="px-3 mt-5">
-            <h2 className="text-[15px] font-bold text-foreground mb-2.5">Shop by Category</h2>
-            <div className="grid grid-cols-4 gap-2.5">
+            <div className="flex items-center justify-between mb-2.5">
+              <h2 className="text-[15px] font-bold text-foreground">Shop by Category</h2>
+              <span className="text-[10px] text-muted-foreground">{GROCERY_CATEGORIES.length} categories</span>
+            </div>
+            <div className="grid grid-cols-3 gap-2.5">
               {GROCERY_CATEGORIES.map((c, i) => (
                 <motion.button
                   key={c.id}
-                  whileTap={{ scale: 0.92 }}
-                  initial={{ opacity: 0, y: 8 }}
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.94 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.03 }}
+                  transition={{ delay: i * 0.04 }}
                   onClick={() => goToCategory(c.id)}
-                  className="rounded-2xl p-2 flex flex-col items-center justify-center gap-1.5"
+                  className="relative rounded-2xl p-2.5 flex flex-col items-center justify-end gap-1.5 overflow-hidden"
                   style={{
-                    background: c.tint,
-                    border: "1px solid rgba(255,255,255,0.8)",
-                    boxShadow: "0 4px 10px rgba(20, 80, 40, 0.08)",
-                    minHeight: 86,
+                    background: `linear-gradient(160deg, ${c.tint} 0%, rgba(255,255,255,0.95) 100%)`,
+                    border: "1px solid rgba(255,255,255,0.85)",
+                    boxShadow: "0 6px 16px rgba(20, 80, 40, 0.10), inset 0 1px 0 rgba(255,255,255,0.8)",
+                    backdropFilter: "blur(8px)",
+                    minHeight: 124,
                   }}
                 >
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-xl"
-                    style={{ background: "white", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}
-                  >
-                    {c.icon}
+                  <div className="w-full h-[72px] flex items-center justify-center">
+                    <img
+                      src={c.image}
+                      alt={c.label}
+                      loading="lazy"
+                      className="max-w-full max-h-full object-contain"
+                      style={{
+                        filter: "drop-shadow(0 4px 8px rgba(20, 60, 30, 0.18)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))",
+                      }}
+                    />
                   </div>
                   <span
-                    className="text-[10px] font-semibold leading-tight text-center"
-                    style={{ color: "hsl(220, 20%, 20%)" }}
+                    className="text-[10.5px] font-bold leading-tight text-center"
+                    style={{ color: "hsl(220, 25%, 18%)" }}
                   >
                     {c.label}
                   </span>
+                  <span
+                    className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full"
+                    style={{ background: c.accent, boxShadow: `0 0 6px ${c.accent}` }}
+                  />
                 </motion.button>
               ))}
             </div>
           </section>
+
 
           {/* ──────────────────────── FLAT 20% OFFER CARD ──────────────────────── */}
           <section className="px-3 mt-5">
