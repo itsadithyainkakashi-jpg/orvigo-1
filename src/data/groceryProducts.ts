@@ -113,13 +113,33 @@ const DAIRY: Seed[] = [
 ];
 
 const SNACKS: Seed[] = [
-  { name: "Lay's Magic Masala",weight: "90 g",   price: 30,  originalPrice: 35,  image: u("1599490659213-e2b9527bd087"), bestseller: true },
-  { name: "Parle-G Biscuits",  weight: "200 g",  price: 25,  originalPrice: 30,  image: u("1558961363-fa8fdf82db35") },
-  { name: "Cadbury Dairy Milk",weight: "150 g",  price: 145, originalPrice: 175, image: u("1606312619070-d48b4c652a52"), bestseller: true },
-  { name: "Oreo Cookies",      weight: "120 g",  price: 35,  originalPrice: 45,  image: u("1599599810769-bcde5a160d32"), recommended: true },
-  { name: "Haldiram's Bhujia", weight: "200 g",  price: 65,  originalPrice: 75,  image: u("1600718374662-0483d2b9da44") },
-  { name: "Kurkure Masala",    weight: "85 g",   price: 20,  originalPrice: 25,  image: u("1621447504864-d8686e12698c") },
+  { name: "Lay's Magic Masala", weight: "90 g",  price: 30,  originalPrice: 35,  image: u("1599490659213-e2b9527bd087"), bestseller: true },
+  { name: "Haldiram's Bhujia",  weight: "200 g", price: 65,  originalPrice: 75,  image: u("1600718374662-0483d2b9da44") },
+  { name: "Kurkure Masala",     weight: "85 g",  price: 20,  originalPrice: 25,  image: u("1621447504864-d8686e12698c") },
+  { name: "Uncle Chips Spicy",  weight: "60 g",  price: 20,  originalPrice: 25,  image: u("1613919113640-25732ec5e61f"), recommended: true },
+  { name: "Act II Popcorn",     weight: "70 g",  price: 25,  originalPrice: 30,  image: u("1578849278002-92127a2ae5fa") },
+  { name: "Bingo Mad Angles",   weight: "80 g",  price: 20,  originalPrice: 25,  image: u("1566478989037-eec170784d0b") },
 ];
+
+const BISCUITS: Seed[] = [
+  { name: "Oreo Cookies",       weight: "120 g", price: 35,  originalPrice: 45,  image: u("1599599810769-bcde5a160d32"), bestseller: true },
+  { name: "Parle-G Biscuits",   weight: "200 g", price: 25,  originalPrice: 30,  image: u("1558961363-fa8fdf82db35") },
+  { name: "Britannia Good Day", weight: "150 g", price: 30,  originalPrice: 40,  image: u("1568051243851-f9b136146e97"), recommended: true },
+  { name: "Hide & Seek Choco",  weight: "120 g", price: 35,  originalPrice: 45,  image: u("1606312619070-d48b4c652a53") },
+  { name: "Bourbon Cream",      weight: "150 g", price: 30,  originalPrice: 40,  image: u("1590080875515-8a3a8dc5735e") },
+  { name: "Monaco Salted",      weight: "200 g", price: 35,  originalPrice: 45,  image: u("1612203985729-70726954388c"), recommended: true },
+];
+
+const NON_VEG: Seed[] = [
+  { name: "Fresh Chicken Curry Cut", weight: "1 kg", price: 279, originalPrice: 349, image: u("1604503468506-a8da13d82791"), bestseller: true },
+  { name: "Chicken Drumsticks",      weight: "500 g", price: 199, originalPrice: 249, image: u("1587593810167-a84920ea0781") },
+  { name: "Rohu Fish Fillet",        weight: "500 g", price: 249, originalPrice: 319, image: u("1535140728325-a4d3707eee94"), recommended: true },
+  { name: "Mutton Curry Cut",        weight: "500 g", price: 449, originalPrice: 549, image: u("1603048719535-9b75c45dbe0a") },
+  { name: "Farm Brown Eggs",         weight: "6 pcs", price: 75,  originalPrice: 90,  image: u("1582722872445-44dc5f7e3c8f"), bestseller: true },
+  { name: "Prawns (Cleaned)",        weight: "250 g", price: 299, originalPrice: 375, image: u("1565299585323-38d6b0865b47") },
+];
+
+
 
 const BEVERAGES: Seed[] = [
   { name: "Coca-Cola",         weight: "750 ml", price: 40,  originalPrice: 45,  image: u("1554866585-cd94860890b7"), bestseller: true },
