@@ -171,10 +171,19 @@ const GRAINS: Seed[] = [
 const ESSENTIALS: Seed[] = [
   { name: "Fortune Sunflower Oil", weight: "1 L", price: 159, originalPrice: 199, image: u("1620706857370-e1b9770e8bb1"), bestseller: true },
   { name: "Tata Iodised Salt", weight: "1 kg",   price: 28,  originalPrice: 32,  image: u("1518110925495-b37653a13e8c") },
-  { name: "Sugar",             weight: "1 kg",   price: 49,  originalPrice: 55,  image: u("1581365365964-7f9d4f5d3a6c") },
+  { name: "Sugar",             weight: "1 kg",   price: 49,  originalPrice: 55,  image: u("1581365365964-7f9d4f5d3a6c"), recommended: true },
+  { name: "Aashirvaad Atta",   weight: "5 kg",   price: 285, originalPrice: 339, image: u("1568254183919-78a4f43a2878") },
+  { name: "Ghee Pure Cow",     weight: "500 ml", price: 349, originalPrice: 425, image: u("1631452180519-c014fe946bc8"), bestseller: true },
+  { name: "Mustard Oil",       weight: "1 L",    price: 179, originalPrice: 219, image: u("1620706857370-e1b9770e8bb2") },
+];
+
+const SPICES: Seed[] = [
+  { name: "Turmeric Powder",   weight: "200 g",  price: 65,  originalPrice: 85,  image: u("1615485290598-3b3d5dabbf73"), bestseller: true },
   { name: "Red Chilli Powder", weight: "200 g",  price: 79,  originalPrice: 99,  image: u("1599909533730-5dfa9d4d1f16"), recommended: true },
-  { name: "Turmeric Powder",   weight: "200 g",  price: 65,  originalPrice: 85,  image: u("1615485290598-3b3d5dabbf73") },
   { name: "Garam Masala",      weight: "100 g",  price: 89,  originalPrice: 110, image: u("1596040033229-a9821ebd058d") },
+  { name: "Coriander Powder",  weight: "200 g",  price: 55,  originalPrice: 70,  image: u("1596040033229-a9821ebd058e") },
+  { name: "Cumin Seeds",       weight: "100 g",  price: 75,  originalPrice: 95,  image: u("1596040033229-a9821ebd058f"), recommended: true },
+  { name: "Sambar Masala",     weight: "100 g",  price: 70,  originalPrice: 85,  image: u("1596040033229-a9821ebd058a") },
 ];
 
 const INSTANT: Seed[] = [
@@ -196,17 +205,21 @@ const PERSONAL_CARE: Seed[] = [
 ];
 
 const CATEGORY_SEEDS: Record<GroceryCategoryId, Seed[]> = {
-  fruits: FRUITS,
   vegetables: VEGETABLES,
-  dairy: DAIRY,
+  "non-veg": NON_VEG,
+  fruits: FRUITS,
   snacks: SNACKS,
   beverages: BEVERAGES,
-  bakery: BAKERY,
+  spices: SPICES,
   grains: GRAINS,
   essentials: ESSENTIALS,
+  biscuits: BISCUITS,
+  dairy: DAIRY,
+  bakery: BAKERY,
   instant: INSTANT,
   "personal-care": PERSONAL_CARE,
 };
+
 
 const buildItems = (categoryId: GroceryCategoryId, seeds: Seed[]): GroceryItem[] =>
   seeds.map((s, idx) => ({
