@@ -1,40 +1,53 @@
 import type { Product } from "@/contexts/CartContext";
+import catVegetables from "@/assets/grocery/cat-vegetables.png";
+import catNonveg from "@/assets/grocery/cat-nonveg.png";
+import catFruits from "@/assets/grocery/cat-fruits.png";
+import catSnacks from "@/assets/grocery/cat-snacks.png";
+import catBeverages from "@/assets/grocery/cat-beverages.png";
+import catSpices from "@/assets/grocery/cat-spices.png";
+import catGrains from "@/assets/grocery/cat-grains.png";
+import catEssentials from "@/assets/grocery/cat-essentials.png";
+import catBiscuits from "@/assets/grocery/cat-biscuits.png";
 
 /* -------------------------------------------------------------------------- */
 /* Grocery Categories                                                          */
 /* -------------------------------------------------------------------------- */
 
 export type GroceryCategoryId =
-  | "fruits"
   | "vegetables"
-  | "dairy"
+  | "non-veg"
+  | "fruits"
   | "snacks"
   | "beverages"
-  | "bakery"
+  | "spices"
   | "grains"
   | "essentials"
+  | "biscuits"
+  // legacy ids kept for backwards-compat
+  | "dairy"
+  | "bakery"
   | "instant"
   | "personal-care";
 
 export interface GroceryCategoryMeta {
   id: GroceryCategoryId;
   label: string;
-  icon: string;        // emoji
-  tint: string;        // soft pastel HSL background for category card
+  icon: string;        // emoji (legacy fallback)
+  image: string;       // realistic 3D PNG used in home grid
+  tint: string;        // soft pastel background for category card
   accent: string;      // accent color
 }
 
 export const GROCERY_CATEGORIES: GroceryCategoryMeta[] = [
-  { id: "fruits",       label: "Fruits",            icon: "🍎", tint: "hsl(0, 80%, 95%)",   accent: "hsl(0, 75%, 55%)" },
-  { id: "vegetables",   label: "Vegetables",        icon: "🥦", tint: "hsl(120, 50%, 92%)", accent: "hsl(140, 65%, 38%)" },
-  { id: "dairy",        label: "Dairy & Milk",      icon: "🥛", tint: "hsl(210, 60%, 95%)", accent: "hsl(210, 75%, 55%)" },
-  { id: "snacks",       label: "Snacks",            icon: "🍪", tint: "hsl(35, 80%, 92%)",  accent: "hsl(28, 85%, 55%)" },
-  { id: "beverages",    label: "Beverages",         icon: "🥤", tint: "hsl(195, 70%, 92%)", accent: "hsl(195, 80%, 50%)" },
-  { id: "bakery",       label: "Bakery",            icon: "🍞", tint: "hsl(40, 80%, 92%)",  accent: "hsl(32, 75%, 50%)" },
-  { id: "grains",       label: "Rice & Grains",     icon: "🌾", tint: "hsl(45, 75%, 92%)",  accent: "hsl(38, 70%, 45%)" },
-  { id: "essentials",   label: "Cooking Essentials",icon: "🧂", tint: "hsl(25, 65%, 92%)",  accent: "hsl(20, 75%, 48%)" },
-  { id: "instant",      label: "Instant Foods",     icon: "🍜", tint: "hsl(15, 80%, 92%)",  accent: "hsl(12, 80%, 55%)" },
-  { id: "personal-care",label: "Personal Care",     icon: "🧴", tint: "hsl(280, 50%, 94%)", accent: "hsl(280, 60%, 55%)" },
+  { id: "vegetables", label: "Vegetables",         icon: "🥦", image: catVegetables, tint: "hsl(120, 55%, 94%)", accent: "hsl(140, 65%, 38%)" },
+  { id: "non-veg",    label: "Non-Vegetarian",     icon: "🍗", image: catNonveg,     tint: "hsl(0, 70%, 95%)",   accent: "hsl(0, 70%, 50%)"  },
+  { id: "fruits",     label: "Fruits",             icon: "🍎", image: catFruits,     tint: "hsl(20, 85%, 94%)",  accent: "hsl(15, 80%, 55%)" },
+  { id: "snacks",     label: "Snacks",             icon: "🍿", image: catSnacks,     tint: "hsl(35, 90%, 93%)",  accent: "hsl(28, 85%, 55%)" },
+  { id: "beverages",  label: "Juices & Beverages", icon: "🥤", image: catBeverages,  tint: "hsl(195, 75%, 93%)", accent: "hsl(195, 80%, 50%)" },
+  { id: "spices",     label: "Masala & Spices",    icon: "🌶️", image: catSpices,     tint: "hsl(15, 85%, 93%)",  accent: "hsl(12, 80%, 50%)" },
+  { id: "grains",     label: "Rice & Grains",      icon: "🌾", image: catGrains,     tint: "hsl(45, 80%, 93%)",  accent: "hsl(38, 70%, 45%)" },
+  { id: "essentials", label: "Cooking Essentials", icon: "🫙", image: catEssentials, tint: "hsl(48, 85%, 94%)",  accent: "hsl(42, 80%, 45%)" },
+  { id: "biscuits",   label: "Biscuits & Cookies", icon: "🍪", image: catBiscuits,   tint: "hsl(30, 70%, 93%)",  accent: "hsl(25, 75%, 45%)" },
 ];
 
 export const GROCERY_CATEGORY_BY_ID: Record<GroceryCategoryId, GroceryCategoryMeta> =
