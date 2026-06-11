@@ -353,40 +353,55 @@ const GroceryPage = () => {
         <>
           {/* ──────────────────────── SHOP BY CATEGORY ──────────────────────── */}
           <section className="px-3 mt-5">
-            <h2 className="text-[15px] font-bold text-foreground mb-2.5">Shop by Category</h2>
-            <div className="grid grid-cols-4 gap-2.5">
+            <div className="flex items-center justify-between mb-2.5">
+              <h2 className="text-[15px] font-bold text-foreground">Shop by Category</h2>
+              <span className="text-[10px] text-muted-foreground">{GROCERY_CATEGORIES.length} categories</span>
+            </div>
+            <div className="grid grid-cols-3 gap-2.5">
               {GROCERY_CATEGORIES.map((c, i) => (
                 <motion.button
                   key={c.id}
-                  whileTap={{ scale: 0.92 }}
-                  initial={{ opacity: 0, y: 8 }}
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.94 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.03 }}
+                  transition={{ delay: i * 0.04 }}
                   onClick={() => goToCategory(c.id)}
-                  className="rounded-2xl p-2 flex flex-col items-center justify-center gap-1.5"
+                  className="relative rounded-2xl p-2.5 flex flex-col items-center justify-end gap-1.5 overflow-hidden"
                   style={{
-                    background: c.tint,
-                    border: "1px solid rgba(255,255,255,0.8)",
-                    boxShadow: "0 4px 10px rgba(20, 80, 40, 0.08)",
-                    minHeight: 86,
+                    background: `linear-gradient(160deg, ${c.tint} 0%, rgba(255,255,255,0.95) 100%)`,
+                    border: "1px solid rgba(255,255,255,0.85)",
+                    boxShadow: "0 6px 16px rgba(20, 80, 40, 0.10), inset 0 1px 0 rgba(255,255,255,0.8)",
+                    backdropFilter: "blur(8px)",
+                    minHeight: 124,
                   }}
                 >
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-xl"
-                    style={{ background: "white", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}
-                  >
-                    {c.icon}
+                  <div className="w-full h-[72px] flex items-center justify-center">
+                    <img
+                      src={c.image}
+                      alt={c.label}
+                      loading="lazy"
+                      className="max-w-full max-h-full object-contain"
+                      style={{
+                        filter: "drop-shadow(0 4px 8px rgba(20, 60, 30, 0.18)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))",
+                      }}
+                    />
                   </div>
                   <span
-                    className="text-[10px] font-semibold leading-tight text-center"
-                    style={{ color: "hsl(220, 20%, 20%)" }}
+                    className="text-[10.5px] font-bold leading-tight text-center"
+                    style={{ color: "hsl(220, 25%, 18%)" }}
                   >
                     {c.label}
                   </span>
+                  <span
+                    className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full"
+                    style={{ background: c.accent, boxShadow: `0 0 6px ${c.accent}` }}
+                  />
                 </motion.button>
               ))}
             </div>
           </section>
+
 
           {/* ──────────────────────── FLAT 20% OFFER CARD ──────────────────────── */}
           <section className="px-3 mt-5">
