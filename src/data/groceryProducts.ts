@@ -244,8 +244,8 @@ export const GROCERY_PRODUCTS: GroceryItem[] = (Object.keys(CATEGORY_SEEDS) as G
   .flatMap((id) => buildItems(id, CATEGORY_SEEDS[id]));
 
 export const GROCERY_BY_CATEGORY: Record<GroceryCategoryId, GroceryItem[]> =
-  GROCERY_CATEGORIES.reduce((acc, c) => {
-    acc[c.id] = GROCERY_PRODUCTS.filter((p) => p.categoryId === c.id);
+  (Object.keys(CATEGORY_SEEDS) as GroceryCategoryId[]).reduce((acc, id) => {
+    acc[id] = GROCERY_PRODUCTS.filter((p) => p.categoryId === id);
     return acc;
   }, {} as Record<GroceryCategoryId, GroceryItem[]>);
 
