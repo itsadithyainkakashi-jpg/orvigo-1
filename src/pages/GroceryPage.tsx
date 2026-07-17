@@ -310,15 +310,32 @@ const GroceryPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.32 }}
-                className="text-white/95 text-[11px] font-medium mt-2 max-w-[78%]"
+                className="text-white/95 text-[10.5px] font-medium mt-1.5 max-w-[78%]"
                 style={{ textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
               >
-                Best Prices · Fresh Quality · Fast Delivery
+                Fresh · Healthy · Affordable · Fast Delivery
               </motion.p>
+              <motion.button
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.42 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  document.getElementById("shop-by-category")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="mt-3 self-start inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-bold"
+                style={{
+                  background: "linear-gradient(135deg, #ffffff 0%, #f8fff4 100%)",
+                  color: "hsl(145, 70%, 28%)",
+                  boxShadow: "0 6px 16px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.9)",
+                }}
+              >
+                Shop Now <ChevronRight size={14} />
+              </motion.button>
             </div>
             {/* floating accent dots */}
             <motion.div
-              className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full"
+              className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full pointer-events-none"
               style={{ background: "radial-gradient(circle, rgba(255,220,80,0.55), transparent 65%)" }}
               animate={{ scale: [1, 1.15, 1] }}
               transition={{ duration: 4, repeat: Infinity }}
