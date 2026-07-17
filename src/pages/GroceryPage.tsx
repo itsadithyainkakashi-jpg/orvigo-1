@@ -370,54 +370,86 @@ const GroceryPage = () => {
         <>
           {/* ──────────────────────── SHOP BY CATEGORY ──────────────────────── */}
           <section id="shop-by-category" className="px-3 mt-5 scroll-mt-24">
-            <div className="flex items-center justify-between mb-2.5">
-              <h2 className="text-[15px] font-bold text-foreground">Shop by Category</h2>
-              <span className="text-[10px] text-muted-foreground">{GROCERY_CATEGORIES.length} categories</span>
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h2 className="text-[16px] font-extrabold text-foreground leading-tight">Shop by Category</h2>
+                <p className="text-[10.5px] text-muted-foreground mt-0.5">Everything you need, delivered fast</p>
+              </div>
+              <span className="text-[10px] font-semibold text-muted-foreground">{GROCERY_CATEGORIES.length} categories</span>
             </div>
             <div className="grid grid-cols-3 gap-2.5">
               {GROCERY_CATEGORIES.map((c, i) => (
                 <motion.button
                   key={c.id}
-                  whileHover={{ y: -3 }}
-                  whileTap={{ scale: 0.94 }}
-                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04 }}
+                  transition={{ delay: i * 0.035, type: "spring", stiffness: 220, damping: 22 }}
                   onClick={() => goToCategory(c.id)}
-                  className="relative rounded-2xl p-2.5 flex flex-col items-center justify-end gap-1.5 overflow-hidden"
+                  aria-label={`Shop ${c.label}`}
+                  className="relative rounded-[22px] overflow-hidden text-left group"
                   style={{
-                    background: `linear-gradient(160deg, ${c.tint} 0%, rgba(255,255,255,0.95) 100%)`,
+                    background: `linear-gradient(155deg, ${c.tint} 0%, ${c.tintEnd} 100%)`,
                     border: "1px solid rgba(255,255,255,0.85)",
-                    boxShadow: "0 6px 16px rgba(20, 80, 40, 0.10), inset 0 1px 0 rgba(255,255,255,0.8)",
-                    backdropFilter: "blur(8px)",
-                    minHeight: 124,
+                    boxShadow: "0 8px 20px rgba(20, 80, 40, 0.10), inset 0 1px 0 rgba(255,255,255,0.9)",
+                    backdropFilter: "blur(10px)",
+                    minHeight: 158,
                   }}
                 >
-                  <div className="w-full h-[72px] flex items-center justify-center">
+                  {/* soft glass sheen */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(120% 60% at 100% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 55%)",
+                    }}
+                  />
+
+                  {/* Text block */}
+                  <div className="relative px-2.5 pt-2.5 pb-2 flex flex-col gap-0.5">
+                    <span
+                      className="text-[12px] font-extrabold leading-[1.05] tracking-tight"
+                      style={{ color: c.accent }}
+                    >
+                      {c.label}
+                    </span>
+                    <span className="text-[9.5px] font-semibold" style={{ color: "hsl(220, 15%, 35%)" }}>
+                      {c.itemCount}
+                    </span>
+                  </div>
+
+                  {/* Product image */}
+                  <div className="relative h-[74px] px-2 flex items-end justify-center">
                     <img
                       src={c.image}
                       alt={c.label}
                       loading="lazy"
-                      className="max-w-full max-h-full object-contain"
+                      width={768}
+                      height={768}
+                      className="max-w-full max-h-[86px] object-contain transition-transform duration-300 group-hover:scale-[1.06] group-active:scale-[0.97]"
                       style={{
-                        filter: "drop-shadow(0 4px 8px rgba(20, 60, 30, 0.18)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))",
+                        filter:
+                          "drop-shadow(0 6px 10px rgba(20, 60, 30, 0.22)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))",
                       }}
                     />
                   </div>
-                  <span
-                    className="text-[10.5px] font-bold leading-tight text-center"
-                    style={{ color: "hsl(220, 25%, 18%)" }}
+
+                  {/* Circular arrow button */}
+                  <div
+                    className="absolute bottom-2 left-2 w-7 h-7 rounded-full flex items-center justify-center transition-transform group-hover:translate-x-0.5"
+                    style={{
+                      background: c.accent,
+                      boxShadow: `0 4px 10px ${c.accent}55, inset 0 1px 0 rgba(255,255,255,0.35)`,
+                    }}
                   >
-                    {c.label}
-                  </span>
-                  <span
-                    className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full"
-                    style={{ background: c.accent, boxShadow: `0 0 6px ${c.accent}` }}
-                  />
+                    <ChevronRight size={14} color="white" strokeWidth={3} />
+                  </div>
                 </motion.button>
               ))}
             </div>
           </section>
+
 
 
           {/* ──────────────────────── FLAT 20% OFFER CARD ──────────────────────── */}
