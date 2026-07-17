@@ -369,7 +369,7 @@ const GroceryPage = () => {
       {!searchQuery && (
         <>
           {/* ──────────────────────── SHOP BY CATEGORY ──────────────────────── */}
-          <section className="px-3 mt-5">
+          <section id="shop-by-category" className="px-3 mt-5 scroll-mt-24">
             <div className="flex items-center justify-between mb-2.5">
               <h2 className="text-[15px] font-bold text-foreground">Shop by Category</h2>
               <span className="text-[10px] text-muted-foreground">{GROCERY_CATEGORIES.length} categories</span>
