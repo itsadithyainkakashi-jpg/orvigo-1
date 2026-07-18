@@ -30,6 +30,33 @@ import {
   type GroceryCategoryId,
 } from "@/data/groceryProducts";
 import heroBanner from "@/assets/grocery/grocery-hero-banner.jpg";
+import cardVegetables from "@/assets/grocery/cards/vegetables.png";
+import cardFruits from "@/assets/grocery/cards/fruits.png";
+import cardMeatFish from "@/assets/grocery/cards/meat-fish.png";
+import cardDairyEggs from "@/assets/grocery/cards/dairy-eggs.png";
+import cardRiceGrains from "@/assets/grocery/cards/rice-grains.png";
+import cardMasalaSpices from "@/assets/grocery/cards/masala-spices.png";
+import cardSnacksPackaged from "@/assets/grocery/cards/snacks-packaged.png";
+import cardBeverages from "@/assets/grocery/cards/beverages.png";
+import cardHousehold from "@/assets/grocery/cards/household.png";
+import cardPersonalCare from "@/assets/grocery/cards/personal-care.png";
+import cardBabyCare from "@/assets/grocery/cards/baby-care.png";
+import cardPetCare from "@/assets/grocery/cards/pet-care.png";
+
+const CATEGORY_CARD_IMAGES: Partial<Record<GroceryCategoryId, string>> = {
+  vegetables: cardVegetables,
+  fruits: cardFruits,
+  "meat-fish": cardMeatFish,
+  "dairy-eggs": cardDairyEggs,
+  grains: cardRiceGrains,
+  spices: cardMasalaSpices,
+  snacks: cardSnacksPackaged,
+  beverages: cardBeverages,
+  household: cardHousehold,
+  "personal-care": cardPersonalCare,
+  "baby-care": cardBabyCare,
+  "pet-care": cardPetCare,
+};
 
 const GREEN = "hsl(145, 65%, 38%)";
 const GREEN_DARK = "hsl(155, 70%, 32%)";
@@ -378,75 +405,26 @@ const GroceryPage = () => {
               <span className="text-[10px] font-semibold text-muted-foreground">{GROCERY_CATEGORIES.length} categories</span>
             </div>
             <div className="grid grid-cols-3 gap-2.5">
-              {GROCERY_CATEGORIES.map((c, i) => (
-                <motion.button
-                  key={c.id}
-                  whileHover={{ y: -4 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.035, type: "spring", stiffness: 220, damping: 22 }}
-                  onClick={() => goToCategory(c.id)}
-                  aria-label={`Shop ${c.label}`}
-                  className="relative rounded-[22px] overflow-hidden text-left group"
-                  style={{
-                    background: `linear-gradient(155deg, ${c.tint} 0%, ${c.tintEnd} 100%)`,
-                    border: "1px solid rgba(255,255,255,0.85)",
-                    boxShadow: "0 8px 20px rgba(20, 80, 40, 0.10), inset 0 1px 0 rgba(255,255,255,0.9)",
-                    backdropFilter: "blur(10px)",
-                    minHeight: 158,
-                  }}
-                >
-                  {/* soft glass sheen */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background:
-                        "radial-gradient(120% 60% at 100% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 55%)",
-                    }}
-                  />
-
-                  {/* Text block */}
-                  <div className="relative px-2.5 pt-2.5 pb-2 flex flex-col gap-0.5">
-                    <span
-                      className="text-[12px] font-extrabold leading-[1.05] tracking-tight"
-                      style={{ color: c.accent }}
-                    >
-                      {c.label}
-                    </span>
-                    <span className="text-[9.5px] font-semibold" style={{ color: "hsl(220, 15%, 35%)" }}>
-                      {c.itemCount}
-                    </span>
-                  </div>
-
-                  {/* Product image */}
-                  <div className="relative h-[74px] px-2 flex items-end justify-center">
-                    <img
-                      src={c.image}
-                      alt={c.label}
-                      loading="lazy"
-                      width={768}
-                      height={768}
-                      className="max-w-full max-h-[86px] object-contain transition-transform duration-300 group-hover:scale-[1.06] group-active:scale-[0.97]"
-                      style={{
-                        filter:
-                          "drop-shadow(0 6px 10px rgba(20, 60, 30, 0.22)) drop-shadow(0 1px 2px rgba(0,0,0,0.08))",
-                      }}
-                    />
-                  </div>
-
-                  {/* Circular arrow button */}
-                  <div
-                    className="absolute bottom-2 left-2 w-7 h-7 rounded-full flex items-center justify-center transition-transform group-hover:translate-x-0.5"
-                    style={{
-                      background: c.accent,
-                      boxShadow: `0 4px 10px ${c.accent}55, inset 0 1px 0 rgba(255,255,255,0.35)`,
-                    }}
+              {GROCERY_CATEGORIES.map((c, i) => {
+                const cardImg = CATEGORY_CARD_IMAGES[c.id];
+                if (!cardImg) return null;
+                return (
+                  <motion.button
+                    key={c.id}
+                    whileHover={{ y: -3 }}
+                    whileTap={{ scale: 0.96 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.03, type: "spring", stiffness: 220, damping: 22 }}
+                    onClick={() => goToCategory(c.id)}
+                    aria-label={`Shop ${c.label}`}
+                    className="relative rounded-[18px] overflow-hidden block"
+                    style={{ boxShadow: "0 6px 16px rgba(20, 40, 20, 0.10)" }}
                   >
-                    <ChevronRight size={14} color="white" strokeWidth={3} />
-                  </div>
-                </motion.button>
-              ))}
+                    <img src={cardImg} alt={c.label} loading="lazy" className="w-full h-auto block" />
+                  </motion.button>
+                );
+              })}
             </div>
           </section>
 
