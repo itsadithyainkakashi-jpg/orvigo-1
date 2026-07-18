@@ -30,6 +30,33 @@ import {
   type GroceryCategoryId,
 } from "@/data/groceryProducts";
 import heroBanner from "@/assets/grocery/grocery-hero-banner.jpg";
+import cardVegetables from "@/assets/grocery/cards/vegetables.png";
+import cardFruits from "@/assets/grocery/cards/fruits.png";
+import cardMeatFish from "@/assets/grocery/cards/meat-fish.png";
+import cardDairyEggs from "@/assets/grocery/cards/dairy-eggs.png";
+import cardRiceGrains from "@/assets/grocery/cards/rice-grains.png";
+import cardMasalaSpices from "@/assets/grocery/cards/masala-spices.png";
+import cardSnacksPackaged from "@/assets/grocery/cards/snacks-packaged.png";
+import cardBeverages from "@/assets/grocery/cards/beverages.png";
+import cardHousehold from "@/assets/grocery/cards/household.png";
+import cardPersonalCare from "@/assets/grocery/cards/personal-care.png";
+import cardBabyCare from "@/assets/grocery/cards/baby-care.png";
+import cardPetCare from "@/assets/grocery/cards/pet-care.png";
+
+const CATEGORY_CARD_IMAGES: Partial<Record<GroceryCategoryId, string>> = {
+  vegetables: cardVegetables,
+  fruits: cardFruits,
+  "meat-fish": cardMeatFish,
+  "dairy-eggs": cardDairyEggs,
+  grains: cardRiceGrains,
+  spices: cardMasalaSpices,
+  snacks: cardSnacksPackaged,
+  beverages: cardBeverages,
+  household: cardHousehold,
+  "personal-care": cardPersonalCare,
+  "baby-care": cardBabyCare,
+  "pet-care": cardPetCare,
+};
 
 const GREEN = "hsl(145, 65%, 38%)";
 const GREEN_DARK = "hsl(155, 70%, 32%)";
