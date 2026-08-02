@@ -30,9 +30,37 @@ import {
   type GroceryCategoryId,
 } from "@/data/groceryProducts";
 import heroBanner from "@/assets/grocery/grocery-hero-banner.jpg";
+import refVegetables from "@/assets/grocery/ref/vegetables.png";
+import refFruits from "@/assets/grocery/ref/fruits.png";
+import refMeatFish from "@/assets/grocery/ref/meat-fish.png";
+import refDairyEggs from "@/assets/grocery/ref/dairy-eggs.png";
+import refGrains from "@/assets/grocery/ref/grains.png";
+import refSpices from "@/assets/grocery/ref/spices.png";
+import refSnacks from "@/assets/grocery/ref/snacks.png";
+import refBeverages from "@/assets/grocery/ref/beverages.png";
+import refHousehold from "@/assets/grocery/ref/household.png";
+import refPersonalCare from "@/assets/grocery/ref/personal-care.png";
+import refBabyCare from "@/assets/grocery/ref/baby-care.png";
+import refPetCare from "@/assets/grocery/ref/pet-care.png";
+
+const REF_CARD_IMAGE: Partial<Record<GroceryCategoryId, string>> = {
+  vegetables: refVegetables,
+  fruits: refFruits,
+  "meat-fish": refMeatFish,
+  "dairy-eggs": refDairyEggs,
+  grains: refGrains,
+  spices: refSpices,
+  snacks: refSnacks,
+  beverages: refBeverages,
+  household: refHousehold,
+  "personal-care": refPersonalCare,
+  "baby-care": refBabyCare,
+  "pet-care": refPetCare,
+};
 
 const GREEN = "hsl(145, 65%, 38%)";
 const GREEN_DARK = "hsl(155, 70%, 32%)";
+
 
 const GroceryPage = () => {
   const navigate = useNavigate();
