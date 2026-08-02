@@ -14,6 +14,7 @@ import {
   Leaf,
   Clock,
   Heart,
+  ArrowRight,
 } from "lucide-react";
 import { useCart, type Product } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
@@ -30,32 +31,32 @@ import {
   type GroceryCategoryId,
 } from "@/data/groceryProducts";
 import heroBanner from "@/assets/grocery/grocery-hero-banner.jpg";
-import refVegetables from "@/assets/grocery/ref/vegetables.png";
-import refFruits from "@/assets/grocery/ref/fruits.png";
-import refMeatFish from "@/assets/grocery/ref/meat-fish.png";
-import refDairyEggs from "@/assets/grocery/ref/dairy-eggs.png";
-import refGrains from "@/assets/grocery/ref/grains.png";
-import refSpices from "@/assets/grocery/ref/spices.png";
-import refSnacks from "@/assets/grocery/ref/snacks.png";
-import refBeverages from "@/assets/grocery/ref/beverages.png";
-import refHousehold from "@/assets/grocery/ref/household.png";
-import refPersonalCare from "@/assets/grocery/ref/personal-care.png";
-import refBabyCare from "@/assets/grocery/ref/baby-care.png";
-import refPetCare from "@/assets/grocery/ref/pet-care.png";
+import hdVegetables from "@/assets/grocery/hd/vegetables.webp";
+import hdFruits from "@/assets/grocery/hd/fruits.webp";
+import hdMeatFish from "@/assets/grocery/hd/meat-fish.webp";
+import hdDairyEggs from "@/assets/grocery/hd/dairy-eggs.webp";
+import hdGrains from "@/assets/grocery/hd/grains.webp";
+import hdSpices from "@/assets/grocery/hd/spices.webp";
+import hdSnacks from "@/assets/grocery/hd/snacks.webp";
+import hdBeverages from "@/assets/grocery/hd/beverages.webp";
+import hdHousehold from "@/assets/grocery/hd/household.webp";
+import hdPersonalCare from "@/assets/grocery/hd/personal-care.webp";
+import hdBabyCare from "@/assets/grocery/hd/baby-care.webp";
+import hdPetCare from "@/assets/grocery/hd/pet-care.webp";
 
 const REF_CARD_IMAGE: Partial<Record<GroceryCategoryId, string>> = {
-  vegetables: refVegetables,
-  fruits: refFruits,
-  "meat-fish": refMeatFish,
-  "dairy-eggs": refDairyEggs,
-  grains: refGrains,
-  spices: refSpices,
-  snacks: refSnacks,
-  beverages: refBeverages,
-  household: refHousehold,
-  "personal-care": refPersonalCare,
-  "baby-care": refBabyCare,
-  "pet-care": refPetCare,
+  vegetables: hdVegetables,
+  fruits: hdFruits,
+  "meat-fish": hdMeatFish,
+  "dairy-eggs": hdDairyEggs,
+  grains: hdGrains,
+  spices: hdSpices,
+  snacks: hdSnacks,
+  beverages: hdBeverages,
+  household: hdHousehold,
+  "personal-care": hdPersonalCare,
+  "baby-care": hdBabyCare,
+  "pet-care": hdPetCare,
 };
 
 const GREEN = "hsl(145, 65%, 38%)";
@@ -416,9 +417,10 @@ const GroceryPage = () => {
                   transition={{ delay: i * 0.03, type: "spring", stiffness: 220, damping: 22 }}
                   onClick={() => goToCategory(c.id)}
                   aria-label={`Shop ${c.label}`}
-                  className="relative rounded-[20px] overflow-hidden bg-white"
+                  className="relative rounded-[20px] overflow-hidden"
                   style={{
                     aspectRatio: "1.62 / 1",
+                    background: `linear-gradient(135deg, ${c.tint} 0%, ${c.tintEnd} 100%)`,
                     boxShadow: "0 6px 18px rgba(20, 40, 20, 0.10), 0 1px 2px rgba(20, 40, 20, 0.05)",
                   }}
                 >
@@ -427,9 +429,32 @@ const GroceryPage = () => {
                     alt={`${c.label} — ${c.itemCount}`}
                     loading="lazy"
                     decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover"
-                    style={{ imageRendering: "auto" }}
+                    className="absolute right-1 bottom-1 w-[62%] h-[72%] object-contain object-right-bottom pointer-events-none"
+                    style={{
+                      imageRendering: "auto",
+                      filter: "drop-shadow(0 4px 8px rgba(20, 50, 20, 0.16)) contrast(1.04) saturate(1.03)",
+                    }}
                   />
+                  <div className="absolute inset-0 z-10 flex flex-col items-start justify-start px-2 pt-2 text-left">
+                    <span
+                      className="font-extrabold leading-[1.05] tracking-[-0.01em] text-[10px] max-w-[74%]"
+                      style={{ color: c.accent, WebkitFontSmoothing: "antialiased", textRendering: "geometricPrecision" }}
+                    >
+                      {c.label}
+                    </span>
+                    <span
+                      className="mt-[2px] font-semibold text-[7.5px] leading-none"
+                      style={{ color: "rgba(35, 45, 40, 0.62)", WebkitFontSmoothing: "antialiased" }}
+                    >
+                      {c.itemCount}
+                    </span>
+                    <span
+                      className="mt-auto mb-2 w-[18px] h-[18px] rounded-full flex items-center justify-center"
+                      style={{ background: c.accent, boxShadow: "0 2px 6px rgba(0,0,0,0.18)" }}
+                    >
+                      <ArrowRight size={11} color="white" strokeWidth={2.75} />
+                    </span>
+                  </div>
                 </motion.button>
               ))}
             </div>
