@@ -30,32 +30,32 @@ import {
   type GroceryCategoryId,
 } from "@/data/groceryProducts";
 import heroBanner from "@/assets/grocery/grocery-hero-banner.jpg";
-import refVegetables from "@/assets/grocery/ref/vegetables.png";
-import refFruits from "@/assets/grocery/ref/fruits.png";
-import refMeatFish from "@/assets/grocery/ref/meat-fish.png";
-import refDairyEggs from "@/assets/grocery/ref/dairy-eggs.png";
-import refGrains from "@/assets/grocery/ref/grains.png";
-import refSpices from "@/assets/grocery/ref/spices.png";
-import refSnacks from "@/assets/grocery/ref/snacks.png";
-import refBeverages from "@/assets/grocery/ref/beverages.png";
-import refHousehold from "@/assets/grocery/ref/household.png";
-import refPersonalCare from "@/assets/grocery/ref/personal-care.png";
-import refBabyCare from "@/assets/grocery/ref/baby-care.png";
-import refPetCare from "@/assets/grocery/ref/pet-care.png";
+import hdVegetables from "@/assets/grocery/hd/vegetables.webp";
+import hdFruits from "@/assets/grocery/hd/fruits.webp";
+import hdMeatFish from "@/assets/grocery/hd/meat-fish.webp";
+import hdDairyEggs from "@/assets/grocery/hd/dairy-eggs.webp";
+import hdGrains from "@/assets/grocery/hd/grains.webp";
+import hdSpices from "@/assets/grocery/hd/spices.webp";
+import hdSnacks from "@/assets/grocery/hd/snacks.webp";
+import hdBeverages from "@/assets/grocery/hd/beverages.webp";
+import hdHousehold from "@/assets/grocery/hd/household.webp";
+import hdPersonalCare from "@/assets/grocery/hd/personal-care.webp";
+import hdBabyCare from "@/assets/grocery/hd/baby-care.webp";
+import hdPetCare from "@/assets/grocery/hd/pet-care.webp";
 
 const REF_CARD_IMAGE: Partial<Record<GroceryCategoryId, string>> = {
-  vegetables: refVegetables,
-  fruits: refFruits,
-  "meat-fish": refMeatFish,
-  "dairy-eggs": refDairyEggs,
-  grains: refGrains,
-  spices: refSpices,
-  snacks: refSnacks,
-  beverages: refBeverages,
-  household: refHousehold,
-  "personal-care": refPersonalCare,
-  "baby-care": refBabyCare,
-  "pet-care": refPetCare,
+  vegetables: hdVegetables,
+  fruits: hdFruits,
+  "meat-fish": hdMeatFish,
+  "dairy-eggs": hdDairyEggs,
+  grains: hdGrains,
+  spices: hdSpices,
+  snacks: hdSnacks,
+  beverages: hdBeverages,
+  household: hdHousehold,
+  "personal-care": hdPersonalCare,
+  "baby-care": hdBabyCare,
+  "pet-care": hdPetCare,
 };
 
 const GREEN = "hsl(145, 65%, 38%)";
