@@ -388,52 +388,24 @@ const GroceryPage = () => {
                   transition={{ delay: i * 0.03, type: "spring", stiffness: 220, damping: 22 }}
                   onClick={() => goToCategory(c.id)}
                   aria-label={`Shop ${c.label}`}
-                  className="relative rounded-[20px] overflow-hidden text-left flex flex-col"
+                  className="relative rounded-[20px] overflow-hidden bg-white"
                   style={{
-                    aspectRatio: "1 / 1.15",
-                    background: `linear-gradient(160deg, ${c.tint} 0%, ${c.tintEnd} 100%)`,
-                    border: "1px solid rgba(255,255,255,0.9)",
-                    boxShadow: "0 6px 18px rgba(20, 40, 20, 0.10), 0 1px 2px rgba(20, 40, 20, 0.05), inset 0 1px 0 rgba(255,255,255,0.85)",
+                    aspectRatio: "1.62 / 1",
+                    boxShadow: "0 6px 18px rgba(20, 40, 20, 0.10), 0 1px 2px rgba(20, 40, 20, 0.05)",
                   }}
                 >
-                  <div className="relative px-2.5 pt-2 pb-1 z-10">
-                    <div
-                      className="text-[11.5px] font-extrabold leading-tight tracking-tight truncate"
-                      style={{ color: c.accent }}
-                    >
-                      {c.label}
-                    </div>
-                    <div className="text-[9px] font-semibold mt-0.5" style={{ color: "hsl(220, 12%, 38%)" }}>
-                      {c.itemCount}
-                    </div>
-                  </div>
-
-                  <div className="relative flex-1 flex items-center justify-center px-2 pb-8 pt-1">
-                    <img
-                      src={c.image}
-                      alt={c.label}
-                      loading="lazy"
-                      decoding="async"
-                      className="max-w-full max-h-full w-auto h-auto object-contain"
-                      style={{
-                        filter: "drop-shadow(0 4px 8px rgba(20, 40, 20, 0.18))",
-                        imageRendering: "auto",
-                      }}
-                    />
-                  </div>
-
-                  <div
-                    className="absolute bottom-2 left-2 w-7 h-7 rounded-full flex items-center justify-center z-10"
-                    style={{
-                      background: c.accent,
-                      boxShadow: `0 3px 8px ${c.accent}55, inset 0 1px 0 rgba(255,255,255,0.35)`,
-                    }}
-                  >
-                    <ChevronRight size={14} color="white" strokeWidth={3} />
-                  </div>
+                  <img
+                    src={REF_CARD_IMAGE[c.id] ?? c.image}
+                    alt={`${c.label} — ${c.itemCount}`}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ imageRendering: "auto" }}
+                  />
                 </motion.button>
               ))}
             </div>
+
           </section>
 
 
