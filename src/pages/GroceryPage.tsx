@@ -14,6 +14,7 @@ import {
   Leaf,
   Clock,
   Heart,
+  ArrowRight,
 } from "lucide-react";
 import { useCart, type Product } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
@@ -416,9 +417,10 @@ const GroceryPage = () => {
                   transition={{ delay: i * 0.03, type: "spring", stiffness: 220, damping: 22 }}
                   onClick={() => goToCategory(c.id)}
                   aria-label={`Shop ${c.label}`}
-                  className="relative rounded-[20px] overflow-hidden bg-white"
+                  className="relative rounded-[20px] overflow-hidden"
                   style={{
                     aspectRatio: "1.62 / 1",
+                    background: `linear-gradient(135deg, ${c.tint} 0%, ${c.tintEnd} 100%)`,
                     boxShadow: "0 6px 18px rgba(20, 40, 20, 0.10), 0 1px 2px rgba(20, 40, 20, 0.05)",
                   }}
                 >
@@ -427,9 +429,32 @@ const GroceryPage = () => {
                     alt={`${c.label} — ${c.itemCount}`}
                     loading="lazy"
                     decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover"
-                    style={{ imageRendering: "auto" }}
+                    className="absolute right-1 bottom-1 w-[68%] h-[76%] object-contain object-right-bottom pointer-events-none"
+                    style={{
+                      imageRendering: "auto",
+                      filter: "drop-shadow(0 4px 8px rgba(20, 50, 20, 0.16)) contrast(1.04) saturate(1.03)",
+                    }}
                   />
+                  <div className="absolute inset-0 flex flex-col items-start justify-start px-2 pt-2 text-left">
+                    <span
+                      className="font-extrabold leading-[1.05] tracking-[-0.01em] text-[10px] max-w-[74%]"
+                      style={{ color: c.accent, WebkitFontSmoothing: "antialiased", textRendering: "geometricPrecision" }}
+                    >
+                      {c.label}
+                    </span>
+                    <span
+                      className="mt-[2px] font-semibold text-[7.5px] leading-none"
+                      style={{ color: "rgba(35, 45, 40, 0.62)", WebkitFontSmoothing: "antialiased" }}
+                    >
+                      {c.itemCount}
+                    </span>
+                    <span
+                      className="mt-auto mb-2 w-[18px] h-[18px] rounded-full flex items-center justify-center"
+                      style={{ background: c.accent, boxShadow: "0 2px 6px rgba(0,0,0,0.18)" }}
+                    >
+                      <ArrowRight size={11} color="white" strokeWidth={2.75} />
+                    </span>
+                  </div>
                 </motion.button>
               ))}
             </div>
