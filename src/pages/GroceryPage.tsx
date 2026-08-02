@@ -429,13 +429,13 @@ const GroceryPage = () => {
                     alt={`${c.label} — ${c.itemCount}`}
                     loading="lazy"
                     decoding="async"
-                    className="absolute right-1 bottom-1 w-[68%] h-[76%] object-contain object-right-bottom pointer-events-none"
+                    className="absolute right-1 bottom-1 w-[62%] h-[72%] object-contain object-right-bottom pointer-events-none"
                     style={{
                       imageRendering: "auto",
                       filter: "drop-shadow(0 4px 8px rgba(20, 50, 20, 0.16)) contrast(1.04) saturate(1.03)",
                     }}
                   />
-                  <div className="absolute inset-0 flex flex-col items-start justify-start px-2 pt-2 text-left">
+                  <div className="absolute inset-0 z-10 flex flex-col items-start justify-start px-2 pt-2 text-left">
                     <span
                       className="font-extrabold leading-[1.05] tracking-[-0.01em] text-[10px] max-w-[74%]"
                       style={{ color: c.accent, WebkitFontSmoothing: "antialiased", textRendering: "geometricPrecision" }}
