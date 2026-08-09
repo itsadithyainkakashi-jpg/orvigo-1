@@ -9,7 +9,7 @@ const CartPage = () => {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-6" style={{ background: "hsl(210, 20%, 97%)" }}>
+      <div className="min-h-screen flex flex-col items-center justify-center px-6" style={{ background: "hsl(var(--background))" }}>
         <div className="text-6xl mb-4">🛒</div>
         <h2 className="text-lg font-bold mb-1" style={{ color: "hsl(220, 40%, 13%)" }}>Your cart is empty</h2>
         <p className="text-sm mb-6" style={{ color: "hsl(220, 15%, 55%)" }}>Add items to get started</p>
@@ -25,7 +25,7 @@ const CartPage = () => {
   }
 
   return (
-    <div className="min-h-screen pb-32" style={{ background: "hsl(210, 20%, 97%)" }}>
+    <div className="min-h-screen pb-32" style={{ background: "hsl(var(--background))" }}>
       {/* Header */}
       <div
         className="sticky top-0 z-50 px-4 py-3 flex items-center gap-3"
