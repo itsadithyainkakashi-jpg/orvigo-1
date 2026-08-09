@@ -24,8 +24,8 @@ import ImageLightbox from "@/components/ImageLightbox";
 // Reference-accurate light theme palette (matches FashionPage)
 const ORANGE = "hsl(18, 95%, 55%)";
 const ORANGE_SOFT = "hsl(18, 95%, 96%)";
-const BG = "hsl(30, 25%, 96%)";
-const CARD_BG = "hsl(0, 0%, 100%)";
+const BG = "hsl(var(--background))";
+const CARD_BG = "hsl(var(--card))";
 const TEXT = "hsl(20, 14%, 15%)";
 const MUTED = "hsl(20, 10%, 45%)";
 const BORDER = "hsl(20, 10%, 90%)";

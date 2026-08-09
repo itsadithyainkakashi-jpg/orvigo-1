@@ -76,7 +76,7 @@ const MedicineCategoryPage = () => {
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       className="min-h-screen pb-24"
-      style={{ background: "#f4f7fa" }}
+      style={{ background: "hsl(var(--background))" }}
     >
       {/* Header */}
       <div className="sticky top-0 z-30 px-4 py-3 flex items-center gap-2"
@@ -182,7 +182,7 @@ const MedicineCategoryPage = () => {
                     onClick={() => navigate(`/medicine/product/${item.id}`)}
                     className="relative flex flex-col rounded-2xl overflow-hidden cursor-pointer border border-white/60"
                     style={{
-                      background: "linear-gradient(160deg, rgba(255,255,255,0.95) 0%, rgba(240,253,250,0.82) 100%)",
+                      background: "linear-gradient(160deg, hsl(var(--card) / 0.95) 0%, rgba(240,253,250,0.82) 100%)",
                       backdropFilter: "blur(14px)",
                       boxShadow: "0 6px 20px rgba(15, 76, 95, 0.08)",
                     }}

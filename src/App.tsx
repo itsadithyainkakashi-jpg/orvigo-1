@@ -7,6 +7,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import { UserProvider } from "@/contexts/UserContext";
 import { WishlistProvider } from "@/contexts/WishlistContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import RootRedirect from "@/components/RootRedirect";
 import OtpLoginPage from "./pages/OtpLoginPage.tsx";
@@ -55,6 +56,7 @@ const Protected = ({ children }: { children: React.ReactNode }) => (
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
     <TooltipProvider>
       <BrowserRouter>
       <AuthProvider>
@@ -110,6 +112,7 @@ const App = () => (
       </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

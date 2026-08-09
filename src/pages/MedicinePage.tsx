@@ -166,7 +166,7 @@ const MedicinePage = () => {
         className="relative flex flex-col rounded-2xl overflow-hidden cursor-pointer border border-white/60"
         style={{
           background:
-            "linear-gradient(160deg, rgba(255,255,255,0.92) 0%, rgba(240,253,250,0.78) 100%)",
+            "linear-gradient(160deg, hsl(var(--card) / 0.92) 0%, rgba(240,253,250,0.78) 100%)",
           backdropFilter: "blur(14px)",
           WebkitBackdropFilter: "blur(14px)",
           boxShadow: "0 6px 20px rgba(15, 76, 95, 0.08)",
@@ -245,7 +245,7 @@ const MedicinePage = () => {
 
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "#f4f7fa" }}>
+    <div className="min-h-screen pb-24" style={{ background: "hsl(var(--background))" }}>
       {/* Hero Banner */}
       <div className="relative overflow-hidden rounded-b-3xl" style={{ minHeight: 220 }}>
         <img

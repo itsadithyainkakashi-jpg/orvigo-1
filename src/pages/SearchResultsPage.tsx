@@ -35,7 +35,7 @@ const SearchResultsPage = () => {
   };
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "hsl(210,20%,97%)" }}>
+    <div className="min-h-screen pb-24" style={{ background: "hsl(var(--background))" }}>
       {/* Header */}
       <div className="sticky top-0 z-50 px-4 py-3 flex items-center gap-2"
         style={{ background: "linear-gradient(135deg, hsl(210,80%,40%), hsl(210,70%,50%))" }}

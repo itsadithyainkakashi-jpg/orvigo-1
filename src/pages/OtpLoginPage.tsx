@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { Loader2, Phone, Mail, UserRound } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { normalizeMobile } from "@/lib/phone";
 
@@ -11,6 +13,21 @@ const RESEND_SECONDS = 30;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type Mode = "phone" | "email";
+
+const ThemeToggleFab = () => {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      aria-label="Toggle theme"
+      className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full flex items-center justify-center border border-white/30 text-white"
+      style={{ background: "rgba(255,255,255,0.16)", backdropFilter: "blur(10px)" }}
+    >
+      {theme === "dark" ? <Moon size={17} /> : <Sun size={17} />}
+    </button>
+  );
+};
 
 const OtpLoginPage = () => {
   const navigate = useNavigate();
@@ -180,6 +197,7 @@ const OtpLoginPage = () => {
           "linear-gradient(180deg, hsl(220, 75%, 18%) 0%, hsl(215, 80%, 35%) 55%, hsl(205, 85%, 65%) 100%)",
       }}
     >
+      <ThemeToggleFab />
       <div className="absolute inset-0 pointer-events-none opacity-40">
         {Array.from({ length: 24 }).map((_, i) => (
           <span

@@ -32,8 +32,8 @@ const collections = [
 // Light theme palette - soft orange accents on cream/white
 const ORANGE = "hsl(18, 95%, 55%)";
 const ORANGE_SOFT = "hsl(18, 100%, 96%)";
-const BG = "hsl(30, 25%, 96%)";
-const CARD_BG = "hsl(0, 0%, 100%)";
+const BG = "hsl(var(--background))";
+const CARD_BG = "hsl(var(--card))";
 const TEXT_DARK = "hsl(20, 14%, 15%)";
 const TEXT_MUTED = "hsl(20, 8%, 45%)";
 

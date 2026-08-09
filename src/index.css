@@ -3,41 +3,88 @@
 @tailwind utilities;
 
 @layer base {
+  /* ---------- WHITE THEME (default) ---------- */
   :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 210 100% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 100% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 25% 96%;
+    --muted-foreground: 215 16% 45%;
+
+    --accent: 210 90% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 25% 91%;
+    --input: 214 25% 91%;
+    --ring: 210 100% 45%;
+
+    --radius: 1.25rem;
+
+    --gradient-bg: hsl(0 0% 100%);
+    --glass-bg: hsla(0, 0%, 100%, 0.85);
+    --glass-border: hsla(214, 25%, 88%, 1);
+    --glass-shadow: 0 6px 20px hsla(215, 30%, 20%, 0.07);
+    --logo-glow: 0 0 40px hsla(210, 100%, 55%, 0.18);
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 15%;
+    --sidebar-primary: 210 100% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 25% 96%;
+    --sidebar-accent-foreground: 222 47% 15%;
+    --sidebar-border: 214 25% 91%;
+    --sidebar-ring: 210 100% 45%;
+  }
+
+  /* ---------- DARK THEME ---------- */
+  .dark {
     --background: 222 47% 5%;
     --foreground: 210 40% 95%;
 
-    --card: 222 47% 8%;
+    --card: 222 40% 10%;
     --card-foreground: 210 40% 95%;
 
-    --popover: 222 47% 8%;
+    --popover: 222 40% 10%;
     --popover-foreground: 210 40% 95%;
 
-    --primary: 210 100% 55%;
+    --primary: 210 100% 58%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 30 100% 55%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 217 30% 15%;
-    --muted-foreground: 215 20% 60%;
+    --muted: 217 30% 16%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 80% 50%;
+    --accent: 210 80% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 217 30% 18%;
-    --input: 217 30% 18%;
-    --ring: 210 100% 55%;
+    --border: 217 30% 20%;
+    --input: 217 30% 20%;
+    --ring: 210 100% 58%;
 
-    --radius: 1.25rem;
-
-    --gradient-bg: linear-gradient(170deg, hsl(222, 47%, 11%) 0%, hsl(222, 60%, 5%) 100%);
+    --gradient-bg: linear-gradient(170deg, hsl(222, 47%, 9%) 0%, hsl(222, 60%, 5%) 100%);
     --glass-bg: hsla(210, 40%, 95%, 0.06);
     --glass-border: hsla(210, 40%, 95%, 0.1);
-    --glass-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.3);
+    --glass-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.35);
     --logo-glow: 0 0 60px hsla(210, 100%, 55%, 0.4), 0 0 120px hsla(210, 100%, 55%, 0.15);
 
     --sidebar-background: 222 47% 8%;
@@ -56,10 +103,15 @@
     @apply border-border;
   }
 
+  html {
+    background: var(--gradient-bg);
+  }
+
   body {
     @apply bg-background text-foreground;
     background: var(--gradient-bg);
     min-height: 100vh;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 }
 
@@ -73,11 +125,11 @@
   }
 
   .glass-card-strong {
-    background: hsla(210, 40%, 95%, 0.1);
+    background: var(--glass-bg);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid hsla(210, 40%, 95%, 0.15);
-    box-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.4);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
   }
 
   .glow-primary {
@@ -92,4 +144,36 @@
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* ---------- Dark-mode compatibility layer ----------
+   Adapts surfaces/text that were authored with fixed light colors,
+   so every page follows the selected theme without redesigning UI. */
+.dark .bg-white,
+.dark .bg-gray-50 {
+  background-color: hsl(var(--card));
+}
+
+.dark .bg-white\/80 {
+  background-color: hsl(var(--card) / 0.8);
+}
+
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-black {
+  color: hsl(var(--foreground));
+}
+
+.dark .text-gray-700,
+.dark .text-gray-600,
+.dark .text-gray-500,
+.dark .text-gray-400,
+.dark .text-gray-300 {
+  color: hsl(var(--muted-foreground));
+}
+
+.dark .border-white\/70,
+.dark .border-white\/60,
+.dark .border-white\/30 {
+  border-color: hsl(var(--border));
 }

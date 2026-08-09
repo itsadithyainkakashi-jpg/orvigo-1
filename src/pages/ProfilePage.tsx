@@ -6,6 +6,8 @@ import {
   CreditCard, Bell, HelpCircle, Settings, LogOut, Package, Pencil, Star, Award,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useTheme } from "@/contexts/ThemeContext";
+import { Moon, Sun } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { useUser } from "@/contexts/UserContext";
 import { useAuth } from "@/contexts/AuthContext";
@@ -39,6 +41,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const { profile, orders, walletBalance, loyaltyPoints } = useUser();
   const { signOut, user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = useState(true);
   const [confirmLogout, setConfirmLogout] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
@@ -202,6 +205,22 @@ const ProfilePage = () => {
             <ChevronRight size={16} className="text-muted-foreground" />
           </motion.button>
         ))}
+        {/* Theme */}
+        <motion.button
+          className="w-full flex items-center gap-3.5 px-4 py-3.5 text-left"
+          style={{ borderTop: "1px solid hsl(var(--border))" }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => { toggleTheme(); toast.success(theme === "dark" ? "White theme enabled" : "Dark theme enabled"); }}
+        >
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-muted">
+            {theme === "dark" ? <Moon size={18} className="text-primary" /> : <Sun size={18} className="text-primary" />}
+          </div>
+          <span className="flex-1 text-sm font-medium text-card-foreground">Theme</span>
+          <span className="text-[11px] font-semibold text-muted-foreground mr-1">{theme === "dark" ? "Dark" : "White"}</span>
+          <div className={`w-11 h-6 rounded-full flex items-center px-0.5 transition-colors ${theme === "dark" ? "bg-primary" : "bg-muted"}`}>
+            <motion.div className="w-5 h-5 rounded-full bg-background shadow-sm" animate={{ x: theme === "dark" ? 20 : 0 }} transition={{ type: "spring", stiffness: 500, damping: 30 }} />
+          </div>
+        </motion.button>
       </div>
 
       {/* Logout / Login */}

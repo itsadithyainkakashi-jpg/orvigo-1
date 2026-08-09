@@ -112,7 +112,7 @@ const GroceryPage = () => {
         onClick={() => navigate(`/product/${p.id}`)}
         className="relative rounded-2xl overflow-hidden cursor-pointer flex flex-col"
         style={{
-          background: "rgba(255,255,255,0.94)",
+          background: "hsl(var(--card) / 0.94)",
           backdropFilter: "blur(14px)",
           border: "1px solid rgba(255,255,255,0.7)",
           boxShadow: "0 6px 20px rgba(20, 80, 40, 0.10)",
@@ -134,7 +134,7 @@ const GroceryPage = () => {
             toggleWishlist(p as Product);
           }}
           className="absolute top-1.5 right-1.5 z-10 w-7 h-7 rounded-full flex items-center justify-center"
-          style={{ background: "rgba(255,255,255,0.92)", boxShadow: "0 2px 6px rgba(0,0,0,0.08)" }}
+          style={{ background: "hsl(var(--card) / 0.92)", boxShadow: "0 2px 6px rgba(0,0,0,0.08)" }}
           aria-label="Wishlist"
         >
           <Heart size={13} fill={wished ? "hsl(0, 75%, 55%)" : "transparent"} color={wished ? "hsl(0, 75%, 55%)" : "hsl(220, 15%, 40%)"} />
@@ -247,7 +247,7 @@ const GroceryPage = () => {
   );
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "hsl(120, 30%, 98%)" }}>
+    <div className="min-h-screen pb-24" style={{ background: "hsl(var(--background))" }}>
       {/* ───────────────────────────── HEADER ───────────────────────────── */}
       <div
         className="sticky top-0 z-50 px-4 pt-3 pb-3"
@@ -320,7 +320,7 @@ const GroceryPage = () => {
                 transition={{ delay: 0.15 }}
                 className="self-start inline-flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full mb-2"
                 style={{
-                  background: "rgba(255,255,255,0.95)",
+                  background: "hsl(var(--card) / 0.95)",
                   color: "hsl(145, 70%, 28%)",
                   backdropFilter: "blur(6px)",
                 }}
@@ -553,7 +553,7 @@ const GroceryPage = () => {
             <div
               className="rounded-2xl p-4 grid grid-cols-3 gap-3"
               style={{
-                background: "rgba(255,255,255,0.92)",
+                background: "hsl(var(--card) / 0.92)",
                 border: "1px solid rgba(20, 80, 40, 0.08)",
                 boxShadow: "0 6px 18px rgba(20, 80, 40, 0.08)",
               }}

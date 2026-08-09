@@ -25,7 +25,7 @@ import { toast } from "sonner";
 const ACCENT = "hsl(170, 80%, 32%)";
 const ACCENT_SOFT = "hsl(170, 70%, 95%)";
 const BLUE = "hsl(200, 80%, 42%)";
-const BG = "hsl(0, 0%, 100%)";
+const BG = "hsl(var(--background))";
 const SURFACE = "hsl(180, 30%, 98%)";
 const TEXT = "hsl(215, 25%, 15%)";
 const MUTED = "hsl(215, 12%, 45%)";
@@ -171,7 +171,7 @@ const MedicineDetail = () => {
             onClick={() => toggleWishlist(product)}
             aria-label="Wishlist"
             className="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center"
-            style={{ background: "rgba(255,255,255,0.95)", boxShadow: "0 4px 10px rgba(0,0,0,0.08)" }}
+            style={{ background: "hsl(var(--card) / 0.95)", boxShadow: "0 4px 10px rgba(0,0,0,0.08)" }}
           >
             <Heart
               size={18}
@@ -290,7 +290,7 @@ const MedicineDetail = () => {
       {/* Bottom action bar */}
       <div
         className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3 flex gap-3"
-        style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(14px)", borderTop: `1px solid ${BORDER}` }}
+        style={{ background: "hsl(var(--card) / 0.92)", backdropFilter: "blur(14px)", borderTop: `1px solid ${BORDER}` }}
       >
         <motion.button
           whileTap={{ scale: 0.97 }}
