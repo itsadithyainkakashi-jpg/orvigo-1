@@ -465,26 +465,61 @@ const GroceryPage = () => {
 
           {/* ──────────────────────── FLAT 20% OFFER CARD ──────────────────────── */}
           <section className="px-3 mt-5">
-            <div
-              className="rounded-2xl px-4 py-4 flex items-center justify-between"
+            <motion.div
+              whileTap={{ scale: 0.985 }}
+              onClick={() => document.getElementById("shop-by-category")?.scrollIntoView({ behavior: "smooth" })}
+              className="relative rounded-[22px] overflow-hidden cursor-pointer"
               style={{
-                background: "linear-gradient(135deg, hsl(45, 95%, 60%) 0%, hsl(35, 95%, 55%) 100%)",
-                boxShadow: "0 10px 24px rgba(220, 150, 0, 0.25)",
+                background:
+                  "linear-gradient(135deg, hsl(45, 96%, 62%) 0%, hsl(38, 95%, 56%) 45%, hsl(28, 92%, 52%) 100%)",
+                boxShadow:
+                  "0 14px 30px rgba(200, 130, 0, 0.28), inset 0 1px 0 rgba(255,255,255,0.55)",
               }}
             >
-              <div>
-                <p className="text-[10px] font-bold tracking-wider" style={{ color: "hsl(35, 80%, 20%)" }}>
-                  LIMITED TIME
-                </p>
-                <h3 className="text-xl font-extrabold leading-tight" style={{ color: "hsl(35, 80%, 18%)" }}>
-                  Flat 20% OFF
-                </h3>
-                <p className="text-[11px] font-medium" style={{ color: "hsl(35, 70%, 25%)" }}>
-                  On your first 3 grocery orders
-                </p>
+              {/* soft depth highlights */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(120% 80% at 8% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 55%), radial-gradient(90% 90% at 100% 110%, rgba(120,60,0,0.18) 0%, rgba(0,0,0,0) 60%)",
+                }}
+              />
+              <div className="relative flex items-center justify-between gap-2 pl-4 pr-2 py-3.5 min-h-[96px]">
+                <div className="min-w-0 flex-1">
+                  <span
+                    className="inline-block text-[9px] font-extrabold tracking-[0.14em] px-2 py-[3px] rounded-full mb-1.5"
+                    style={{
+                      background: "rgba(255,255,255,0.85)",
+                      color: "hsl(28, 85%, 32%)",
+                      boxShadow: "0 2px 6px rgba(140, 80, 0, 0.18)",
+                    }}
+                  >
+                    LIMITED TIME
+                  </span>
+                  <h3
+                    className="text-[22px] font-extrabold leading-none tracking-[-0.02em]"
+                    style={{ color: "hsl(30, 85%, 16%)", textShadow: "0 1px 0 rgba(255,255,255,0.35)" }}
+                  >
+                    Flat 20% OFF
+                  </h3>
+                  <p
+                    className="text-[11px] font-semibold mt-1 truncate"
+                    style={{ color: "hsl(30, 65%, 26%)" }}
+                  >
+                    On your first 3 grocery orders
+                  </p>
+                </div>
+                <img
+                  src={offerCart3d}
+                  alt="3D shopping cart filled with groceries"
+                  loading="lazy"
+                  width={1024}
+                  height={1024}
+                  className="w-[104px] h-[104px] object-contain shrink-0 -mr-1"
+                  style={{ filter: "drop-shadow(0 10px 14px rgba(90, 45, 0, 0.32))" }}
+                />
               </div>
-              <div className="text-4xl">🛒</div>
-            </div>
+            </motion.div>
           </section>
 
           {/* ──────────────────────── BEST SELLERS ──────────────────────── */}
