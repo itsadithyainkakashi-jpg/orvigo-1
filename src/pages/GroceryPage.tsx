@@ -31,6 +31,7 @@ import {
   type GroceryCategoryId,
 } from "@/data/groceryProducts";
 import heroBanner from "@/assets/grocery/grocery-hero-banner.jpg";
+import offerCart3d from "@/assets/grocery/offer-cart-3d.png";
 import hdVegetables from "@/assets/grocery/hd/vegetables.webp";
 import hdFruits from "@/assets/grocery/hd/fruits.webp";
 import hdMeatFish from "@/assets/grocery/hd/meat-fish.webp";
