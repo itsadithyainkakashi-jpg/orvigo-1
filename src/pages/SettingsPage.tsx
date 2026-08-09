@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Moon, Sun, Globe, Bell, Shield, Info, ChevronRight } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { toast } from "sonner";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const SettingsPage = () => {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const darkMode = theme === "dark";
   const [notifications, setNotifications] = useState(true);
   const [language, setLanguage] = useState<"en" | "ta">("en");
 
@@ -17,11 +19,9 @@ const SettingsPage = () => {
   };
   const t = labels[language];
 
-  const handleDarkMode = () => {
-    const next = !darkMode;
-    setDarkMode(next);
-    document.documentElement.classList.toggle("dark", next);
-    toast.success(next ? "Dark mode enabled" : "Light mode enabled");
+  const handleTheme = (next: "white" | "dark") => {
+    setTheme(next);
+    toast.success(next === "dark" ? "Dark theme enabled" : "White theme enabled");
   };
 
   const handleLang = () => {
@@ -44,19 +44,35 @@ const SettingsPage = () => {
       </div>
 
       <div className="px-4 mt-4 space-y-3">
-        {/* Dark Mode */}
-        <motion.div className="bg-card rounded-2xl border border-border p-4 flex items-center gap-3" whileTap={{ scale: 0.98 }} onClick={handleDarkMode}>
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: darkMode ? "hsl(250,60%,92%)" : "hsl(40,90%,92%)" }}>
-            {darkMode ? <Moon size={18} style={{ color: "hsl(250,60%,50%)" }} /> : <Sun size={18} style={{ color: "hsl(40,90%,50%)" }} />}
+        {/* Theme */}
+        <div className="bg-card rounded-2xl border border-border p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: darkMode ? "hsl(250,60%,20%)" : "hsl(40,90%,92%)" }}>
+              {darkMode ? <Moon size={18} style={{ color: "hsl(250,80%,80%)" }} /> : <Sun size={18} style={{ color: "hsl(40,90%,50%)" }} />}
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-card-foreground">Theme</p>
+              <p className="text-[11px] text-muted-foreground">Choose White or Dark appearance</p>
+            </div>
           </div>
-          <div className="flex-1">
-            <p className="text-sm font-medium text-card-foreground">{t.darkMode}</p>
-            <p className="text-[11px] text-muted-foreground">{t.darkDesc}</p>
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            {(["white", "dark"] as const).map((opt) => (
+              <motion.button
+                key={opt}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => handleTheme(opt)}
+                className={`rounded-xl border px-3 py-2.5 flex items-center justify-center gap-2 text-sm font-semibold transition-colors ${
+                  theme === opt
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-muted text-muted-foreground"
+                }`}
+              >
+                {opt === "white" ? <Sun size={15} /> : <Moon size={15} />}
+                {opt === "white" ? "White" : "Dark"}
+              </motion.button>
+            ))}
           </div>
-          <div className={`w-11 h-6 rounded-full flex items-center px-0.5 transition-colors duration-300 ${darkMode ? "bg-primary" : "bg-muted"}`}>
-            <motion.div className="w-5 h-5 rounded-full bg-white shadow-sm" animate={{ x: darkMode ? 20 : 0 }} transition={{ type: "spring", stiffness: 500, damping: 30 }} />
-          </div>
-        </motion.div>
+        </div>
 
         {/* Language */}
         <motion.div className="bg-card rounded-2xl border border-border p-4 flex items-center gap-3" whileTap={{ scale: 0.98 }} onClick={handleLang}>
