@@ -42,7 +42,6 @@ const discountOptions = [
 ];
 
 const routeCategoryMap: Record<string, string> = {
-  "/food": "Food",
   "/grocery": "Grocery",
   "/medicine": "Medicine",
   "/shopping": "Items",
