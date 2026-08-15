@@ -9,7 +9,6 @@ import { allProducts } from "@/data/products";
 
 // Main category images
 import catFashion from "@/assets/home/cat-fashion.jpg";
-import catFood from "@/assets/home/cat-food.jpg";
 import catGrocery from "@/assets/home/cat-grocery.jpg";
 import catMedicine from "@/assets/home/cat-medicine.jpg";
 import catShopping from "@/assets/home/cat-shopping.jpg";
@@ -25,10 +24,6 @@ import subcatEthnic from "@/assets/subcat/fashion-ethnic.jpg";
 import subcatDresses from "@/assets/subcat/fashion-dresses.jpg";
 import subcatFootwear from "@/assets/subcat/fashion-footwear.jpg";
 
-import subcatMeals from "@/assets/subcat/food-meals.jpg";
-import subcatFoodSnacks from "@/assets/subcat/food-snacks.jpg";
-import subcatBeverages from "@/assets/subcat/food-beverages.jpg";
-import subcatDesserts from "@/assets/subcat/food-desserts.jpg";
 
 import subcatVegetables from "@/assets/subcat/grocery-vegetables.jpg";
 import subcatFruits from "@/assets/subcat/grocery-fruits.jpg";
@@ -76,18 +71,6 @@ const mainCategories: MainCategory[] = [
       { name: "Ethnic", image: subcatEthnic, filterKeywords: ["ethnic", "kurta", "saree", "traditional"] },
       { name: "Dresses", image: subcatDresses, filterKeywords: ["dress", "gown", "frock"] },
       { name: "Footwear", image: subcatFootwear, filterKeywords: ["shoe", "sneaker", "sandal", "footwear"] },
-    ],
-  },
-  {
-    name: "Food",
-    image: catFood,
-    productCategory: "Food",
-    subcategories: [
-      { name: "All", image: catFood, filterKeywords: [] },
-      { name: "Meals", image: subcatMeals, filterKeywords: ["meal", "thali", "biryani", "rice", "curry"] },
-      { name: "Snacks", image: subcatFoodSnacks, filterKeywords: ["snack", "samosa", "pakora", "chaat"] },
-      { name: "Beverages", image: subcatBeverages, filterKeywords: ["juice", "tea", "coffee", "drink", "beverage"] },
-      { name: "Desserts", image: subcatDesserts, filterKeywords: ["sweet", "dessert", "gulab", "cake", "ice cream"] },
     ],
   },
   {

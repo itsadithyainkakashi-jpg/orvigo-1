@@ -5,11 +5,10 @@ import { ChevronDown, SlidersHorizontal, Star, Clock, X } from "lucide-react";
 import { allProducts } from "@/data/products";
 
 type SortOption = "default" | "low" | "high" | "rating";
-type CategoryKey = "Fashion" | "Food" | "Grocery" | "Medicine" | "Shopping";
+type CategoryKey = "Fashion" | "Grocery" | "Medicine" | "Shopping";
 
-const categoryConfig: Record<CategoryKey, { productCategory: string; layout: "fashion" | "food" | "grocery" | "medicine" | "shopping" }> = {
+const categoryConfig: Record<CategoryKey, { productCategory: string; layout: "fashion" | "grocery" | "medicine" | "shopping" }> = {
   Fashion: { productCategory: "Fashion", layout: "fashion" },
-  Food: { productCategory: "Food", layout: "food" },
   Grocery: { productCategory: "Grocery", layout: "grocery" },
   Medicine: { productCategory: "Medicine", layout: "medicine" },
   Shopping: { productCategory: "Items", layout: "shopping" },
@@ -106,7 +105,6 @@ const HomeCategorySection = ({
 
       {/* Render based on layout */}
       {config.layout === "fashion" && <FashionLayout products={products} navigate={navigate} />}
-      {config.layout === "food" && <FoodLayout products={products} navigate={navigate} />}
       {config.layout === "grocery" && <GroceryLayout products={products} navigate={navigate} />}
       {config.layout === "medicine" && <MedicineLayout products={products} navigate={navigate} />}
       {config.layout === "shopping" && <ShoppingLayout products={products} navigate={navigate} />}
@@ -149,41 +147,6 @@ const FashionLayout = ({ products, navigate }: { products: typeof allProducts; n
         <ProductCard key={p.id} product={p} index={i} navigate={navigate} />
       ))}
     </div>
-  </div>
-);
-
-/* ── Food: Swiggy-style restaurant cards ── */
-const FoodLayout = ({ products, navigate }: { products: typeof allProducts; navigate: (p: string) => void }) => (
-  <div className="space-y-3">
-    {products.map((p, i) => (
-      <motion.div
-        key={p.id}
-        className="flex gap-3 rounded-2xl overflow-hidden bg-white cursor-pointer"
-        style={{ boxShadow: "0 2px 12px hsla(220, 30%, 15%, 0.06)" }}
-        whileTap={{ scale: 0.98 }}
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: i * 0.04 }}
-        onClick={() => navigate(`/product/${p.id}`)}
-      >
-        <div className="w-28 h-28 flex-shrink-0 overflow-hidden">
-          <img src={p.image} srcSet={p.imageSrcSet} sizes={p.imageSrcSet ? "112px" : undefined} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
-        </div>
-        <div className="flex-1 py-3 pr-3">
-          <p className="text-sm font-semibold truncate" style={{ color: "hsl(220, 40%, 13%)" }}>{p.name}</p>
-          <p className="text-[11px] mt-0.5" style={{ color: "hsl(220, 15%, 55%)" }}>{p.description?.slice(0, 50)}...</p>
-          <div className="flex items-center gap-3 mt-2">
-            <span className="flex items-center gap-0.5 text-[11px] font-semibold px-1.5 py-0.5 rounded" style={{ background: "hsl(145, 60%, 40%)", color: "white" }}>
-              <Star size={10} fill="white" /> {p.rating}
-            </span>
-            <span className="flex items-center gap-0.5 text-[11px]" style={{ color: "hsl(220, 15%, 50%)" }}>
-              <Clock size={10} /> 25-35 min
-            </span>
-          </div>
-          <span className="text-sm font-bold mt-1 block" style={{ color: "hsl(220, 40%, 13%)" }}>₹{p.price}</span>
-        </div>
-      </motion.div>
-    ))}
   </div>
 );
 

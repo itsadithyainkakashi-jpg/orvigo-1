@@ -13,10 +13,6 @@ import banner1 from "@/assets/banner-premium-1.jpg";
 import banner2 from "@/assets/banner-premium-2.jpg";
 import banner3 from "@/assets/banner-premium-3.jpg";
 
-import foodBurger from "@/assets/food-burger.jpg";
-import foodPizza from "@/assets/food-pizza.jpg";
-import foodBiryani from "@/assets/food-biryani.jpg";
-import foodSushi from "@/assets/food-sushi.jpg";
 
 import catShirts from "@/assets/cat-shirts.jpg";
 import catTshirts from "@/assets/cat-tshirts.jpg";
@@ -102,54 +98,6 @@ const PremiumBanners = () => {
             ))}
           </CarouselContent>
         </Carousel>
-      </div>
-    </section>
-  );
-};
-
-/* ---------------- 2. Food Delivery ---------------- */
-const restaurants = [
-  { image: foodBurger, name: "Burger Factory", rating: 4.5, time: "20 min" },
-  { image: foodPizza, name: "Napoli Pizza", rating: 4.7, time: "25 min" },
-  { image: foodBiryani, name: "Biryani House", rating: 4.6, time: "30 min" },
-  { image: foodSushi, name: "Tokyo Sushi", rating: 4.8, time: "35 min" },
-];
-
-const FoodSection = () => {
-  const navigate = useNavigate();
-  return (
-    <section className="mt-8">
-      <SectionTitle title="Food Delivery" subtitle="Hot meals at your door" />
-      <div className="flex gap-3 overflow-x-auto px-4 pb-2 no-scrollbar">
-        {restaurants.map((r, i) => (
-          <motion.button
-            key={i}
-            onClick={() => navigate("/food")}
-            whileTap={{ scale: 0.97 }}
-            className="shrink-0 w-44 rounded-2xl overflow-hidden glass-card text-left"
-          >
-            <img
-              src={r.image}
-              alt={r.name}
-              loading="lazy"
-              width={800}
-              height={800}
-              className="w-full h-28 object-cover"
-            />
-            <div className="p-3">
-              <p className="text-sm font-bold text-foreground truncate">{r.name}</p>
-              <div className="flex items-center justify-between mt-1.5 text-[11px] text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Star size={11} className="fill-yellow-400 text-yellow-400" />
-                  {r.rating}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Clock size={11} /> {r.time}
-                </span>
-              </div>
-            </div>
-          </motion.button>
-        ))}
       </div>
     </section>
   );
@@ -334,7 +282,6 @@ const FeaturedSection = () => {
 const HomeExtras = () => (
   <>
     <PremiumBanners />
-    <FoodSection />
     <FashionSection />
     <GrocerySection />
     <OffersSection />
