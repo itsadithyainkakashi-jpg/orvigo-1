@@ -1,9 +1,9 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { UtensilsCrossed, ShoppingBasket, LayoutGrid, Pill } from "lucide-react";
+import { Home, ShoppingBasket, LayoutGrid, Pill } from "lucide-react";
 
 const tabs = [
-  { icon: UtensilsCrossed, label: "Food", path: "/food" },
+  { icon: Home, label: "Home", path: "/home" },
   { icon: ShoppingBasket, label: "Grocery", path: "/grocery" },
   { icon: LayoutGrid, label: "Collection", path: "/collection" },
   { icon: Pill, label: "Medicine", path: "/medicine" },
