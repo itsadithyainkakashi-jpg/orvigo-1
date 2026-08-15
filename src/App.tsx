@@ -20,7 +20,6 @@ import CartPage from "./pages/CartPage.tsx";
 import PaymentPage from "./pages/PaymentPage.tsx";
 import OrderSuccess from "./pages/OrderSuccess.tsx";
 import FashionPage from "./pages/FashionPage.tsx";
-import FoodPage from "./pages/FoodPage.tsx";
 import GroceryPage from "./pages/GroceryPage.tsx";
 import GroceryCategoryPage from "./pages/GroceryCategoryPage.tsx";
 import MedicinePage from "./pages/MedicinePage.tsx";
@@ -73,8 +72,7 @@ const App = () => (
             <Route path="/home" element={<Protected><Home /></Protected>} />
             <Route path="/categories" element={<Protected><CategoriesPage /></Protected>} />
             <Route path="/categories/filter" element={<Protected><CategoryPage /></Protected>} />
-            <Route path="/fashion" element={<Protected><FashionPage /></Protected>} />
-            <Route path="/food" element={<Protected><FoodPage /></Protected>} />
+            <Route path="/fashion" element={<Protected><FashionPage /></Protected>} /></Protected>} />
             <Route path="/grocery" element={<Protected><GroceryPage /></Protected>} />
             <Route path="/grocery/category/:categoryId" element={<Protected><GroceryCategoryPage /></Protected>} />
             <Route path="/medicine" element={<Protected><MedicinePage /></Protected>} />
