@@ -126,33 +126,72 @@ const StoreProductsPage = () => {
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-3 p-4">
-          {products.map((p, i) => (
-            <motion.button
-              key={p.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: Math.min(i * 0.03, 0.3) }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => navigate(`/product/${p.id}`)}
-              className="rounded-2xl overflow-hidden glass-card text-left flex flex-col"
-            >
-              <div className="aspect-square w-full bg-muted">
-                <img src={withCacheBust(p.image_url, p.updated_at)} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
-              </div>
-              <div className="p-2.5 space-y-1">
-                <div className="text-sm font-medium text-foreground line-clamp-1">{p.name}</div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-sm font-semibold text-foreground">₹{p.price}</span>
-                  {p.original_price && p.original_price > p.price && (
-                    <span className="text-[11px] line-through text-muted-foreground">
-                      ₹{p.original_price}
-                    </span>
-                  )}
+          {products.map((p, i) => {
+            const img = withCacheBust(p.image_url, p.updated_at);
+            const asProduct: Product = {
+              id: p.id,
+              name: p.name,
+              price: p.price,
+              originalPrice: p.original_price ?? undefined,
+              image: img,
+              rating: 4.5,
+              category: "Fashion",
+              description: "",
+            };
+            const wished = isWishlisted(p.id);
+            return (
+              <motion.div
+                key={p.id}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: Math.min(i * 0.05, 0.3) }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => navigate(`/product/${p.id}`)}
+                className="rounded-2xl overflow-hidden cursor-pointer relative"
+                style={{ background: CARD_BG, boxShadow: "0 4px 14px hsla(20,14%,15%,0.06)" }}
+              >
+                <div className="relative h-36 overflow-hidden">
+                  <img
+                    src={img}
+                    alt={p.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                  />
+                  <button
+                    onClick={(e) => { e.stopPropagation(); toggleWishlist(asProduct); }}
+                    aria-label="Wishlist"
+                    className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center"
+                    style={{ background: ORANGE }}
+                  >
+                    <Heart size={13} fill={wished ? "white" : "none"} color="white" />
+                  </button>
                 </div>
-              </div>
-            </motion.button>
-          ))}
+                <div className="p-2.5">
+                  <p className="text-[12px] font-bold truncate" style={{ color: TEXT_DARK }}>{p.name}</p>
+                  <p className="text-[10px] mt-0.5" style={{ color: TEXT_MUTED }}>Bloom with elegance</p>
+                  <div className="flex items-center justify-between mt-1.5">
+                    <span className="flex items-baseline gap-1.5">
+                      <span className="text-[12px] font-bold" style={{ color: TEXT_DARK }}>₹{p.price}</span>
+                      {p.original_price && p.original_price > p.price && (
+                        <span className="text-[10px] line-through" style={{ color: TEXT_MUTED }}>₹{p.original_price}</span>
+                      )}
+                    </span>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); addToCart(asProduct, 1); }}
+                      aria-label="Add to cart"
+                      className="w-6 h-6 rounded-full flex items-center justify-center"
+                      style={{ background: ORANGE }}
+                    >
+                      <ShoppingCart size={11} color="white" />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
+
       )}
     </div>
   );
