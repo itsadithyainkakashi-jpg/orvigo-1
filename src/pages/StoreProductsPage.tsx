@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronLeft, PackageOpen } from "lucide-react";
+import { ChevronLeft, PackageOpen, Heart, ShoppingCart } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useCart, type Product } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
 import {
   CATEGORY_LABEL,
   COLLECTION_LABEL,
@@ -10,6 +12,13 @@ import {
   type StoreCollection,
 } from "@/lib/storeMeta";
 import ProductCardSkeleton from "@/components/ProductCardSkeleton";
+
+// Earlier Fashion palette — soft orange accents on white cards
+const ORANGE = "hsl(18, 95%, 55%)";
+const CARD_BG = "hsl(var(--card))";
+const TEXT_DARK = "hsl(20, 14%, 15%)";
+const TEXT_MUTED = "hsl(20, 8%, 45%)";
+
 
 interface ProductRow {
   id: string;
