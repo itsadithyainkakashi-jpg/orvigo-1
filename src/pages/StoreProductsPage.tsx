@@ -39,6 +39,9 @@ const withCacheBust = (url: string, updatedAt?: string) => {
 
 const StoreProductsPage = () => {
   const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const { isWishlisted, toggleWishlist } = useWishlist();
+
   const { category, collection } = useParams<{
     category: StoreCategory;
     collection: StoreCollection;
