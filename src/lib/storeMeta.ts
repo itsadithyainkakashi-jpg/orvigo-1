@@ -75,5 +75,5 @@ export const COLLECTION_LABEL: Record<StoreCollection, string> = {
   new_arrivals: "New Arrivals",
   classic: "Casual Shirts",
   striped: "Striped Shirts",
-  socks: "Socks",
+  socks: "Casual Pants & Trouser",
 };
