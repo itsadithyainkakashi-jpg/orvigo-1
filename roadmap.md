@@ -1,0 +1,2 @@
+- [ ] Verify restored Fashion collections and saved products, images, wishlist, and cart in a signed-in preview.
+- [ ] Remove only the delivery/location icon and text from the Home header, close its empty space, and verify search placement.
