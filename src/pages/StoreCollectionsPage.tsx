@@ -147,7 +147,7 @@ const StoreCollectionsPage = () => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -12 }}
           transition={{ duration: 0.25 }}
-          className="p-4 space-y-4"
+          className="p-4 flex flex-col gap-4"
         >
           {/* Wide banner tiles (with bannerImage) */}
           {!loading &&
@@ -171,7 +171,7 @@ const StoreCollectionsPage = () => {
                     onClick={go}
                     disabled={disabled}
                     aria-label={`Open ${col.title}`}
-                    className="relative block w-full h-36 rounded-2xl overflow-hidden glass-card disabled:opacity-70"
+                    className={`relative block w-full h-36 rounded-2xl overflow-hidden glass-card disabled:opacity-70 ${category === "mens" && col.id === "socks" ? "order-2" : "order-0"}`}
                     style={{ boxShadow: "0 8px 24px hsla(220, 50%, 4%, 0.4)" }}
                   >
                     <img
@@ -204,7 +204,7 @@ const StoreCollectionsPage = () => {
               })}
 
           {/* Square grid tiles (no bannerImage) */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 order-1">
             {loading
               ? Array.from({ length: 6 }).map((_, i) => (
                   <div key={i} className="rounded-2xl overflow-hidden">
