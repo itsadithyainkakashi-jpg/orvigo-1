@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ShoppingCart, Package, User, Search, Mic, MapPin, ArrowRight } from "lucide-react";
+import { ShoppingCart, Package, User, Search, Mic, ArrowRight } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import HomeExtras from "@/components/HomeExtras";
 import { useCart } from "@/contexts/CartContext";
@@ -98,19 +98,10 @@ const Home = () => {
         className="sticky top-0 z-40 glass-card-strong"
         style={{ borderRadius: 0, borderTop: "none", borderLeft: "none", borderRight: "none" }}
       >
-        <div className="px-4 pt-3 pb-3 flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <MapPin size={14} style={{ color: "hsl(25 95% 55%)" }} />
-            <div>
-              <p className="text-[10px] text-muted-foreground leading-none">Deliver to</p>
-              <p className="text-xs font-bold text-foreground leading-tight">Home · 5 min</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <IconBtn onClick={() => navigate("/profile/orders")} icon={Package} />
-            <IconBtn onClick={() => navigate("/cart")} icon={ShoppingCart} badge={totalItems} />
-            <IconBtn onClick={() => navigate("/profile")} icon={User} />
-          </div>
+        <div className="px-4 pt-3 pb-3 flex items-center justify-end gap-2">
+          <IconBtn onClick={() => navigate("/profile/orders")} icon={Package} />
+          <IconBtn onClick={() => navigate("/cart")} icon={ShoppingCart} badge={totalItems} />
+          <IconBtn onClick={() => navigate("/profile")} icon={User} />
         </div>
 
         <div className="px-4 pb-3">
