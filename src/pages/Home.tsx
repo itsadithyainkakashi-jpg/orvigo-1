@@ -98,16 +98,10 @@ const Home = () => {
         className="sticky top-0 z-40 glass-card-strong"
         style={{ borderRadius: 0, borderTop: "none", borderLeft: "none", borderRight: "none" }}
       >
-        <div className="px-4 pt-3 pb-3 flex items-center justify-end gap-2">
-          <IconBtn onClick={() => navigate("/profile/orders")} icon={Package} />
-          <IconBtn onClick={() => navigate("/cart")} icon={ShoppingCart} badge={totalItems} />
-          <IconBtn onClick={() => navigate("/profile")} icon={User} />
-        </div>
-
-        <div className="px-4 pb-3">
+        <div className="px-4 py-3 flex items-center gap-2">
           <div
             onClick={() => searchRef.current?.focus()}
-            className="flex items-center gap-2.5 px-4 py-2.5 rounded-full cursor-text"
+            className="flex flex-1 min-w-0 items-center gap-2.5 px-4 py-2.5 rounded-full cursor-text"
             style={{
               background: "hsla(210, 40%, 95%, 0.08)",
               border: "1px solid hsla(210, 100%, 60%, 0.2)",
@@ -123,10 +117,13 @@ const Home = () => {
                 e.key === "Enter" && search && navigate(`/search?q=${encodeURIComponent(search)}`)
               }
               placeholder="Search the collection…"
-              className="flex-1 bg-transparent text-sm outline-none text-foreground placeholder:text-muted-foreground"
+              className="flex-1 min-w-0 bg-transparent text-sm outline-none text-foreground placeholder:text-muted-foreground"
             />
             <Mic size={16} className="text-muted-foreground shrink-0" />
           </div>
+          <IconBtn onClick={() => navigate("/profile/orders")} icon={Package} />
+          <IconBtn onClick={() => navigate("/cart")} icon={ShoppingCart} badge={totalItems} />
+          <IconBtn onClick={() => navigate("/profile")} icon={User} />
         </div>
       </div>
 
